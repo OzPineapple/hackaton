@@ -1,5 +1,14 @@
 const http = require('http');
 
+const express = require('express');
+const app = express();
+const router = express.Router();
+
+const db = require('./db');
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path));
+
 const hostname = '127.0.0.1';
 const port = 3000;
 
