@@ -187,8 +187,8 @@ driver.usr_getByPrivateK = async priv => {
 		);
 }
 
-driver.usr_getByMail = async corr => {
-	const query = { mail: corr };
+driver.usr_getByMail = async correo => {
+	const query = { mail: correo };
 	const options = {projection: {_id: 0}};
 	
 	const users = await collUsuario.find(query, options);
