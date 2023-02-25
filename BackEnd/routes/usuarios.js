@@ -3,25 +3,14 @@ var router =  require('express').Router();
 const express = require('express');
 const db = require('../lib/mongodb.js');
 
-router.post('/login', (req, res) => {
-	if( ! db.admin_get(req.body.user) ){
-		res.status(404);
-		res.setHeader('Content-Type', 'text/plain');
-		res.write("No existe ese usuario");
-		res.send();
-		return;
-	} else if( ! db.admin_login( req.body ) ) {
-		res.status(401);
-		res.setHeader('Content-Type', 'text/plain');
-		res.write("Credenciales erroneas");
-		res.send();
-		return;
+router.post('/login', async (req, res) => {
+	try{
+		await db.admin_login( req.body );
+		res.status(200).send();
+	}catch(e){
+		console.log(e);
+		res.status(e.status).send();
 	}
-	res.status(200);
-	res.send();
-});
-
-router.delete('delete', (req, res) => {
 });
 
 module.exports = router;
