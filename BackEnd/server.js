@@ -14,12 +14,14 @@ app.use(express.urlencoded({ extended: true }));
 /* Importación de los enrutadores */
 const clientes_router		= require(path.join(__dirname,'routes','cliente'));
 const administrador_router	= require(path.join(__dirname,'routes','administrador'));
+const usuarios_router		= require(path.join(__dirname,'routes','usuarios'));
 //const vendedor_router		= require(path.join(__dirname,'routes','vendedor'));
 
 /* Configuraciones */
 /* Enrutadores */
 app.use("/clientes",		clientes_router		);
 app.use("/administrador",	administrador_router	);
+app.use("/usuarios",		usuarios_router	);
 // Dejaremos este modulo para el final si es que queda suficiente tiempo
 // app.use("/vendedor",		vendedor_router		);
 
