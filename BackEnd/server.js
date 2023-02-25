@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname,"public")));
 const clientes_router		= require(path.join(__dirname,'routes','cliente'));
 const administrador_router	= require(path.join(__dirname,'routes','administrador'));
 const usuarios_router		= require(path.join(__dirname,'routes','usuarios'));
+const tienda_router		= require(path.join(__dirname,'routes','tienda'));
 
 /* Configuraciones */
 /* Sesiones */
@@ -28,6 +29,7 @@ app.use(session({
 app.use("/clientes",		clientes_router		);
 app.use("/administrador",	administrador_router	);
 app.use("/usuarios",		usuarios_router	);
+app.use("/tienda",		tienda_router	);
 
 const port = process.env.npm_package_config_port || '8080';
 app.set('port', port);
