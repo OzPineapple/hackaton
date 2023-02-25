@@ -73,3 +73,5 @@ driver.event_set = ({eventName, type, price, date, desc, org}) =>{
 			console.log("Documento Insertado")
 	})
 }
+
+module.exports = driver;
