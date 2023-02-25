@@ -24,4 +24,13 @@ router.post('/new', async (req, res) => {
 	}
 });
 
+router.get('/boletos', async (req, res) => {
+	try{
+		res.status(201).send( await db.ticket_getByOwner( req.session.usr.id ) );
+	}catch(e){
+		console.log(e);
+		res.status(e.status).send();
+	}
+});
+
 module.exports = router;
