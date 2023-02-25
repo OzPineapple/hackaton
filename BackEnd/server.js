@@ -9,7 +9,7 @@ const router = express.Router();
 //const db = require('./db');
 
 app.use(express.urlencoded({ extended: true }));
-//app.use(express.static(path));
+app.use(express.static(path.join(__dirname,"public")));
 
 /* Importación de los enrutadores */
 const clientes_router		= require(path.join(__dirname,'routes','cliente'));
