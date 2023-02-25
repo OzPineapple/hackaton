@@ -206,6 +206,14 @@ driver.usr_getByMail = async corr => {
 		);
 }
 
+driver.usr_login = async ({ mail, pass }) => {
+	const usr = await driver.usr_getByMail(mail);
+	if( usr.pass != pass )
+		throw new CustomError( "WrongPassword", 401,
+			"La contraseña no es correcta para el usuario " + usr 
+		);
+}
+
 driver.set_ticket = ({idEvento, idUsr, token}) => {
 
 	var size = 0;
