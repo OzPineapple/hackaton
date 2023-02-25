@@ -1,6 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
 
-/* TODO: Hay que hacer la uri para conectarse a mongodb */
 const uri = process.env.npm_package_config_dburi;
 
 const client	= new MongoClient( uri );
@@ -12,11 +11,6 @@ const collTipoEvento = databse.collection('tipoEvento');
 const collBoleto = databse.collection('Boleto');
 const collUbicacion = databse.collection('Ubicacion');
 
-
-
-
-
-
 var driver = {};
 
 driver.admin_get = async userAdmin => {
@@ -27,7 +21,7 @@ driver.admin_get = async userAdmin => {
 	if (admin.exists())
 		return admin;
 	else
-		return false;
+		return null;
 }
 
 driver.admin_login = ({ usr, pass }) => {
