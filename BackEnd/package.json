@@ -1,4 +1,8 @@
 {
+	"config": {
+		"dburi": "TODO",
+		"dbname": "TODO"
+	},
   "dependencies": {
     "express": "^4.18.2",
     "mongodb": "^5.1.0",
