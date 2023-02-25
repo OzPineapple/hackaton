@@ -4,8 +4,8 @@
 		"dbname": "TODO",
 		"port": "3000"
 	},
-	"scripts":{
-		"start": "node sever.js"
+	"scripts": {
+		"start": "node ./server.js"
 	},
 	"dependencies": {
 		"@solana/web3.js": "^1.73.3",
