@@ -4,9 +4,11 @@ const express = require('express');
 const db = require('../lib/mongodb.js');
 
 router.post('/login', async (req, res) => {
+	console.log( req.body );
+	console.log( req.body.usr );
 	try{
 		await db.admin_login( req.body );
-		req.session.usr = req.body.usr;
+		//req.session.usr = req.body.usr;
 		res.status(200).send();
 	}catch(e){
 		console.log(e);

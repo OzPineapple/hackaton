@@ -2,7 +2,7 @@
 const http = require('http');
 const express = require('express');
 const body_parser = require('body-parser');
-const session = requiere('express-session');
+const session = require('express-session');
 const path = require('path');
 
 const app = express();
