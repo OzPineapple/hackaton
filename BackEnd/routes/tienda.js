@@ -11,4 +11,13 @@ router.get('/explorar', async (req, res) => {
 	}
 });
 
+router.get('/evento/:id', async (req, res) => {
+	try{
+		res.status(200).send( await db.event_getByID(req.params.id) );
+	}catch(e){
+		console.log(e);
+		res.status(e.status).send();
+	}
+});
+
 module.exports = router;
