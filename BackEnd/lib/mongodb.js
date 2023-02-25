@@ -135,7 +135,7 @@ driver.event_getByID = async eventId => {
 
 driver.event_getAll = async () => {
 
-	const query = { fecha:{$gt: newDate().toISOString()} };
+	const query = { fecha:{$gt: newDate().toISOString()}, lugaresDisp:{$gt: 0} };
 	const options = {projection: {_id: 0}};
 	
 	const eventos = await collEvento.find(query, options);
@@ -231,10 +231,14 @@ driver.set_ticket = ({idEvento, idUsr, token}) => {
 	size++;
 
 	var newBoleto = {id_text: size, evento: idEvento, nft: token, owner: idUsr, fecha: this.event_getByID.fecha};
-	collBoleto.insertOne(newBoleto, function(err,res){
+	collBoleto.insertOne(newBoleto, async function(err,res){
+
+		var nDisp = await event_getByID(idEvento).lugaresDisp
+
 		if (err)
 			throw(err)
 		else
+			db.collEvento.updateOne({id_text: idEvento},{lugaresDisp: nDisp});
 			console.log("Boleto Generado");
 	})
 
