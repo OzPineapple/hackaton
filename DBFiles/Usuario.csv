@@ -1,2 +1,2 @@
-_id,id_text,mail,name,publicK,privateK
-63f9ba0820671a0d07ec67e8,1,pruebaUsr@mail.com,pruebaUsuario,pruebak,pruebaK
+_id,id_text,mail,name,pass,publicK,privateK
+63f9ba0820671a0d07ec67e8,1,pruebaUsr@mail.com,pruebaUsuario,contraseña,pruebak,pruebaK
