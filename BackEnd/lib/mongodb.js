@@ -4,7 +4,7 @@ const { CustomError } = require('./error');
 const uri = process.env.npm_package_config_dburi;
 
 const client	= new MongoClient( uri );
-const databse	= client.db( 'TicketMunster' );
+const databse	= client.db( process.env.npm_package_config_dbname );
 const collAdmin = databse.collection('Admin');
 const collUsuario = databse.collection('Usuario');
 const collEvento = databse.collection('Event');
