@@ -30,43 +30,27 @@
             let resolt = await fetch("/usuarios/login",{
                 method: 'POST', body: new URLSearchParams(new FormData(form)),
             });
+            switch (resolt.status) {
+                case 200:
+                    alert("Bienvenido Administrador");
+                    window.open("admin.html");
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                case 500:
+                    alert("Error en servidor");
+                    break;
+                case 401:
+                    alert("Error dde contraseña");
+                    break;
+            }
         }
         var enviar = document.querySelector(".enviar");
         var user = document.querySelector("#nom");
         var pass = document.querySelector("#cos");
         var form = document.getElementById("form");
         const data = new URLSearchParams(new FormData(form));
-        /*enviar.addEventListener("click", async function (e) {
-            e.preventDefault();
-            console.log(form);
-            if (user.value.length!=0 && pass.value.length!=0) {
-                let resolt = await fetch("/usuarios/login",{
-                    method: 'POST', body: data,
-                });
-                console.log(resolt);
-                if (resolt.status==200) {
-                    alert("Bienvenido Administrador");
-                    window.open("admin.html");
-                } else {
-                    if (resolt.status==404) {
-                        alert("Usuario no existe");
-                    } else {
-                        if (resolt.status==500) {
-                            alert("Error en servidor");
-                        } else {
-                            if (resolt.status==401) {
-                                alert("Error dde contraseña");
-                            }
-                        }
-                    }
-                }
-            } else {
-                alert("Datos faltantes");
-            }
-        })*/
-        function login() {
-            
-        }
     </script>
 </body>
 </html>
