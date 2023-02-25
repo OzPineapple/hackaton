@@ -1,4 +1,4 @@
-import { PublicKey, SystemProgram } from "@solana/web3.js";
+import { clusterApiUrl, Connection, PublicKey, SystemProgram } from "@solana/web3.js";
 
 //Creando una cuenta con semilla (se necesita correo+contraseña)
 async function CrearCuenta(a : string, b : string) {
@@ -18,7 +18,27 @@ async function CrearCuenta(a : string, b : string) {
 
 }
 
+async function CalAccountCost() {
+  const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+
+  // length of data in the account to calculate rent for
+  const dataLength = 1500;
+  const rentExemptionAmount =
+    await connection.getMinimumBalanceForRentExemption(dataLength);
+  console.log({
+    rentExemptionAmount,
+  });
+}
+
+
+//Testing 
+
+/*
 var a = "Hola atodos";
 var b = "EstamosBien";
 
 CrearCuenta (a,b);
+*/
+
+
+//CalAccountCost();
