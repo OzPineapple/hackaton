@@ -2,6 +2,7 @@
 const http = require('http');
 const express = require('express');
 const body_parser = require('body-parser');
+const session = requiere('express-session');
 const path = require('path');
 
 const app = express();
@@ -20,6 +21,13 @@ const usuarios_router		= require(path.join(__dirname,'routes','usuarios'));
 app.use("/clientes",		clientes_router		);
 app.use("/administrador",	administrador_router	);
 app.use("/usuarios",		usuarios_router	);
+
+/* Sesiones */
+app.use(session({
+	secret: 'indestructible_password',
+	resave: false,
+	saveUninitialized: false
+}));
 
 const port = process.env.npm_package_config_port || '8080';
 app.set('port', port);
