@@ -12,9 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 //app.use(express.static(path));
 
 /* Importación de los enrutadores */
-const clientes_router		= require(path.join(__dirname,'routes','cliente');
-const administrador_router	= require(path.join(__dirname,'routes','admintrador');
-const vendedor_router		= require(path.join(__dirname,'routes','vendedor');
+const clientes_router		= require(path.join(__dirname,'routes','cliente'));
+const administrador_router	= require(path.join(__dirname,'routes','administrador'));
+//const vendedor_router		= require(path.join(__dirname,'routes','vendedor'));
 
 /* Configuraciones */
 /* Enrutadores */
