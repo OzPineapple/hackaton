@@ -4,6 +4,8 @@
 		"dbname": "TODO"
 	},
 	"dependencies": {
+		"@solana/web3.js": "^1.73.3",
+		"typescript": "^4.9.5",
 		"express": "^4.18.2",
 		"mongodb": "^5.1.0",
 		"mongoose": "^6.10.0"
