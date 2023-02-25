@@ -1,7 +1,7 @@
-const MongoClient = requiere('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 
 /* TODO: Hay que hacer la uri para conectarse a mongodb */
-const uri = "";
+const uri = process.env.npm_package_config_dburi;
 
 const client	= new MongoClient( uri );
 const databse	= client.db( process.env.npm_package_config_dbname );
@@ -12,14 +12,16 @@ driver.user_exists = user => {
 	return true;
 }
 
-driver.user_login = { user, pass } => {
+driver.user_login = ({ user, pass }) => {
 	return true;
 }
 
-driver.user_update_name = { user, update } =>
+driver.user_update_name = ({ user, update }) => {
 	return true;
 }
 
-driver.user_update_pass = { user, update } =>
+driver.user_update_pass = ({ user, update }) => {
 	return true;
 }
+
+module.exports = driver;
