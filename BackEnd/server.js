@@ -28,12 +28,6 @@ app.use("/usuarios",		usuarios_router	);
 const port = process.env.npm_package_config_port || '8080';
 app.set('port', port);
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+const server = http.createServer(app);
+server.listen(port);
+console.log( "Servidor escuchando peticiones en puerto " + port ); 
