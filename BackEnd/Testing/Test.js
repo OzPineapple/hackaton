@@ -1,7 +1,11 @@
-const getBalance = async () => {await import("../Solana/Solana")};
 
-var x = "G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY"
+let tsimport = require("ts-import");
 
+var x = "5rHi9DLr652DEo2ujWg5zzHUxCRrV5HJEj3fb8NeDSYa";
 
+const Solana = async () => {
+const balance = await tsimport.load("../Solana/Solana.ts");
 
-console.log(getBalance(x));
+console.log(balance.getBalance(x));
+}
+Solana(x);

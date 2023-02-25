@@ -1,16 +1,15 @@
-import { PublicKey } from "@solana/web3.js";
+import type { PublicKey } from "@solana/web3.js";
 const Solana = require ('@solana/web3.js');
 
 const connection = new Solana.Connection(Solana.clusterApiUrl('devnet'));
-
-var x = "G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY"
 
 //Obteniendo el balance de una cuenta usando web3
 async function getBalanceUsingWeb3(address: PublicKey): Promise<number> {
   return connection.getBalance(address);
 }
 
-   function getBalance (key: any){
+
+export function getBalance(key: any){
     const publicKey = new Solana.PublicKey(key);
     getBalanceUsingWeb3(publicKey).then(balance =>{
       console.log(balance);
@@ -18,7 +17,7 @@ async function getBalanceUsingWeb3(address: PublicKey): Promise<number> {
     })
   }
 
-  getBalance(x);
+//getBalance(x);
 
 
 

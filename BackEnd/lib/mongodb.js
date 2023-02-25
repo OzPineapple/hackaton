@@ -37,11 +37,11 @@ driver.admin_get = async userAdmin => {
 		);
 }
 
-driver.admin_login = async ({ usr, pass }) => {
-	const admin = await driver.admin_get(usr);
+driver.admin_login = async ({ userAdmin, pass }) => {
+	const admin = await driver.admin_get(userAdmin);
 	if( admin.pass != pass )
 		throw new CustomError( "WrongPassword", 401,
-			"La contraseña no es correcta para el usuario " + usr 
+			"La contraseña no es correcta para el usuario " + userAdmin
 		);
 }
 
@@ -203,6 +203,14 @@ driver.usr_getByMail = async corr => {
 	else
 		throw new CustomError( "UnknownError", 500,
 			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.usr_login = async ({ mail, pass }) => {
+	const usr = await driver.usr_getByMail(mail);
+	if( usr.pass != pass )
+		throw new CustomError( "WrongPassword", 401,
+			"La contraseña no es correcta para el usuario " + usr 
 		);
 }
 
