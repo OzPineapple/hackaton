@@ -12,14 +12,16 @@ driver.user_exists = user => {
 	return true;
 }
 
-driver.user_login = { user, pass } => {
+driver.user_login = ({ user, pass }) => {
 	return true;
 }
 
-driver.user_update_name = { user, update } =>
+driver.user_update_name = ({ user, update }) => {
 	return true;
 }
 
-driver.user_update_pass = { user, update } =>
+driver.user_update_pass = ({ user, update }) => {
 	return true;
 }
+
+module.exports = driver;
