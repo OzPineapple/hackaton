@@ -1,12 +1,12 @@
-import { clusterApiUrl, Connection, PublicKey, SystemProgram } from "@solana/web3.js";
+import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, sendAndConfirmTransaction, SystemProgram, Transaction } from "@solana/web3.js";
 
 //Creando una cuenta con semilla (se necesita correo+contraseña)
-async function CrearCuenta(a : string, b : string) {
+async function CrearCuenta(a: string, b: string) {
 
   //Necesito saber que hace exactamente esta madre
-  let basePubkey = new PublicKey( "G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY");
+  let basePubkey = new PublicKey("G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY");
   //Genera la semilla 
-  let seed = a+b;
+  let seed = a + b;
   //No sé exactamente que hace hay que preguntar
   let programId = SystemProgram.programId;
 
@@ -18,6 +18,7 @@ async function CrearCuenta(a : string, b : string) {
 
 }
 
+//Calcula el costo de una cuenta (Parece regresar la cantidad para la expecion de la)
 async function CalAccountCost() {
   const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 
@@ -31,6 +32,44 @@ async function CalAccountCost() {
 }
 
 
+async function SystemAccount() {
+  const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+  const fromPubkey = Keypair.generate();
+
+  // Airdrop SOL for transferring lamports to the created account
+  const airdropSignature = await connection.requestAirdrop(
+    fromPubkey.publicKey,
+    LAMPORTS_PER_SOL
+  );
+  await connection.confirmTransaction(airdropSignature);
+
+  // amount of space to reserve for the account
+  const space = 0;
+
+  // Seed the created account with lamports for rent exemption
+  const rentExemptionAmount =
+    await connection.getMinimumBalanceForRentExemption(space);
+
+  const newAccountPubkey = Keypair.generate();
+  const createAccountParams = {
+    fromPubkey: fromPubkey.publicKey,
+    newAccountPubkey: newAccountPubkey.publicKey,
+    lamports: rentExemptionAmount,
+    space,
+    programId: SystemProgram.programId,
+  };
+
+  const createAccountTransaction = new Transaction().add(
+    SystemProgram.createAccount(createAccountParams)
+  );
+
+  await sendAndConfirmTransaction(connection, createAccountTransaction, [
+    fromPubkey,
+    newAccountPubkey,
+  ]);
+
+}
+
 //Testing 
 
 /*
@@ -42,3 +81,5 @@ CrearCuenta (a,b);
 
 
 //CalAccountCost();
+
+SystemAccount();
