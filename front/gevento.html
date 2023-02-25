@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Generar evento</title>
+</head>
+<body style="background: url(imagenes/registro.png);background-size: cover;">
+    <header class="abajo">
+        <a href="admin.html" class="logo">TICKETLAND</a>
+        <nav>
+            <ul>
+                <li><a href="">Generar evento</a></li>
+                <li><a href="">Leer QR</a></li>
+                <li><a href="" class="registro">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="gevento">
+        <div class="ev">
+            <h2>Generar evento</h2><br><br>
+                <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;">
+                    <label for="nevent" class="reg">Nombre del evento:</label>
+                    <input type="text" name="" id="nevent" class="regim">
+                    <br><br>
+                    <label for="cost" class="reg">Costo del evento:</label>
+                    <input type="number" name="" id="cost" class="regim">
+                    <br><br>
+                    <label for="lugar" class="reg">Lugar del evento:</label>
+                    <select name="lugar" id="lugar">
+                        <option value="1">Seleccione el lugar del evento</option>
+                    </select>
+                    <br><br>
+                    <label for="tipoe" class="reg">Tipo de evento</label>
+                    <select name="tipo" id="tipoe">
+                        <option value="">Seleccione el tipo de evento</option>
+                        <option value="1">Concierto</option>
+                        <option value="2">Deporte</option>
+                        <option value="3">Cultura y teatro</option>
+                    </select>
+                    <br><br>
+                    <label for="organizador" class="reg">Organizador del evento:</label>
+                    <input type="text" name="" id="organizador" class="regim">
+                    <br><br>
+                    <label for="fecha" class="reg">Fecha del evento:</label>
+                    <input type="date" id="fecha">
+                    <br><br>
+                    <label for="hora" class="reg">Hora del evento:</label>
+                    <input type="time" id="hora">
+                    <br><br>
+                    <label for="deseve" class="reg">Descripción del evento:</label><br>
+                    <textarea name="" id="deseve" cols="30" rows="10"></textarea>
+                    <br><br>
+                    <button class="enviar">Registrar evento</button>
+                </form>
+        </div>
+    </section>
+    <script>
+        var nome = document.querySelector("#nevent");
+        var lugar = document.querySelector("#lugar");
+        var tipoe = document.querySelector("#tipoe");
+        var organizador = document.querySelector("#organizador");
+        var fecha = document.querySelector("#fecha");
+        var hora = document.querySelector("#hora");
+        var deseve = document.querySelector("#deseve");
+        var cost = document.querySelector("#cost");
+        var enviar = document.querySelector(".enviar");
+
+        enviar.addEventListener("click", function () {
+            if (nome.value.length!=0 && lugar.value.length!=0&& tipoe.value.length!=0&& organizador.value.length!=0&& fecha.value.length!=0&& hora.value.length!=0&& deseve.value.length!=0&& cost.value.length!=0) {
+                alert("Registro realizado con exito"),
+                window.open("admin.html");
+            } else {
+                alert("Datos faltantes");
+            }
+        })
+
+    </script>
+</body>
+</html>
