@@ -25,8 +25,8 @@ app.use("/usuarios",		usuarios_router	);
 // Dejaremos este modulo para el final si es que queda suficiente tiempo
 // app.use("/vendedor",		vendedor_router		);
 
-const hostname = '127.0.0.1';
-const port = process.env.npm_package_config_port;
+const port = process.env.npm_package_config_port || '8080';
+app.set('port', port);
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
