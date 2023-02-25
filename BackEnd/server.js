@@ -1,9 +1,10 @@
+/* Importación de bibliotecas */
 const http = require('http');
-
 const express = require('express');
+const body_parser = require('body-parser');
+
 const app = express();
 const router = express.Router();
-
 const db = require('./db');
 
 app.use(express.urlencoded({ extended: true }));
