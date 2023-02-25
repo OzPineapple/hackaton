@@ -15,8 +15,8 @@
             <h1 >Inicio de sesión</h1><br><br><br><br><br><br>
             <br>
             <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;" id="form" method="post" onsubmit="send(event,this)">
-                <label for="nom" class="reg">Email:</label>
-                <input type="text" name="correo" id="nom" class="regim"><br><br>
+                <label for="nom" class="reg">Usuario:</label>
+                <input type="text" name="userAdmin" id="nom" class="regim"><br><br>
                 <label for="cos" class="reg">Contraseña:</label>
                 <input type="password" name="pass" id="cos" class="regim"><br><br>
                 <button class="enviar" type="submit">Iniciar sesión</button>
@@ -27,7 +27,7 @@
     <script>
         async function send(e,form){
             e.preventDefault();
-            let resolt = await fetch("/usuarios/loginu",{
+            let resolt = await fetch("/usuarios/login",{
                 method: 'POST', body: new URLSearchParams(new FormData(form)),
             });
             switch (resolt.status) {
