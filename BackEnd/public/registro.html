@@ -14,24 +14,36 @@
         <div class="re"><br><br><br>
             <h1 >Registro</h1><br><br><br><br><br><br>
             <br>
-            <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;">
+            <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;" id="form" method="post" onsubmit="send(event,this)">
                 <label for="nom" class="reg">Usuario:</label>
-                <input type="text" name="" id="nom" class="regim"><br><br>
+                <input type="text" name="usr" id="nom" class="regim"><br><br>
                 <label for="cos" class="reg">Contraseña:</label>
-                <input type="password" name="" id="cos" class="regim"><br><br>
-                <button class="enviar">Iniciar sesión</button>
+                <input type="password" name="pass" id="cos" class="regim"><br><br>
+                <button class="enviar" type="submit">Iniciar sesión</button>
             </form>
         </div>
     </section>
     
     <script>
+        async function send(e,form){
+            e.preventDefault();
+            let resolt = await fetch("/usuarios/login",{
+                method: 'POST', body: new URLSearchParams(new FormData(form)),
+            });
+        }
         var enviar = document.querySelector(".enviar");
         var user = document.querySelector("#nom");
         var pass = document.querySelector("#cos");
-        enviar.addEventListener("click", async function (e) {
-            e.priventDefault();
+        var form = document.getElementById("form");
+        const data = new URLSearchParams(new FormData(form));
+        /*enviar.addEventListener("click", async function (e) {
+            e.preventDefault();
+            console.log(form);
             if (user.value.length!=0 && pass.value.length!=0) {
-                let resolt = await fetch("/usuarios/login");
+                let resolt = await fetch("/usuarios/login",{
+                    method: 'POST', body: data,
+                });
+                console.log(resolt);
                 if (resolt.status==200) {
                     alert("Bienvenido Administrador");
                     window.open("admin.html");
@@ -51,7 +63,7 @@
             } else {
                 alert("Datos faltantes");
             }
-        })
+        })*/
         function login() {
             
         }
