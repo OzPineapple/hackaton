@@ -25,7 +25,7 @@
     <script>
          async function send(e,form){
             e.preventDefault();
-            var resolt = await fetch("/mongo/event_getAll");
+            var resolt = await fetch("/tienda/explorar");
             resolt = await resolt.json();
             console.log(resolt);
             switch (resolt.status) {
