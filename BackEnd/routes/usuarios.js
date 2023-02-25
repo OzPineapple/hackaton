@@ -21,7 +21,7 @@ router.post('/login', (req, res) => {
 	res.send();
 });
 
-router.delete('delete', (res, res) => {
+router.delete('delete', (req, res) => {
 });
 
 module.exports = router;
