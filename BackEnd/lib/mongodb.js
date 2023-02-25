@@ -218,7 +218,7 @@ driver.usr_login = async ({ correo, pass }) => {
 		return usr;
 }
 
-driver.set_ticket = ({idEvento, idUsr, token}) => {
+driver.set_ticket = (idEvento, idUsr, token) => {
 
 	var size = 0;
 
