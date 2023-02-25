@@ -1,11 +1,10 @@
 var router =  require('express').Router();
 
-const express = require('express');
+const db = require('../lib/mongodb.js');
 
 router.get('/explorar', async (req, res) => {
 	try{
-		res.write( db.event_getAll() );
-		res.status(200).send();
+		res.status(200).send((await db.event_getAll()).toArray());
 	}catch(e){
 		console.log(e);
 		res.status(e.status).send();

@@ -15,11 +15,8 @@ const collUbicacion = databse.collection('Ubicacion');
 var driver = {};
 
 driver.admin_get = async userAdmin => {
-	console.log( userAdmin );
 	const query = { usr: userAdmin };
 	const options = {projection: {_id: 0}};
-
-	console.log( query );
 	
 	const admins = await collAdmin.find(query, options);
 	let count = await admins.count();
@@ -41,7 +38,6 @@ driver.admin_get = async userAdmin => {
 }
 
 driver.admin_login = async ({ userAdmin, pass }) => {
-	console.log( userAdmin );
 	const admin = await driver.admin_get(userAdmin);
 	if( admin.pass != pass )
 		throw new CustomError( "WrongPassword", 401,
@@ -136,7 +132,7 @@ driver.event_getByID = async eventId => {
 
 driver.event_getAll = async () => {
 
-	const query = { fecha:{$gt: newDate().toISOString()}, lugaresDisp:{$gt: 0} };
+	const query = { fecha:{$gt: new Date().toISOString()}, lugaresDisp:{$gt: 0} };
 	const options = {projection: {_id: 0}};
 	
 	const eventos = await collEvento.find(query, options);

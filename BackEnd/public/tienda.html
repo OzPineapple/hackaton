@@ -23,7 +23,7 @@
     </section>
 
     <script>
-         async function send(e,form){
+         async function send(e){
             e.preventDefault();
             var resolt = await fetch("/tienda/explorar");
             resolt = await resolt.json();
@@ -44,6 +44,10 @@
                     break;
             }
         }
+        
+        window.onload = (event) => {
+            send(event);
+        };
 
 
         var lis = document.querySelector(".lista");

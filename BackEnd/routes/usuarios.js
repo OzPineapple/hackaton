@@ -1,6 +1,5 @@
 var router =  require('express').Router();
 
-const express = require('express');
 const db = require('../lib/mongodb.js');
 
 router.post('/login', async (req, res) => {

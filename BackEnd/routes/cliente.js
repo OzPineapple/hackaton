@@ -1,6 +1,6 @@
 var router =  require('express').Router();
 
-const express = require('express');
+const db = require('../lib/mongodb.js');
 
 router.post('/edit', async (req, res) => {
 	try{
