@@ -137,6 +137,8 @@ driver.event_getAll = async () => {
 	
 	const eventos = await collEvento.find(query, options);
 
+	console.log( await eventos.count() );
+
 	return eventos;
 	
 }
