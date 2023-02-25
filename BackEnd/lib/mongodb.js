@@ -26,10 +26,15 @@ driver.admin_get = async userAdmin => {
 			"El usuario " + userAdmin + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
 		);
 	else if( count > 1 )
-		throw new CustomError( "InvalidDuplicate", 500,
+		throw new CustomError( "Duplicated Record", 409,
 			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + userAdmin
 		);
-	return admins.next();
+	else if (count == 1)
+		return admins.next();
+	else
+		throw new CustomError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
 }
 
 driver.admin_login = async ({ usr, pass }) => {
@@ -46,7 +51,7 @@ driver.eventType_get = async eventType => {
 	
 	const tipo = await collTipoEvento.find(query, options);
 	
-	return tipo;
+	return tipo.next();
 }
 
 driver.event_set = ({eventName, type, price, date, desc, org}) =>{
@@ -72,6 +77,17 @@ driver.event_set = ({eventName, type, price, date, desc, org}) =>{
 		else
 			console.log("Documento Insertado")
 	})
+}
+
+driver.event_get = async eventoId => {
+
+	const query = { id_text: eventoId, fecha:{$gt: newDate().toISOString()} };
+	const options = {projection: {_id: 0}};
+	
+	const eventos = await collEvento.find(query, options);
+
+	return eventos.next();
+	
 }
 
 module.exports = driver;
