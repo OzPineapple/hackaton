@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
+const { CustomError } = require('./error');
 
 const uri = process.env.npm_package_config_dburi;
 
