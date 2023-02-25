@@ -1,8 +1,8 @@
 {
 	"config": {
-		"dburi": "TODO",
-		"dbname": "TODO",
-		"port": "3000"
+		"dburi": "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.7.1",
+		"dbname": "TicketMunster",
+		"port": "27017"
 	},
 	"scripts": {
 		"start": "node ./server.js"
@@ -12,7 +12,7 @@
 		"@solana/web3.js": "^1.73.3",
 		"body-parser": "^1.20.2",
 		"express": "^4.18.2",
-		"mongodb": "^5.1.0",
+		"mongodb": "^6.0.4",
 		"mongoose": "^6.10.0",
 		"typescript": "^4.9.5"
 	}

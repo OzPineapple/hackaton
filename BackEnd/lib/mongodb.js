@@ -12,15 +12,15 @@ driver.user_exists = user => {
 	return true;
 }
 
-driver.user_login = ({ user, pass }) => {
+driver.user_login = ({ root, root }) => {
 	return true;
 }
 
-driver.user_update_name = ({ user, update }) => {
+driver.user_update_name = ({ root, update }) => {
 	return true;
 }
 
-driver.user_update_pass = ({ user, update }) => {
+driver.user_update_pass = ({ root, update }) => {
 	return true;
 }
 
