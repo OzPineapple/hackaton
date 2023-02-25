@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Tienda</title>
+</head>
+<body style="background: url(imagenes/registro.png);background-size: cover;">
+    <header class="abajo">
+        <a href="admin.html" class="logo">TICKETLAND</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="tienda.html">Tienda</a></li>
+                <li><a href="">Tienda de la comunidad</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="lista">
+        
+    </section>
+
+    <script>
+        var lis = document.querySelector(".lista");
+        var nom = ["ahh", "ahh", "ahh"];
+        var des = ["wiii", "wiii", "wiii"];
+        for (let i = 0; i < 3; i++) {
+            var newdiv = document.createElement("div");
+            newdiv.classList.add("event");
+            var newh2 = document.createElement("h2");
+            newh2.classList.add("even");
+            newh2.textContent=nom[i];
+            var newp = document.createElement("p");
+            newp.classList.add("eved");
+            newp.textContent= des[i];
+            var newa = document.createElement("a");
+            newa.classList.add("evev");
+            newa.setAttribute("href","evento.html");
+            newa.textContent="Ver mas...";
+            newdiv.appendChild(newh2);
+            newdiv.appendChild(newp);
+            newdiv.appendChild(newa);
+            document.querySelector(".lista").appendChild(newdiv);
+        }
+        
+        
+    </script>
+</body>
+</html>

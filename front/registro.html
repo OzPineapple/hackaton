@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Inicio</title>
+</head>
+<body>
+    
+    <section class="Registro">
+        <div class="imag"></div>
+        <div class="re"><br><br><br>
+            <h1 >Registro</h1><br><br><br><br><br><br>
+            <br>
+            <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;">
+                <label for="nom" class="reg">Usuario:</label>
+                <input type="text" name="" id="nom" class="regim"><br><br>
+                <label for="cos" class="reg">Contraseña:</label>
+                <input type="password" name="" id="cos" class="regim"><br><br>
+                <button class="enviar">Iniciar sesión</button>
+            </form>
+        </div>
+    </section>
+    
+    <script>
+        var enviar = document.querySelector(".enviar");
+        var user = document.querySelector("#nom");
+        var pass = document.querySelector("#cos");
+        enviar.addEventListener("click", async function (e) {
+            e.priventDefault();
+            if (user.value.length!=0 && pass.value.length!=0) {
+                let resolt = await fetch("/usuarios/login");
+                if (resolt.status==200) {
+                    alert("Bienvenido Administrador");
+                    window.open("admin.html");
+                } else {
+                    if (404) {
+                        no existe
+                    } else {
+                        if (500) {
+                            error servidor
+                        } else {
+                            if (401) {
+                                error de contraseña
+                            }
+                        }
+                    }
+                }
+            } else {
+                alert("Datos faltantes");
+            }
+        })
+        function login() {
+            
+        }
+    </script>
+</body>
+</html>
