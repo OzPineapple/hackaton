@@ -15,10 +15,10 @@
             <h1 >Registro</h1><br><br><br><br><br><br>
             <br>
             <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;" id="form" method="post" onsubmit="send(event,this)">
-                <label for="nom" class="reg">Usuario:</label>
-                <input type="text" name="" id="nom" class="regim"><br><br>
+                <label for="nom" class="reg">Nombre:</label>
+                <input type="text" name="nom" id="nom" class="regim"><br><br>
                 <label for="mail" class="reg">Email:</label>
-                <input type="email" name="" id="mail" class="regim"><br><br>
+                <input type="email" name="correo" id="mail" class="regim"><br><br>
                 <label for="cos" class="reg">Contraseña:</label>
                 <input type="password" name="pass" id="cos" class="regim"><br><br>
                 <button class="enviar" type="submit">Iniciar sesión</button>
@@ -29,7 +29,7 @@
     <script>
         async function send(e,form){
             e.preventDefault();
-            let resolt = await fetch("/usuarios/new",{
+            let resolt = await fetch("/usuarios/reg",{
                 method: 'POST', body: new URLSearchParams(new FormData(form)),
             });
             switch (resolt.status) {
