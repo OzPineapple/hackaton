@@ -47,6 +47,7 @@ driver.admin_login = async ({ userAdmin, pass }) => {
 		throw new CustomError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + userAdmin
 		);
+		return admin;
 }
 
 driver.eventType_getByName = async eventType => {
@@ -216,6 +217,7 @@ driver.usr_login = async ({ correo, pass }) => {
 		throw new CustomError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + correo 
 		);
+		return usr;
 }
 
 driver.set_ticket = ({idEvento, idUsr, token}) => {
