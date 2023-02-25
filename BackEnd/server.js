@@ -18,7 +18,8 @@ const vendedor_router		= require(path.join(__dirname,'routes','vendedor');
 /* Enrutadores */
 app.use("/clientes",		clientes_router		);
 app.use("/administrador",	administrador_router	);
-app.use("/vendedor",		vendedor_router		);
+// Dejaremos este modulo para el final si es que queda suficiente tiempo
+// app.use("/vendedor",		vendedor_router		);
 
 const hostname = '127.0.0.1';
 const port = 3000;
