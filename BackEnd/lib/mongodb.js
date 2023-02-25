@@ -85,7 +85,7 @@ driver.ubicacion_getByID = async ubi =>{
 	return lugar.next();
 }
 
-driver.event_set = ({eventName, type, price, date, desc, org, ubi}) =>{
+driver.event_set = ({eventName, type, price, date, desc, org, ubi, lug, dispo}) =>{
 
 	var size = 0;
 	var id_tipo = 0;
@@ -113,7 +113,7 @@ driver.event_set = ({eventName, type, price, date, desc, org, ubi}) =>{
 			id_ubi = ubic.id_text;
 	});
 
-	var newEvent = {event: eventName, data: desc, managr: org, precio: price, id_text: size, tipoEvento: id_tipo, fecha: date, ubicacion: id_ubi};
+	var newEvent = {event: eventName, data: desc, managr: org, precio: price, id_text: size, tipoEvento: id_tipo, fecha: date, ubicacion: id_ubi, lugares: lug, lugaresDisp:dispo};
 	collEvento.insertOne(newEvent, function(err,res){
 		if (err)
 			throw(err)
@@ -135,7 +135,7 @@ driver.event_getByID = async eventId => {
 
 driver.event_getAll = async () => {
 
-	const query = { fecha:{$gt: newDate().toISOString()} };
+	const query = { fecha:{$gt: newDate().toISOString()}, lugaresDisp:{$gt: 0} };
 	const options = {projection: {_id: 0}};
 	
 	const eventos = await collEvento.find(query, options);
@@ -231,10 +231,14 @@ driver.set_ticket = ({idEvento, idUsr, token}) => {
 	size++;
 
 	var newBoleto = {id_text: size, evento: idEvento, nft: token, owner: idUsr, fecha: this.event_getByID.fecha};
-	collBoleto.insertOne(newBoleto, function(err,res){
+	collBoleto.insertOne(newBoleto, async function(err,res){
+
+		var nDisp = await event_getByID(idEvento).lugaresDisp
+
 		if (err)
 			throw(err)
 		else
+			db.collEvento.updateOne({id_text: idEvento},{lugaresDisp: nDisp});
 			console.log("Boleto Generado");
 	})
 
