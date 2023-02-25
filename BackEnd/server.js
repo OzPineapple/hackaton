@@ -6,10 +6,10 @@ const path = require('path');
 
 const app = express();
 const router = express.Router();
-const db = require('./db');
+//const db = require('./db');
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path));
+//app.use(express.static(path));
 
 /* Importación de los enrutadores */
 const clientes_router		= require(path.join(__dirname,'routes','cliente');
