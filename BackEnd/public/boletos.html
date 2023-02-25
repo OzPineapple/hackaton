@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Tienda</title>
+    <title>Boletos</title>
 </head>
 <body style="background: url(imagenes/registro.png);background-size: cover;">
     <header class="abajo">
@@ -25,7 +25,7 @@
     <script>
          async function send(e,form){
             e.preventDefault();
-            var resolt = await fetch("/tienda/explorar");
+            var resolt = await fetch("/mongo/ticket_getByOwner");
             resolt = await resolt.json();
             console.log(resolt);
             switch (resolt.status) {
