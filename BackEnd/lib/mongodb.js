@@ -183,8 +183,8 @@ driver.usr_getByPrivateK = async priv => {
 		);
 }
 
-driver.usr_getByMail = async corr => {
-	const query = { mail: corr };
+driver.usr_getByMail = async correo => {
+	const query = { mail: correo };
 	const options = {projection: {_id: 0}};
 	
 	const users = await collUsuario.find(query, options);
@@ -206,11 +206,11 @@ driver.usr_getByMail = async corr => {
 		);
 }
 
-driver.usr_login = async ({ mail, pass }) => {
-	const usr = await driver.usr_getByMail(mail);
+driver.usr_login = async ({ correo, pass }) => {
+	const usr = await driver.usr_getByMail(correo);
 	if( usr.pass != pass )
 		throw new CustomError( "WrongPassword", 401,
-			"La contraseña no es correcta para el usuario " + mail 
+			"La contraseña no es correcta para el usuario " + correo 
 		);
 }
 
