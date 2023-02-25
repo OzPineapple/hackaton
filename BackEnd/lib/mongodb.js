@@ -85,7 +85,7 @@ driver.ubicacion_getByID = async ubi =>{
 	return lugar.next();
 }
 
-driver.event_set = ({eventName, type, price, date, desc, org, ubi}) =>{
+driver.event_set = ({eventName, type, price, date, desc, org, ubi, lug, dispo}) =>{
 
 	var size = 0;
 	var id_tipo = 0;
@@ -113,7 +113,7 @@ driver.event_set = ({eventName, type, price, date, desc, org, ubi}) =>{
 			id_ubi = ubic.id_text;
 	});
 
-	var newEvent = {event: eventName, data: desc, managr: org, precio: price, id_text: size, tipoEvento: id_tipo, fecha: date, ubicacion: id_ubi};
+	var newEvent = {event: eventName, data: desc, managr: org, precio: price, id_text: size, tipoEvento: id_tipo, fecha: date, ubicacion: id_ubi, lugares: lug, lugaresDisp:dispo};
 	collEvento.insertOne(newEvent, function(err,res){
 		if (err)
 			throw(err)
