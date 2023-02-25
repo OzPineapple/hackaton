@@ -12,11 +12,6 @@ const collTipoEvento = databse.collection('tipoEvento');
 const collBoleto = databse.collection('Boleto');
 const collUbicacion = databse.collection('Ubicacion');
 
-
-
-
-
-
 var driver = {};
 
 driver.admin_get = async userAdmin => {
