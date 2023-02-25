@@ -1,7 +1,8 @@
 {
 	"config": {
 		"dburi": "TODO",
-		"dbname": "TODO"
+		"dbname": "TODO",
+		"port": "3000"
 	},
 	"dependencies": {
 		"@solana/web3.js": "^1.73.3",

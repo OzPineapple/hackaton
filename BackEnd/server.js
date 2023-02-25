@@ -23,7 +23,7 @@ app.use("/administrador",	administrador_router	);
 // app.use("/vendedor",		vendedor_router		);
 
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = process.env.npm_package_config_port;
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
