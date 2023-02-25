@@ -15,8 +15,11 @@ const collUbicacion = databse.collection('Ubicacion');
 var driver = {};
 
 driver.admin_get = async userAdmin => {
+	console.log( userAdmin );
 	const query = { usr: userAdmin };
 	const options = {projection: {_id: 0}};
+
+	console.log( query );
 	
 	const admins = await collAdmin.find(query, options);
 	let count = await admins.count();
@@ -37,11 +40,12 @@ driver.admin_get = async userAdmin => {
 		);
 }
 
-driver.admin_login = async ({ userAdmin, pass }) => {
-	const admin = await driver.admin_get(userAdmin);
+driver.admin_login = async ({ usr, pass }) => {
+	console.log( usr );
+	const admin = await driver.admin_get(usr);
 	if( admin.pass != pass )
 		throw new CustomError( "WrongPassword", 401,
-			"La contraseña no es correcta para el usuario " + userAdmin
+			"La contraseña no es correcta para el usuario " + usr
 		);
 }
 
