@@ -1,4 +1,4 @@
-const MongoClient = requiere('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 
 /* TODO: Hay que hacer la uri para conectarse a mongodb */
 const uri = "";
