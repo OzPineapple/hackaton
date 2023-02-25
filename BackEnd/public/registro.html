@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Inicio</title>
+    <title>Registro</title>
 </head>
 <body>
     
@@ -16,7 +16,9 @@
             <br>
             <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;" id="form" method="post" onsubmit="send(event,this)">
                 <label for="nom" class="reg">Usuario:</label>
-                <input type="text" name="usr" id="nom" class="regim"><br><br>
+                <input type="text" name="" id="nom" class="regim"><br><br>
+                <label for="mail" class="reg">Email:</label>
+                <input type="email" name="" id="mail" class="regim"><br><br>
                 <label for="cos" class="reg">Contraseña:</label>
                 <input type="password" name="pass" id="cos" class="regim"><br><br>
                 <button class="enviar" type="submit">Iniciar sesión</button>
@@ -27,13 +29,13 @@
     <script>
         async function send(e,form){
             e.preventDefault();
-            let resolt = await fetch("/usuarios/login",{
+            let resolt = await fetch("/usuarios/new",{
                 method: 'POST', body: new URLSearchParams(new FormData(form)),
             });
             switch (resolt.status) {
                 case 200:
-                    alert("Bienvenido Administrador");
-                    window.open("admin.html");
+                    alert("Registro exitoso!");
+                    window.open("index.html");
                     break;
                 case 404:
                     alert("Usuario no existe");
