@@ -40,12 +40,12 @@ driver.admin_get = async userAdmin => {
 		);
 }
 
-driver.admin_login = async ({ usr, pass }) => {
-	console.log( usr );
-	const admin = await driver.admin_get(usr);
+driver.admin_login = async ({ userAdmin, pass }) => {
+	console.log( userAdmin );
+	const admin = await driver.admin_get(userAdmin);
 	if( admin.pass != pass )
 		throw new CustomError( "WrongPassword", 401,
-			"La contraseña no es correcta para el usuario " + usr
+			"La contraseña no es correcta para el usuario " + userAdmin
 		);
 }
 
@@ -196,11 +196,11 @@ driver.usr_getByMail = async corr => {
 
 	if( count == 0 )
 		throw new CustomError( "UserNotFound", 404, 
-			"El usuario " + user + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+			"El usuario " + corr + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
 		);
 	else if( count > 1 )
 		throw new CustomError( "Duplicated Record", 409,
-			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + users
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + corr
 		);
 	else if (count == 1)
 		return users.next();
@@ -210,11 +210,11 @@ driver.usr_getByMail = async corr => {
 		);
 }
 
-driver.usr_login = async ({ mail, pass }) => {
-	const usr = await driver.usr_getByMail(mail);
+driver.usr_login = async ({ correo, pass }) => {
+	const usr = await driver.usr_getByMail(correo);
 	if( usr.pass != pass )
 		throw new CustomError( "WrongPassword", 401,
-			"La contraseña no es correcta para el usuario " + mail 
+			"La contraseña no es correcta para el usuario " + correo 
 		);
 }
 
