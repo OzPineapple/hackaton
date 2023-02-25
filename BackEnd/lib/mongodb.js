@@ -19,7 +19,7 @@ driver.admin_get = async userAdmin => {
 	const options = {projection: {_id: 0}};
 	
 	const admin = await collAdmin.find(query, options);
-	if (admin.exists())
+	if (admin.size().notNull())
 		return admin;
 	else
 		return false;
@@ -68,4 +68,11 @@ driver.event_set = ({eventName, type, price, date, desc, org}) =>{
 		else
 			console.log("Documento Insertado")
 	})
+}
+
+driver.event_get = ({idEventoText}) =>{
+	const query = {id_text: idEventoText};
+	const options = {_id:0};
+
+	const evento = await collEvento.find(query, options);
 }
