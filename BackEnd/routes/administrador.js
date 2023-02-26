@@ -30,7 +30,7 @@ router.post('/new', async (req, res) => {
  * Se enviar el req.body directo al controlador
  * de mongodb.
  */
-route.post('/evento/new', async (req, res) => {
+router.post('/evento/new', async (req, res) => {
 	try{
 		if( ! req.session.usr )
 			res.status(401).send();
@@ -42,7 +42,7 @@ route.post('/evento/new', async (req, res) => {
 	}
 });
 
-route.post('/evento/edit', async (req, res) => {
+router.post('/evento/edit', async (req, res) => {
 	try{
 		if( ! req.session.usr )
 			res.status(401).send();
@@ -54,7 +54,7 @@ route.post('/evento/edit', async (req, res) => {
 	}
 });
 
-route.post('/evento/delete', async (req, res) => {
+router.post('/evento/delete', async (req, res) => {
 	try{
 		if( ! req.session.usr )
 			res.status(401).send();
