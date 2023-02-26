@@ -20,7 +20,7 @@
                 <label for="mail" class="reg">Email:</label>
                 <input type="email" name="correo" id="mail" class="regim"><br><br>
                 <label for="cos" class="reg">Contraseña:</label>
-                <input type="password" name="pass" id="cos" class="regim"><br><br>
+                <input type="password" name="contra" id="cos" class="regim"><br><br>
                 <button class="enviar" type="submit">Iniciar sesión</button>
             </form>
         </div>
@@ -29,7 +29,7 @@
     <script>
         async function send(e,form){
             e.preventDefault();
-            let resolt = await fetch("/usuarios/reg",{
+            let resolt = await fetch("/clientes/new",{
                 method: 'POST', body: new URLSearchParams(new FormData(form)),
             });
             switch (resolt.status) {
