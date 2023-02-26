@@ -21,7 +21,7 @@ router.post('/edit', async (req, res) => {
 	try{
 		if( ! req.session.usr )
 			res.status(401).send();
-		await db.update_user( req.body );
+		await db.user_update( req.body );
 		res.status(201).send();
 	}catch(e){
 		console.log(e);
@@ -59,7 +59,7 @@ router.get('/boletos', async (req, res) => {
  */
 router.post('/boleto/edit', async (req, res) => {
 	try {
-		await db.ticket_edit( req.body );
+		await db.ticket_update( req.body );
 		res.status(201).send();
 	}catch(e){
 		console.log(e);
