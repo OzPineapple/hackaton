@@ -96,42 +96,23 @@ driver.ubicacion_getAll = () => {
 
 	const ubicaciones = collUbicacion.find(query, options);
 	
-	console.log(ubcaciones);
 	return ubicaciones;
 
 }
 
 //Eventos
 
-driver.event_set = ({eventName, type, price, date, desc, org, ubi, lug, dispo}) =>{
+driver.event_set = async ({eventName, type, price, date, desc, org, ubi, lug, dispo}) =>{
 
 	var size = 0;
-	var id_tipo = 0;
-	var id_ubi = 0;
+	var size = 0;
 
-	collEvento.countDocuments(function(err,num){
-		if(err)
-			throw(err)
-		else
-			size = num;
-	})
+	size = await collUsuario.countDocuments();
 	size++;
 
-	eventType_get(type, function(err,tipo){
-		if (err) 
-			throw(err)
-		else
-			id_tipo = tipo.id_text;
-	});
+	
 
-	ubicacion_get(ubi, function(err,ubic){
-		if (err) 
-			throw(err)
-		else
-			id_ubi = ubic.id_text;
-	});
-
-	var newEvent = {event: eventName, data: desc, managr: org, precio: price, id_text: size, tipoEvento: id_tipo, fecha: date, ubicacion: id_ubi, lugares: lug, lugaresDisp:dispo};
+	var newEvent = {event: eventName, data: desc, managr: org, precio: price, id_text: size, tipoEvento: type, fecha: date, ubicacion: ubi, lugares: lug, lugaresDisp:dispo};
 	collEvento.insertOne(newEvent, function(err,res){
 		if (err)
 			throw(err)

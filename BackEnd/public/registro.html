@@ -29,11 +29,13 @@
     <script>
         async function send(e,form){
             e.preventDefault();
+            var b = new URLSearchParams(new FormData(form));
+            console.log(b);
             let resolt = await fetch("/clientes/new",{
-                method: 'POST', body: new URLSearchParams(new FormData(form)),
+                method: 'POST', body: b,
             });
             switch (resolt.status) {
-                case 200:
+                case 201:
                     alert("Registro exitoso!");
                     window.open("index.html");
                     break;

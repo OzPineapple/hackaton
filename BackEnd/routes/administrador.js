@@ -1,4 +1,5 @@
 var router =  require('express').Router();
+const db = require('../lib/mongodb.js');
 
 const express = require('express');
 
