@@ -168,24 +168,15 @@ driver.event_update = ({id_eve, , correo, contra}) => {
 
 //Usuarios
 
-driver.usr_set = ({nom, correo, contra, llavep}) => {
+driver.usr_set = async ({nom, correo, contra, llavep}) => {
 	var size = 0;
 
-	collUsuario.countDocuments(function(err,num){
-		if(err)
-			throw(err)
-		else
-			size = num;
-	})
+	size = await collUsuario.countDocuments();
 	size++;
 
 	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, publicK: llavep};
-	collUsuario.insertOne(newUsuario, function(err, res){
-		if (err)
-			throw(err)
-		else
-			console.log("Usuario Registrado");
-	})
+	await collUsuario.insertOne(newUsuario);
+	console.log("Usuario Registrado");
 }
 
 driver.usr_getByPublicK = async pubK => {
