@@ -1,2 +1,3 @@
 _id,data,event,id_text,managr,precio,type,ubicacion,fecha,lugares,lugaresDisp
 63f9b7ae20671a0d07ec67e6,pruebaDescripcion,pruebaNombreEvento,1,pruebaOrganizador,1000,1,1,2023-02-28T11:00:00.485Z,1000,1000
+63f9b7ae21671a0d07ed67f7,prueba2Descripcion,prueba2NombreEvento,2,pruebaOrganizador,500,2,1,2023-02-26T16:30:00.000Z,1500,1250
