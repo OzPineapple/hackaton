@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
 	}
 });
 
+/*
 router.post('/edit', async (req, res) => {
 	try{
 		if( ! req.session.usr )
@@ -28,6 +29,7 @@ router.post('/edit', async (req, res) => {
 		res.status(e.status).send();
 	}
 });
+*/
 
 router.post('/new', async (req, res) => {
 	try{
