@@ -29,7 +29,7 @@
     <script>
         async function send(e,form){
             e.preventDefault();
-            let resolt = await fetch("/usuarios/reg",{
+            let resolt = await fetch("/clientes/new",{
                 method: 'POST', body: new URLSearchParams(new FormData(form)),
             });
             switch (resolt.status) {
