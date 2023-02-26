@@ -1,8 +1,21 @@
 var router =  require('express').Router();
 var genWallet = require('../Solana/WalletGen.js');
+var getBalance = require('../Solana/Balance.js');
 var { PublicKey } = require("@solana/web3.js");
 
 const db = require('../lib/mongodb.js');
+
+router.get('/', async (req, res) => {
+	try{
+		if( ! req.session.usr )
+			res.status(401).send();
+		req.session.usr.balance = getBalance( new PublicKey( req.session.usr.publicK ) );
+		res.status(201).send( req.session.usr );
+	}catch(e){
+		console.log(e);
+		res.status(e.status).send();
+	}
+});
 
 router.post('/edit', async (req, res) => {
 	try{
