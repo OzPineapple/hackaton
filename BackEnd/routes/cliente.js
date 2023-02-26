@@ -33,4 +33,21 @@ router.get('/boletos', async (req, res) => {
 	}
 });
 
+/* Mediante esta ruta se podrá modificar los atributos de un boleto
+ * la idea principal es la de modificar si el boleto esta en estado
+ * de venta o comprado. Tambíen podría servir para modificar el dueño
+ * o aspectos relacionados con los NFT.
+ * El body se envia como es recibido desde el front al controlador
+ * de mongodb.
+ */
+router.post('/boleto/edit', async (req, res) => {
+	try {
+		await db.ticket_edit( req.body );
+		res.status(201).send();
+	}catch(e){
+		console.log(e);
+		res.status(e.status).send();
+	}
+});
+
 module.exports = router;
