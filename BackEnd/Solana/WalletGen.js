@@ -5,9 +5,9 @@ const { Keypair, PublicKey, SystemProgram } = require("@solana/web3.js");
  * un objeto de la colleción de usuarios tipo
  * clientes.
  */
-module.exports = async ( { mail, name } ) => {
+module.exports = async ( { correo, nom } ) => {
 	let basePubkey = new PublicKey("3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3");
-	let seed = name + mail;
+	let seed = correo + nom;
 	let programId = SystemProgram.programId;
 	return await PublicKey.createWithSeed(basePubKey, seed, programId );
 }
