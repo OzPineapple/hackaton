@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Usuario</title>
+</head>
+<body style="background: url(imagenes/registro.png);background-size: cover;">
+    <header class="abajo">
+        <a href="admin.html" class="logo">TICKETLAND</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="tienda.html">Tienda</a></li>
+                <li><a href="">Tienda de la comunidad</a></li>
+                <li><a href="isesion.html">Inicio de sesión</a></li>
+                <li><a href="registro.html" class="registro">registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="registro">
+        <div class="re mdatos">
+            <h1 class="tit">Datos del usuario</h1>
+            <br><br>
+            <label for="" class="refe">Nombre:</label>
+            <label for="" class="dato" id="nom"></label>
+            <br><br>
+            <label for="" class="refe">Email:</label>
+            <label for="" class="dato" id="email"></label>
+            <br><br>
+            <label for="" class="refe">Wallet:</label>
+            <label for="" class="dato" id="wallet"></label>
+            <br><br>
+            <label for="" class="refe">Balance:</label>
+            <label for="" class="dato" id="balance"></label>
+            <br><br>
+        </div>
+    </section>
+    <section class="lista" style="margin-top: 30px;">
+        <h1 class="tit" style="color: black;">Boletos</h1>
+        
+    </section>
+
+    <script>
+         async function Cliente(e){
+            e.preventDefault();
+            var resolt = await fetch("/clientes/");
+            var sta = resolt.status;
+            var info=[];
+            resolt = await resolt.json();
+            switch (sta) {
+                case 201:
+                var nom = document.querySelector("#nom");
+                var email = document.querySelector("#email");
+                var wall = document.querySelector("#wallet");
+                var balance = document.querySelector("#balance");
+                nom.innerText = resolt.name;
+                email.innerText = resolt.mail;
+                wall.innerText = resolt.publicK;
+                balance.innerText = resolt.balance;
+
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                case 500:
+                    alert("Error en servidor");
+                    break;
+                case 401:
+                    alert("Error dde contraseña");
+                    break;
+            }
+        }
+
+        async function Boletos(e){
+            e.preventDefault();
+            
+            var resolt = await fetch("/clientes/boletos");
+            var sta = resolt.status;
+            resolt = await resolt.json()
+            var d = resolt[0].evento;
+            let resolt2 = await fetch("/usuarios/event/" + d,{
+                method: 'GET'
+            });
+            resolt2 = await resolt2.json();
+            console.log(resolt2);
+            switch (sta) {
+                case 201:
+                for (let i = 0; i < resolt.length; i++) {
+                var newdiv = document.createElement("div");
+                newdiv.classList.add("event");
+                var newh2 = document.createElement("h2");
+                newh2.classList.add("even");
+                newh2.textContent=resolt2[i].event;
+                var newp = document.createElement("p");
+                newp.classList.add("eved");
+                newp.textContent= resolt2[i].data;
+                var newa = document.createElement("a");
+                newa.classList.add("evev");
+                newa.addEventListener("click", function () {
+                    
+                    window.open("evento.html");
+                })
+                newa.textContent="Ver mas...";
+                newdiv.appendChild(newh2);
+                newdiv.appendChild(newp);
+                newdiv.appendChild(newa);
+                document.querySelector(".lista").appendChild(newdiv);
+                }
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                case 500:
+                    alert("Error en servidor");
+                    break;
+                case 401:
+                    alert("Error dde contraseña");
+                    break;
+            }
+        }
+        
+        window.onload = (event) => {
+            Cliente(event);
+            Boletos(event);
+        };
+
+
+        
+        
+        
+    </script>
+</body>
+</html> 

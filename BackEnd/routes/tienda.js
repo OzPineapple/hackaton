@@ -11,6 +11,15 @@ router.get('/explorar', async (req, res) => {
 	}
 });
 
+router.get('/ubi', async (req, res) => {
+	try{
+		res.status(200).send(await (await db.ubicacion_getAll()).toArray());
+	}catch(e){
+		console.log(e);
+		res.status(e.status).send();
+	}
+});
+
 router.get('/evento/:id', async (req, res) => {
 	try{
 		res.status(200).send( await db.event_getByID(req.params.id) );

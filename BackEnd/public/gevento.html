@@ -21,23 +21,23 @@
     <section class="gevento">
         <div class="ev">
             <h2>Generar evento</h2><br><br>
-                <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;">
+                <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;" id="form" >
                     <label for="nevent" class="reg">Nombre del evento:</label>
-                    <input type="text" name="" id="nevent" class="regim">
+                    <input type="text" name="eventName" id="nevent" class="regim">
                     <br><br>
                     <label for="cost" class="reg">Costo del evento:</label>
-                    <input type="number" name="" id="cost" class="regim">
+                    <input type="number" name="price" id="cost" class="regim">
                     <br><br>
-                    <label for="numbo" class="reg">Numero de eventos:</label>
-                    <input type="number" name="" id="numbo" class="regim">
+                    <label for="numbo" class="reg">Numero de lugares:</label>
+                    <input type="number" name="lug" id="numbo" class="regim">
                     <br><br>
                     <label for="lugar" class="reg">Lugar del evento:</label>
-                    <select name="lugar" id="lugar">
+                    <select name="ubi" id="lugar">
                         <option value="1">Seleccione el lugar del evento</option>
                     </select>
                     <br><br>
                     <label for="tipoe" class="reg">Tipo de evento</label>
-                    <select name="tipo" id="tipoe">
+                    <select name="type" id="tipoe">
                         <option value="">Seleccione el tipo de evento</option>
                         <option value="1">Concierto</option>
                         <option value="2">Deporte</option>
@@ -45,13 +45,10 @@
                     </select>
                     <br><br>
                     <label for="organizador" class="reg">Organizador del evento:</label>
-                    <input type="text" name="" id="organizador" class="regim">
+                    <input type="text" name="org" id="organizador" class="regim">
                     <br><br>
                     <label for="fecha" class="reg">Fecha del evento:</label>
-                    <input type="date" id="fecha">
-                    <br><br>
-                    <label for="hora" class="reg">Hora del evento:</label>
-                    <input type="time" id="hora">
+                    <input type="datetime-local" id="fecha" name="date" value="2023-02-26T16:30:00.000Z">
                     <br><br>
                     <label for="deseve" class="reg">Descripción del evento:</label><br>
                     <textarea name="" id="deseve" cols="30" rows="10"></textarea>
@@ -66,20 +63,73 @@
         var tipoe = document.querySelector("#tipoe");
         var organizador = document.querySelector("#organizador");
         var fecha = document.querySelector("#fecha");
-        var hora = document.querySelector("#hora");
         var deseve = document.querySelector("#deseve");
+       
+        var numbo = document.querySelector("#numbo");
         var cost = document.querySelector("#cost");
         var enviar = document.querySelector(".enviar");
 
-        enviar.addEventListener("click", function () {
-            if (nome.value.length!=0 && lugar.value.length!=0&& tipoe.value.length!=0&& organizador.value.length!=0&& fecha.value.length!=0&& hora.value.length!=0&& deseve.value.length!=0&& cost.value.length!=0) {
-                alert("Registro realizado con exito"),
-                window.open("admin.html");
+        enviar.addEventListener("click", function (e) {
+            var form = document.querySelector("#form");
+            e.preventDefault();
+            if (nome.value.length!=0 && lugar.value.length!=0&& tipoe.value.length!=0&& organizador.value.length!=0&& fecha.value.length!=0&& deseve.value.length!=0&& cost.value.length!=0 && numbo.value.length!=0) {
+                send(e,form);
             } else {
                 alert("Datos faltantes");
             }
         })
+        async function send(e,form){
+            e.preventDefault();
+             var d = new URLSearchParams(new FormData(form));
+             d.append("dispo", numbo.value);
+             console.log(d);
+            let resolt = await fetch("/administrador/evento/new",{
+                method: 'POST', body:  d,
+            });
+            switch (resolt.status) {
+                case 201:
+                    alert("Registro exitoso!");
+                    window.open("admin.html");
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                case 500:
+                    alert("Error en servidor");
+                    break;
+                case 401:
+                    alert("Error dde contraseña");
+                    break;
+            }
+        }
 
+        async function venid(e) {
+            var resolt = await fetch("/tienda/ubi");
+            var sta = resolt.status;
+            resolt = await resolt.json();
+            switch (sta) {
+                case 200:
+                for (let i = 0; i < resolt.length; i++) {
+                var op = document.createElement("option");
+                op.value= resolt[i].id_text;
+                op.text= resolt[i].ubicacion;
+                lugar.appendChild(op);
+                }
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                case 500:
+                    alert("Error en servidor");
+                    break;
+                case 401:
+                    alert("Error dde contraseña");
+                    break;
+            }
+        }
+        window.onload = (event) => {
+            venid(event);
+        };
     </script>
 </body>
 </html>

@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 	try{
 		if( ! req.session.usr )
 			res.status(401).send();
-		req.session.usr.balance = getBalance( new PublicKey( req.session.usr.publicK ) );
+		req.session.usr.balance = await getBalance( new PublicKey( req.session.usr.publicK ) );
 		res.status(201).send( req.session.usr );
 	}catch(e){
 		console.log(e);
@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
 	}
 });
 
+/*
 router.post('/edit', async (req, res) => {
 	try{
 		if( ! req.session.usr )
@@ -28,6 +29,7 @@ router.post('/edit', async (req, res) => {
 		res.status(e.status).send();
 	}
 });
+*/
 
 router.post('/new', async (req, res) => {
 	try{
@@ -43,7 +45,8 @@ router.post('/new', async (req, res) => {
 
 router.get('/boletos', async (req, res) => {
 	try{
-		res.status(201).send( await db.ticket_getByOwner( req.session.usr.id ) );
+		console.log(req.session.usr.id_text);
+		res.status(201).send( await db.ticket_getByOwner( req.session.usr.id_text ) );
 	}catch(e){
 		console.log(e);
 		res.status(e.status).send();
