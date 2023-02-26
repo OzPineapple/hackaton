@@ -152,6 +152,7 @@ driver.event_getAll = async () => {
 	return eventos;
 	
 }
+
 /* WIP||||| Update Event
 driver.event_update = ({id_eve, , correo, contra}) => {
 
