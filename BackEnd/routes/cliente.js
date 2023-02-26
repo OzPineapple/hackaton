@@ -1,4 +1,6 @@
 var router =  require('express').Router();
+var genWallet = require('../Solana/WalletGen.js');
+var { PublicKey } = require("@solana/web3.js");
 
 const db = require('../lib/mongodb.js');
 
@@ -16,6 +18,7 @@ router.post('/edit', async (req, res) => {
 
 router.post('/new', async (req, res) => {
 	try{
+		req.body.publicK = genWallet( req.body );
 		await db.create_user( req.body );
 		res.status(201).send();
 	}catch(e){
