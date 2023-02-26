@@ -209,11 +209,11 @@ driver.usr_getByMail = async correo => {
 
 	if( count == 0 )
 		throw new CustomError( "UserNotFound", 404, 
-			"El usuario " + corr + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+			"El correo " + correo + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
 		);
 	else if( count > 1 )
 		throw new CustomError( "Duplicated Record", 409,
-			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + corr
+			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + correo
 		);
 	else if (count == 1)
 		return users.next();
