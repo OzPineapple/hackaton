@@ -7,7 +7,7 @@ const client	= new MongoClient( uri );
 const databse	= client.db( process.env.npm_package_config_dbname );
 const collAdmin = databse.collection('Admin');
 const collUsuario = databse.collection('Usuario');
-const collEvento = databse.collection('Event');
+const collEvento = databse.collection('Evento');
 const collTipoEvento = databse.collection('tipoEvento');
 const collBoleto = databse.collection('Boleto');
 const collUbicacion = databse.collection('Ubicacion');
@@ -15,11 +15,8 @@ const collUbicacion = databse.collection('Ubicacion');
 var driver = {};
 
 driver.admin_get = async userAdmin => {
-	console.log( userAdmin );
 	const query = { usr: userAdmin };
 	const options = {projection: {_id: 0}};
-
-	console.log( query );
 	
 	const admins = await collAdmin.find(query, options);
 	let count = await admins.count();
@@ -41,12 +38,12 @@ driver.admin_get = async userAdmin => {
 }
 
 driver.admin_login = async ({ userAdmin, pass }) => {
-	console.log( userAdmin );
 	const admin = await driver.admin_get(userAdmin);
 	if( admin.pass != pass )
 		throw new CustomError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + userAdmin
 		);
+		return admin;
 }
 
 driver.eventType_getByName = async eventType => {
@@ -135,11 +132,14 @@ driver.event_getByID = async eventId => {
 
 driver.event_getAll = async () => {
 
-	const query = { fecha:{$gt: newDate().toISOString()}, lugaresDisp:{$gt: 0} };
-	const options = {projection: {_id: 0}};
-	
-	const eventos = await collEvento.find(query, options);
+	const query = {fecha:{ $gt : new Date().toISOString() }, lugaresDisp:{ $gt : "0" }};
 
+	const options = {projection: {_id: 0}};
+
+
+	const eventos = collEvento.find(query, options);
+	
+	console.log(eventos);
 	return eventos;
 	
 }
@@ -216,9 +216,10 @@ driver.usr_login = async ({ correo, pass }) => {
 		throw new CustomError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + correo 
 		);
+		return usr;
 }
 
-driver.set_ticket = ({idEvento, idUsr, token}) => {
+driver.set_ticket = (idEvento, idUsr, token) => {
 
 	var size = 0;
 

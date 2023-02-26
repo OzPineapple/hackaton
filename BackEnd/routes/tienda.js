@@ -2,13 +2,28 @@ var router =  require('express').Router();
 
 const db = require('../lib/mongodb.js');
 
-const express = require('express');
-
 router.get('/explorar', async (req, res) => {
 	try{
-		const res = await db.event_getAll();
-		console.log( res );
-		res.status(200).send( res );
+		res.status(200).send(await (await db.event_getAll()).toArray());
+	}catch(e){
+		console.log(e);
+		res.status(e.status).send();
+	}
+});
+
+router.get('/evento/:id', async (req, res) => {
+	try{
+		res.status(200).send( await db.event_getByID(req.params.id) );
+	}catch(e){
+		console.log(e);
+		res.status(e.status).send();
+	}
+});
+
+router.post('/evento/:id/buy', async (req, res) => {
+	try{
+		var token = "fjifgdshfdsjahj"; // TODO
+		res.status(200).send( await db.set_ticket(req.params.id,req.session.usr._id,token) );
 	}catch(e){
 		console.log(e);
 		res.status(e.status).send();
