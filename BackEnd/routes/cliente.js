@@ -32,7 +32,7 @@ router.post('/edit', async (req, res) => {
 router.post('/new', async (req, res) => {
 	try{
 		req.body.publicK = genWallet( req.body );
-		await db.create_user( req.body );
+		await db.usr_set( req.body );
 		res.status(201).send();
 	}catch(e){
 		console.log(e);
