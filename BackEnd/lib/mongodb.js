@@ -149,7 +149,7 @@ driver.event_getByID = async eventId => {
 
 driver.event_getAll = async () => {
 
-	const query = {fecha:{ $gt : new Date().toISOString() }, lugaresDisp:{ $gt : "0" }};
+	const query = {fecha:{ $gte : new Date().toISOString() }, lugaresDisp:{ $gt : "0" }};
 
 	const options = {projection: {_id: 0}};
 
