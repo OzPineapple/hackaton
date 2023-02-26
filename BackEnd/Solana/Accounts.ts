@@ -60,7 +60,7 @@ async function CalAccountCost() {
 async function GeneraCuenta(a: string, b: string) {
 
   //Necesito saber que hace exactamente esta madre
-  let basePubkey = new PublicKey("G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY");
+  let basePubkey = new PublicKey("3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3");
   //Genera la semilla 
   let seed = a + b;
   //No sé exactamente que hace hay que preguntar

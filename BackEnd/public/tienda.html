@@ -26,12 +26,37 @@
          async function send(e){
             e.preventDefault();
             var resolt = await fetch("/tienda/explorar");
+            var sta = resolt.status;
+            var info=[];
             resolt = await resolt.json();
             console.log(resolt);
-            switch (resolt.status) {
+            switch (sta) {
                 case 200:
-                    alert("Registro exitoso!");
-                    window.open("index.html");
+                for (let i = 0; i < resolt.length; i++) {
+                var newdiv = document.createElement("div");
+                newdiv.classList.add("event");
+                var newh2 = document.createElement("h2");
+                newh2.classList.add("even");
+                newh2.textContent=resolt[i].event;
+                var newp = document.createElement("p");
+                newp.classList.add("eved");
+                newp.textContent= resolt[i].data;
+                var newa = document.createElement("a");
+                newa.classList.add("evev");
+                newa.addEventListener("click", function () {
+                    localStorage.setItem("nom",resolt[i].event);
+                    localStorage.setItem("des",resolt[i].data);
+                    localStorage.setItem("or",resolt[i].manager);
+                    localStorage.setItem("ty",resolt[i].type);
+                    localStorage.setItem("pre",resolt[i].precio);
+                    window.open("evento.html");
+                })
+                newa.textContent="Ver mas...";
+                newdiv.appendChild(newh2);
+                newdiv.appendChild(newp);
+                newdiv.appendChild(newa);
+                document.querySelector(".lista").appendChild(newdiv);
+                }
                     break;
                 case 404:
                     alert("Usuario no existe");
@@ -50,27 +75,7 @@
         };
 
 
-        var lis = document.querySelector(".lista");
-        var nom = ["ahh", "ahh", "ahh"];
-        var des = ["wiii", "wiii", "wiii"];
-        for (let i = 0; i < 3; i++) {
-            var newdiv = document.createElement("div");
-            newdiv.classList.add("event");
-            var newh2 = document.createElement("h2");
-            newh2.classList.add("even");
-            newh2.textContent=nom[i];
-            var newp = document.createElement("p");
-            newp.classList.add("eved");
-            newp.textContent= des[i];
-            var newa = document.createElement("a");
-            newa.classList.add("evev");
-            newa.setAttribute("href","evento.html");
-            newa.textContent="Ver mas...";
-            newdiv.appendChild(newh2);
-            newdiv.appendChild(newp);
-            newdiv.appendChild(newa);
-            document.querySelector(".lista").appendChild(newdiv);
-        }
+        
         
         
     </script>
