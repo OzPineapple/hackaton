@@ -13,16 +13,17 @@ const keypair =Keypair.fromSecretKey(secretKey);
 
 const senderK = Keypair.generate();
 const recipentK = Keypair.generate();
-//const publicKey = ownerKeypair.publicKey;
 
-//var a  =  new PublicKey("3crhrzekJeTjB6UJeJjzG4qCowRUoKgj2fUpfhER5gqM");
-(async () => {
+async function transaction () {
     const airdropSignature = await connection.requestAirdrop(
         senderK.publicKey,
         web3.LAMPORTS_PER_SOL, // 10000000 Lamports in 1 SOL
       );
     
+        console.log(airdropSignature);
+
       const sender =  senderK.publicKey;
+
       const recipient  = recipentK.publicKey;
       
       await connection.confirmTransaction(airdropSignature);
@@ -46,8 +47,8 @@ const recipentK = Keypair.generate();
           [senderK]
       );
       
-})
+}
 
 
-
+transaction();
 
