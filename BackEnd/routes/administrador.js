@@ -3,6 +3,7 @@ const db = require('../lib/mongodb.js');
 
 const express = require('express');
 
+/* Posterior Implementacion
 router.post('/edit', async (req, res) => {
 	try{
 		await db.update_admin( req.body );
@@ -12,6 +13,7 @@ router.post('/edit', async (req, res) => {
 		res.status(e.status).send();
 	}
 });
+*/
 
 router.post('/new', async (req, res) => {
 	try{

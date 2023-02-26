@@ -16,6 +16,19 @@ var driver = {};
 
 //Admin
 
+driver.set_admin = async ({correo, nom, contra, user}) => {
+
+	var size = 0;
+
+	size = await collAdmin.countDocuments();
+	size++;
+
+	var newAdmin = {id_text: size, mail: correo, name:nom, pass: contra, usr: user};
+	await collAdmin.insertOne(newAdmin);
+	console.log("Administrador Registrado");
+
+}
+
 driver.admin_get = async userAdmin => {
 	const query = { usr: userAdmin };
 	const options = {projection: {_id: 0}};
