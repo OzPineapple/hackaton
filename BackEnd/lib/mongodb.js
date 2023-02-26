@@ -92,9 +92,7 @@ driver.ubicacion_getByID = async ubi =>{
 driver.ubicacion_getAll = () => {
 
 	const query = {};
-
 	const options = {projection: {_id: 0}};
-
 
 	const ubicaciones = collUbicacion.find(query, options);
 	
