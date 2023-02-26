@@ -175,8 +175,8 @@ driver.usr_set = ({nom, correo, contra, llavep, llavepr}) => {
 	})
 }
 
-driver.usr_getByPrivateK = async priv => {
-	const query = { privateK: priv };
+driver.usr_getByPublicK = async pubK => {
+	const query = { publicK: pubK };
 	const options = {projection: {_id: 0}};
 	
 	const users = await collUsuario.find(query, options);
