@@ -14,6 +14,8 @@ const collUbicacion = databse.collection('Ubicacion');
 
 var driver = {};
 
+//Admin
+
 driver.admin_get = async userAdmin => {
 	const query = { usr: userAdmin };
 	const options = {projection: {_id: 0}};
@@ -46,6 +48,8 @@ driver.admin_login = async ({ userAdmin, pass }) => {
 		return admin;
 }
 
+//TipoEvento
+
 driver.eventType_getByName = async eventType => {
 	const query = { tipoEvento: eventType };
 	const options = {projection: {_id: 0}};
@@ -53,15 +57,6 @@ driver.eventType_getByName = async eventType => {
 	const tipo = await collTipoEvento.find(query, options);
 	
 	return tipo.next();
-}
-
-driver.ubicacion_getByName = async ubi =>{
-	const query = { ubicacion: ubi };
-	const options = {projection: {_id: 0}};
-	
-	const lugar = await collUbicacion.find(query, options);
-	
-	return lugar.next();
 }
 
 driver.eventType_getByID = async eventType => {
@@ -73,6 +68,18 @@ driver.eventType_getByID = async eventType => {
 	return tipo.next();
 }
 
+
+//Ubicacion
+
+driver.ubicacion_getByName = async ubi =>{
+	const query = { ubicacion: ubi };
+	const options = {projection: {_id: 0}};
+	
+	const lugar = await collUbicacion.find(query, options);
+	
+	return lugar.next();
+}
+
 driver.ubicacion_getByID = async ubi =>{
 	const query = { id_text: ubi };
 	const options = {projection: {_id: 0}};
@@ -81,6 +88,8 @@ driver.ubicacion_getByID = async ubi =>{
 	
 	return lugar.next();
 }
+
+//Eventos
 
 driver.event_set = ({eventName, type, price, date, desc, org, ubi, lug, dispo}) =>{
 
@@ -144,7 +153,9 @@ driver.event_getAll = async () => {
 	
 }
 
-driver.usr_set = ({nom, correo, contra, llavep, llavepr}) => {
+//Usuarios
+
+driver.usr_set = ({nom, correo, contra, llavep}) => {
 	var size = 0;
 
 	collUsuario.countDocuments(function(err,num){
@@ -155,7 +166,7 @@ driver.usr_set = ({nom, correo, contra, llavep, llavepr}) => {
 	})
 	size++;
 
-	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, publicK: llavep, privateK: llavepr};
+	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, publicK: llavep};
 	collUsuario.insertOne(newUsuario, function(err, res){
 		if (err)
 			throw(err)
@@ -164,8 +175,8 @@ driver.usr_set = ({nom, correo, contra, llavep, llavepr}) => {
 	})
 }
 
-driver.usr_getByPrivateK = async priv => {
-	const query = { privateK: priv };
+driver.usr_getByPublicK = async pubK => {
+	const query = { publicK: pubK };
 	const options = {projection: {_id: 0}};
 	
 	const users = await collUsuario.find(query, options);
@@ -177,7 +188,7 @@ driver.usr_getByPrivateK = async priv => {
 		);
 	else if( count > 1 )
 		throw new CustomError( "Duplicated Record", 409,
-			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + users
+			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + users
 		);
 	else if (count == 1)
 		return users.next();
@@ -218,6 +229,8 @@ driver.usr_login = async ({ correo, pass }) => {
 		);
 		return usr;
 }
+
+//Boletos
 
 driver.set_ticket = (idEvento, idUsr, token) => {
 
