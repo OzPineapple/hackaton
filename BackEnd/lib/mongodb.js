@@ -155,7 +155,7 @@ driver.event_getAll = async () => {
 
 //Usuarios
 
-driver.usr_set = ({nom, correo, contra, llavep, llavepr}) => {
+driver.usr_set = ({nom, correo, contra, llavep}) => {
 	var size = 0;
 
 	collUsuario.countDocuments(function(err,num){
@@ -166,7 +166,7 @@ driver.usr_set = ({nom, correo, contra, llavep, llavepr}) => {
 	})
 	size++;
 
-	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, publicK: llavep, privateK: llavepr};
+	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, publicK: llavep};
 	collUsuario.insertOne(newUsuario, function(err, res){
 		if (err)
 			throw(err)
