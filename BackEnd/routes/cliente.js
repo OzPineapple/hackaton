@@ -31,7 +31,7 @@ router.post('/edit', async (req, res) => {
 
 router.post('/new', async (req, res) => {
 	try{
-		req.body.publicK = genWallet( req.body );
+		req.body.llavep = genWallet( req.body );
 		await db.usr_set( req.body );
 		res.status(201).send();
 	}catch(e){
