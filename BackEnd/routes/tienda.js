@@ -28,7 +28,7 @@ router.post('/evento/:id/buy', async (req, res) => {
 		 * el dueño actual del NFT
 		 */
 		var token = "fjifgdshfdsjahj"; // TODO
-		res.status(200).send( await db.set_ticket(req.params.id,req.session.usr._id,token) );
+		res.status(200).send( await db.set_ticket(req.params.id,req.session.usr.id,token) );
 	}catch(e){
 		console.log(e);
 		res.status(e.status).send();
