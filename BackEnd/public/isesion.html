@@ -27,7 +27,7 @@
             <br>
             <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;" id="form" method="post" onsubmit="send(event,this)">
                 <label for="nom" class="reg">Email:</label>
-                <input type="text" name="correo" id="nom" class="regim"><br><br>
+                <input type="email" name="correo" id="nom" class="regim"><br><br>
                 <label for="cos" class="reg">Contraseña:</label>
                 <input type="password" name="pass" id="cos" class="regim"><br><br>
                 <button class="enviar" type="submit">Iniciar sesión</button>
@@ -43,7 +43,7 @@
             });
             switch (resolt.status) {
                 case 200:
-                    alert("Bienvenido Administrador");
+                    alert("Bienvenido!");
                     window.open("admin.html");
                     break;
                 case 404:
