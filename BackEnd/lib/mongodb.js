@@ -7,7 +7,7 @@ const client	= new MongoClient( uri );
 const databse	= client.db( process.env.npm_package_config_dbname );
 const collAdmin = databse.collection('Admin');
 const collUsuario = databse.collection('Usuario');
-const collEvento = databse.collection('Event');
+const collEvento = databse.collection('Evento');
 const collTipoEvento = databse.collection('tipoEvento');
 const collBoleto = databse.collection('Boleto');
 const collUbicacion = databse.collection('Ubicacion');
@@ -132,12 +132,13 @@ driver.event_getByID = async eventId => {
 
 driver.event_getAll = async () => {
 
-	const query = { fecha:{$gt: new Date().toISOString()}, lugaresDisp:{$gt: 0} };
-	const options = {projection: {_id: 0}};
-	
-	const eventos = await collEvento.find(query, options);
+	const query = { fecha:{$gt: new Date().toISOString()}, lugaresDisp:{$gt: "0"} };
 
-	return eventos;
+	console.log(query);
+
+	const eventos = collEvento.find(query);
+	console.log(await eventos.count());
+	return await eventos.toArray();
 	
 }
 

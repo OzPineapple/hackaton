@@ -4,7 +4,7 @@ const db = require('../lib/mongodb.js');
 
 router.get('/explorar', async (req, res) => {
 	try{
-		res.status(200).send((await db.event_getAll()).toArray());
+		res.status(200).send(await db.event_getAll());
 	}catch(e){
 		console.log(e);
 		res.status(e.status).send();
