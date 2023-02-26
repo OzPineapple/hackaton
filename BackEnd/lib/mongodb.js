@@ -134,10 +134,8 @@ driver.event_getAll = async () => {
 
 	const query = { fecha:{$gt: new Date().toISOString()}, lugaresDisp:{$gt: "0"} };
 
-	console.log(query);
 
 	const eventos = collEvento.find(query);
-	console.log(await eventos.count());
 	return await eventos.toArray();
 	
 }
