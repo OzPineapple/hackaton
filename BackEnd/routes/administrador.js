@@ -34,7 +34,7 @@ router.post('/evento/new', async (req, res) => {
 	try{
 		if( ! req.session.usr )
 			res.status(401).send();
-		await db.create_event( req.body );
+		await db.event_set( req.body );
 		res.status(201).send();
 	}catch(e){
 		console.log(e);
