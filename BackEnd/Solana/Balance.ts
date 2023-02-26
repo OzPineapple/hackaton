@@ -2,7 +2,7 @@ import { clusterApiUrl, Connection, Keypair, PublicKey} from "@solana/web3.js";
 
 const connection = new Connection(clusterApiUrl('devnet'));
 
-async function getBalanceUsingWeb3(address: PublicKey): Promise<number> {
+export async function getBalanceUsingWeb3(address: PublicKey): Promise<number> {
     const connection = new Connection(clusterApiUrl('devnet'));
     return connection.getBalance(address);
 }
@@ -11,4 +11,3 @@ const publicKey = new PublicKey(Puk)
 getBalanceUsingWeb3(publicKey).then(balance => {
     console.log(balance);
 })
-
