@@ -153,18 +153,16 @@ driver.event_getAll = async () => {
 	
 }
 
-/* WIP||||| Update Event
-driver.event_update = ({id_eve, , correo, contra}) => {
+driver.event_update = ({id_eve, prec, fech}) => {
 
-	db.collUsuario.updateOne({id_text: id_usr}, {mail: correo, name: nom, pass: contra}, function(err, res){
+	db.collEvento.updateOne({id_text: id_eve}, { precio: prec, fecha: fech}, function(err, res){
 		if (err)
 			throw(err)
 		else
-			console.log("Usuario Actualizado");
+			console.log("Evento Actualizado");
 	});
 
 }
-*/
 
 //Usuarios
 
