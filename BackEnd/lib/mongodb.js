@@ -152,6 +152,18 @@ driver.event_getAll = async () => {
 	return eventos;
 	
 }
+/* WIP||||| Update Event
+driver.event_update = ({id_eve, , correo, contra}) => {
+
+	db.collUsuario.updateOne({id_text: id_usr}, {mail: correo, name: nom, pass: contra}, function(err, res){
+		if (err)
+			throw(err)
+		else
+			console.log("Usuario Actualizado");
+	});
+
+}
+*/
 
 //Usuarios
 
@@ -221,6 +233,29 @@ driver.usr_getByMail = async correo => {
 		);
 }
 
+driver.usr_getByID = async id_usr => {
+	const query = { id_text: id_usr };
+	const options = {projection: {_id: 0}};
+	
+	const users = await collUsuario.find(query, options);
+	let count = await users.count();
+
+	if( count == 0 )
+		throw new CustomError( "UserNotFound", 404, 
+			"El usuario " + corr + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomError( "Duplicated Record", 409,
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + corr
+		);
+	else if (count == 1)
+		return users.next();
+	else
+		throw new CustomError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
 driver.usr_login = async ({ correo, pass }) => {
 	const usr = await driver.usr_getByMail(correo);
 	if( usr.pass != pass )
@@ -228,6 +263,17 @@ driver.usr_login = async ({ correo, pass }) => {
 			"La contraseña no es correcta para el usuario " + correo 
 		);
 		return usr;
+}
+
+driver.usr_update = ({id_usr, nom, correo, contra}) => {
+
+	db.collUsuario.updateOne({id_text: id_usr}, {mail: correo, name: nom, pass: contra}, function(err, res){
+		if (err)
+			throw(err)
+		else
+			console.log("Usuario Actualizado");
+	});
+
 }
 
 //Boletos
@@ -265,6 +311,17 @@ driver.ticket_getByOwner = async idUsr => {
 	const bol = await collBoleto.find(query, options);
 	
 	return bol;
+}
+
+driver.ticket_update = (id_tick, id_own) => {
+
+	db.collBoleto.updateOne({id_text: id_tick}, {owner: id_own}, function(err, res){
+		if (err)
+			throw(err)
+		else
+			console.log("Boleto Actualizado, Nuevo Dueño Asignado");
+	});
+
 }
 
 module.exports = driver;
