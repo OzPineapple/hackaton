@@ -22,6 +22,9 @@ router.get('/evento/:id', async (req, res) => {
 
 router.post('/evento/:id/buy', async (req, res) => {
 	try{
+		/* Es aqui donde debe crearse el NFT e introducirlo
+		 * a la red de blockchain. 
+		 */
 		var token = "fjifgdshfdsjahj"; // TODO
 		res.status(200).send( await db.set_ticket(req.params.id,req.session.usr._id,token) );
 	}catch(e){
