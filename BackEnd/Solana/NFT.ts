@@ -1,3 +1,6 @@
+//Esta madré esta incompleta pero su funcion principal es crear nfts
+
+/*
 import { Metaplex, keypairIdentity, bundlrStorage } from "@metaplex-foundation/js";
 import { Connection, clusterApiUrl, Keypair } from "@solana/web3.js";
 
@@ -14,4 +17,4 @@ const nft = await metaplex.nfts().findByMint({ mintAddress });
 //En caso de que el servior no conecte
 const abortController = new AbortController();
 setTimeout(() => abortController.abort(), 100);
-
+*/

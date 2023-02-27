@@ -1,3 +1,8 @@
+//Esta interfaz esta lista para el intercambio entre usuarios pero al no estar listo, ha sido comentado para su futura implementacion
+
+
+
+/*
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, sendAndConfirmTransaction, SystemProgram, Transaction } from "@solana/web3.js";
 const web3 = require ('@solana/web3.js')
 const connection = new Connection(clusterApiUrl('devnet'));
@@ -5,11 +10,11 @@ import fs from "fs";
 
 //Extrae la wallet del programa
 
-/*
+
 const wallet = JSON.parse(fs.readFileSync("/Users/haru/.config/solana/id.json", "utf-8"))
 const secretKey =Uint8Array.from(wallet);
 const keypair =Keypair.fromSecretKey(secretKey);
-*/
+
 
 const senderK = Keypair.generate();
 const recipentK = Keypair.generate();
@@ -51,4 +56,4 @@ async function transaction () {
 
 
 transaction();
-
+*/
