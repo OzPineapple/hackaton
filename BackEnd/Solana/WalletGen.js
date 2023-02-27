@@ -10,4 +10,5 @@ module.exports = async ( { correo, nom } ) => {
 	let seed = correo + nom;
 	let programId = SystemProgram.programId;
 	return await PublicKey.createWithSeed(basePubkey, seed, programId );
+	
 }
