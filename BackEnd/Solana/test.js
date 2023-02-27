@@ -1,7 +1,8 @@
 const solana = require("./solana.js");
 
 async function main() {
-	console.log( solana.GeneraCuenta() );
+	const pk = await solana.GeneraCuenta();
+	console.log( await solana.AddFondos( pk ) );
 }
 
 main();
