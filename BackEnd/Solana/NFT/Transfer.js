@@ -60,7 +60,7 @@ module.exports = async (usrSk58, minit) => {
     //const imageUrl = nft.json.image;
     let tx = new Transaction().add(
         createTransferCheckedInstruction(
-          ServerTokenAc.value[0].pubkey, // from (should be a token account)
+          ServerTokenAc.value[0], // from (should be a token account)
           mintPk, // mint
           ata, // to (should be a token account)
           UsrPk, // from's owner
