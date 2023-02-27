@@ -1,0 +1,2 @@
+{"v":0,"name":"sugar","msg":"Lend me some sugar, I am your neighbor.","level":30,"hostname":"HaruNoYukki.local","pid":2850,"time":"2023-02-26T15:17:16.783104Z","target":"sugar","line":123,"file":"src/main.rs"}
+{"v":0,"name":"sugar","msg":"MissingFileError(\"config.json\")","level":50,"hostname":"HaruNoYukki.local","pid":2850,"time":"2023-02-26T15:17:16.784117Z","target":"sugar_cli::config::parser","line":21,"file":"src/config/parser.rs"}
