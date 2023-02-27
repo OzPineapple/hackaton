@@ -3,7 +3,7 @@ const  bs58  = require( "bs58");
 const connection = new Connection(clusterApiUrl('devnet'));
 const  fs  = require( "fs");
 
-async function CompraBoleto(usrSk58) {
+async function CompraBoleto(usrSk58, n) {
     //Llaves del servidor
     const wallet = JSON.parse(fs.readFileSync("$HOME/.config/solana/id.json"
 , "utf-8"))
@@ -26,7 +26,7 @@ async function CompraBoleto(usrSk58) {
     const Pago = SystemProgram.transfer({
         fromPubkey: sender,
         toPubkey: recipient,
-        lamports: LAMPORTS_PER_SOL
+        lamports: LAMPORTS_PER_SOL*n
     })
     transaction.add(Pago);
 
