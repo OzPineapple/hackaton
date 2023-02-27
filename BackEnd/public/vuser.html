@@ -50,7 +50,6 @@
                 
                 var resolt = await fetch("/clientes/");
                 var sta = resolt.status;
-                console.log(resolt);
                 resolt = await resolt.json();
                 switch (sta) {
                     case 201:
@@ -58,10 +57,12 @@
                     var email = document.querySelector("#email");
                     var wall = document.querySelector("#wallet");
                     var balance = document.querySelector("#balance");
+                    var bal = resolt.balance;
+                    bal = bal /1000000000;
                     nom.innerText = resolt.name;
                     email.innerText = resolt.mail;
                     wall.innerText = resolt.publicK;
-                    balance.innerText = resolt.balance;
+                    balance.innerText = bal;
     
                         break;
                     case 404:
@@ -113,7 +114,7 @@
                     newa.addEventListener("click", function () {
                         
                         localStorage.setItem("txt","abc");
-                        window.open("qr.html");
+                        window.open("qr.html","_self");
                     })
                     newa.textContent="Generar boleto";
                 } else {

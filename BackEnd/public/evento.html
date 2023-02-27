@@ -29,11 +29,16 @@
             <label for="" class="reg" style="color: black; padding: 0px 30px;" id="orga" >Nombre del recinto</label>  
             <label for="" class="reg" style="color: black; padding: 0px 10px;">Tipo de evento:</label>
             <label for="" class="reg" style="color: black; padding: 0px 10px;" id="ty">Aqui va el tipo de evento xd</label>
-            <label for=""class="reg" style="color: black; padding: 0px 10px;">Precio del boleto: $</label>
+            <label for=""class="reg" style="color: black; padding: 0px 10px;">Precio del boleto (soles): $</label>
             <label for="" class="reg" style="color: black; padding: 0px 10px;" id="pre">Aqui va el precio del evento xd</label>
             <br><br>
-            <button class="enviar" style="color: black;">Comprar boleto</button>
+            <label class="reg" style="color: black; padding: 0px 10px;" >Lugares totales:</label>
+            <label class="reg" style="color: black; padding: 0px 10px;" id="lug">Lugares</label>
+            <label class="reg" style="color: black; padding: 0px 10px;" >Lugares disponibles:</label>
+            <label class="reg" style="color: black; padding: 0px 10px;" id="lugd">Lugares</label>
             <br><br>
+            <button for="" class="enviar" style="color: #000;">Compar boletos</button>
+            <br>
         </div>
     </section>
     <script>
@@ -43,12 +48,16 @@
             var roganizacion = localStorage.getItem("or");
             var tipo = localStorage.getItem("ty");
             var precio = localStorage.getItem("pre");
+            var lu = localStorage.getItem("lu");
+            var ludis = localStorage.getItem("dis");
 
             var nomre = document.querySelector("#nom");
             var des = document.querySelector("#des");
             var organi = document.querySelector("#orga");
             var ty = document.querySelector("#ty");
             var pre = document.querySelector("#pre");
+            var lug = document.querySelector("#lug");
+            var lugd = document.querySelector("#lugd");
             
 
             nomre.innerText = nom;
@@ -56,12 +65,16 @@
             organi.innerText = roganizacion;
             ty.innerText = tipo;
             pre.innerText = precio;
+            lug.innerText = lu;
+            lugd.innerText = ludis;
             
             localStorage.removeItem("nom");
             localStorage.removeItem("des");
             localStorage.removeItem("or");
             localStorage.removeItem("ty");
             localStorage.removeItem("pre");
+            localStorage.removeItem("lu");
+            localStorage.removeItem("dis");
         }
         
 
