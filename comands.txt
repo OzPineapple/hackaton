@@ -1,0 +1,11 @@
+1. Generar los json de la sig forma
+    {
+  "name": "USD Coin",
+  "symbol": "USDC",
+  "description": "Fully reserved fiat-backed stablecoin created by Circle.",
+  "image": "https://www.circle.com/hs-fs/hubfs/sundaes/USDC.png?width=540&height=540&name=USDC.png"
+}
+2.- sugar upload
+3.- sugar deploy
+4.- sugar verify
+5.- sugar mint
