@@ -8,7 +8,7 @@ async function main() {
 	*/
 	let testpk = "35XzqbB5gxuXhqXWKRa9jThXexf2zwAS8r8ZT2b4ZHeGcUjJffyr7e1Lws4DvFVKao6D2BiE2aeHzNS9yhF7SkMy"
 	await solana.comprarBoleto( testpk, 1 );
-	await solana.transferirBoleto( testpk, "HGwHSwAJUT3GiuhDuuZxoRJ9bxfzJFe6oJVcpZLeJcHd" );
+	await solana.transferirBoleto( testpk, "BHyizx3aXTpDYQv5boaug5nWqVJwbsPQaTbagUPdPoRx" );
 }
 
 main();

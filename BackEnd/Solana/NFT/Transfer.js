@@ -58,12 +58,13 @@ module.exports = async (usrSk58, minit) => {
 */
     
     //const imageUrl = nft.json.image;
+ 	console.log( "A debug: " + ServerTokenAc.value[0] );
     let tx = new Transaction().add(
         createTransferCheckedInstruction(
           ServerTokenAc.value[0], // from (should be a token account)
           mintPk, // mint
           ata, // to (should be a token account)
-          UsrPk, // from's owner
+          ServerPk, // from's owner
           1, // amount, if your deciamls is 8, send 10^8 for 1 token
           0 // decimals
         )
