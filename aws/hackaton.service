@@ -1,0 +1,8 @@
+[Unit]
+Description=Proyecto para el hackaton
+
+[Service]
+ExecStart=/usr/bin/npm start --prefix
+
+[Install]
+WantedBy=mongod.target
