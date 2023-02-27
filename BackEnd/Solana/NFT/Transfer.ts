@@ -1,38 +1,49 @@
 import { Metaplex, keypairIdentity, bundlrStorage, token } from "@metaplex-foundation/js";
 import { createAssociatedTokenAccount, createTransferCheckedInstruction, getMint } from "@solana/spl-token";
 import { Connection, clusterApiUrl, Keypair, PublicKey, Transaction } from "@solana/web3.js";
+import bs58 from "bs58";
 const web3 = require('@solana/web3.js');
 
 import fs from "fs";
 
 
-async function transf() {
+async function transf(usrSk58, minit) {
+    //Conexion
     const connection = new Connection(clusterApiUrl("devnet"));
 
-    const wallet = JSON.parse(fs.readFileSync("/Users/haru/.config/solana/id.json", "utf-8"))
-    const secretKey =Uint8Array.from(wallet);
-    const ownerA =Keypair.fromSecretKey(secretKey);
-    const mintPk = new web3.PublicKey("HGwHSwAJUT3GiuhDuuZxoRJ9bxfzJFe6oJVcpZLeJcHd");
-    const tokenAcOwnerA =await connection.getTokenAccountsByOwner(ownerA.publicKey,{mint : mintPk});
-    console.log(tokenAcOwnerA.value[0]);
+    //ServerKeypair
+    const wallet = JSON.parse(fs.readFileSync("$HOME/.config/solana/id.json", "utf-8"))
+    const ServerSK =Uint8Array.from(wallet);
+    const ServerKeypair =Keypair.fromSecretKey(ServerSK);
+
+    //UsrKeypair
+    const usrSk58aux = bs58.decode(usrSk58);
+    const usrKeypair=  Keypair.fromSecretKey(usrSk58aux);
+
+    //UsrPublickey
+    const UsrPk = usrKeypair.publicKey
+
+    //DirNFT
+    const mintPk = new web3.PublicKey(minit);
+
+    //Sacamos Token account del server y la direccion del NFT
+    const ServerTokenAc =await connection.getTokenAccountsByOwner(ServerKeypair.publicKey,{mint : mintPk});
     
-    var ownerB= new web3.PublicKey("gDQC6nFojPdH1cDQS2TXQNZGRQXvtkEKkERetPcd8TA");
-
+    //Cuenta del NFT
     let mintAccount = await getMint(connection, mintPk);
-
     console.log(mintAccount);
 
-    //owner
-    var ownerAPk = ownerA.publicKey;
+    //Public key del Server
+    var ServerPk = ServerKeypair.publicKey;
 
 
 
-    //Reciber
+    //Crea token Account del Usr
     let ata = await createAssociatedTokenAccount(
         connection, // connection
-        ownerA, // fee payer
+        ServerKeypair, // fee payer
         mintPk, // mint
-        ownerB // owner,
+        UsrPk // owner,
       );
     //console.log(ownerAPk);
 
@@ -46,20 +57,16 @@ async function transf() {
     console.log("B puiblic key"+ ownerB)
 */
     
-    console.log("/////////////////");
     //const imageUrl = nft.json.image;
     let tx = new Transaction().add(
         createTransferCheckedInstruction(
-          mintPk, // from (should be a token account)
+          ServerTokenAc.value[0].pubkey, // from (should be a token account)
           mintPk, // mint
           ata, // to (should be a token account)
-          ownerAPk, // from's owner
+          UsrPk, // from's owner
           1, // amount, if your deciamls is 8, send 10^8 for 1 token
           0 // decimals
         )
       );
-    console.log(tx);
-    console.log(ata);
-    console.log("WWWWWiiiiii");
 }
-transf();
+
