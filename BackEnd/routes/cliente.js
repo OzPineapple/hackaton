@@ -1,5 +1,5 @@
 var router =  require('express').Router();
-var genWallet = require('../Solana/WalletGen.js');
+//var genWallet = require('../Solana/WalletGen.js');
 var getBalance = require('../Solana/Balance.js');
 var { PublicKey } = require("@solana/web3.js");
 
