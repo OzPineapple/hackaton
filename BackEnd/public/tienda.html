@@ -31,7 +31,6 @@
             var sta = resolt.status;
             var info=[];
             resolt = await resolt.json();
-            console.log(resolt);
             switch (sta) {
                 case 200:
                 for (let i = 0; i < resolt.length; i++) {
@@ -48,8 +47,25 @@
                 newa.addEventListener("click", function () {
                     localStorage.setItem("nom",resolt[i].event);
                     localStorage.setItem("des",resolt[i].data);
-                    localStorage.setItem("or",resolt[i].manager);
-                    localStorage.setItem("ty",resolt[i].type);
+                    localStorage.setItem("or",resolt[i].managr);
+                    var op = resolt[i].tipoEvento;
+                    console.log(op);
+                    switch (op) {
+                        case "1":
+                            localStorage.setItem("ty","Concierto");
+                            console.log(localStorage.getItem("ty"));
+                            break;
+                        case "2":        
+                            localStorage.setItem("ty","Deporte");
+                            console.log(localStorage.getItem("ty"));
+                            break;
+                        case "3":
+                            localStorage.setItem("ty","Cultura y teatro");
+                            console.log(localStorage.getItem("ty"));
+                            break;
+                        default:
+                            break;
+                    }
                     localStorage.setItem("pre",resolt[i].precio);
                     window.open("evento.html");
                 })

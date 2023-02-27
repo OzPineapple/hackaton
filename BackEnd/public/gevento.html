@@ -50,7 +50,7 @@
                     <input type="datetime-local" id="fecha" name="date" value="2023-02-26T16:30:00.000Z">
                     <br><br>
                     <label for="deseve" class="reg">Descripción del evento:</label><br>
-                    <textarea name="data" id="deseve" cols="30" rows="10"></textarea>
+                    <textarea name="desc" id="deseve" cols="30" rows="10"></textarea>
                     <br><br>
                     <button class="enviar">Registrar evento</button>
                 </form>
@@ -63,7 +63,7 @@
         var organizador = document.querySelector("#organizador");
         var fecha = document.querySelector("#fecha");
         var deseve = document.querySelector("#deseve");
-       
+       var form = document.querySelector("#form");
         var numbo = document.querySelector("#numbo");
         var cost = document.querySelector("#cost");
         var enviar = document.querySelector(".enviar");
