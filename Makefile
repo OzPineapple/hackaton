@@ -1,6 +1,7 @@
-.SILENT:
+# .SILENT:
 
 DATABASE="TicketMunster"
+AWS_SERVER=$(shell cat etc/public-dns )
 
 default: run
 
@@ -28,3 +29,17 @@ uninstall-server:
 
 uninstall-database:
 	mongosh TicketMunster --eval "db.dropDatabase()"
+
+aws-connect:
+	ssh -i etc/aws-server.pem ubuntu@${AWS_SERVER}
+
+aws-deploy:
+	rsync 	-vrlt --progress \
+		-e "ssh -i etc/aws-server.pem" \
+		--files-from=etc/src \
+		./ ubuntu@${AWS_SERVER}:/home/ubuntu/hackaton
+	ssh -i "etc/aws-server.pem" ubuntu@${AWS_SERVER} < etc/cmd-install
+	echo "http://${AWS_SERVER}:80"
+
+aws-destroy:
+	ssh -i "etc/aws-server.pem" ubuntu@${AWS_SERVER} < etc/cmd-uninstall

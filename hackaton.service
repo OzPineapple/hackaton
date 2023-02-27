@@ -1,0 +1,11 @@
+[Unit]
+Description=Proyecto para el hackaton
+
+[Service]
+User=root
+WorkingDirectory=/home/ubuntu/hackaton/BackEnd
+ExecStart=npm start
+Restart=on-failure
+
+[Install]
+WantedBy=mongod.service

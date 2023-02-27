@@ -1,0 +1,5 @@
+make -C hackaton uninstall
+sudo systemctl stop hackaton.service
+sudo systemctl disable hackaton.service
+sudo rm -rf /home/ubuntu/hackaton
+sudo systemctl daemon-reload

@@ -1,0 +1,9 @@
+BackEnd/Solana
+BackEnd/lib
+BackEnd/package.json
+BackEnd/public
+BackEnd/routes
+BackEnd/server.js
+DBFiles/
+hackaton.service
+Makefile
