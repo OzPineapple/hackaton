@@ -46,31 +46,36 @@
     <script>
          async function Cliente(e){
             e.preventDefault();
-            var resolt = await fetch("/clientes/");
-            var sta = resolt.status;
-            console.log(resolt);
-            resolt = await resolt.json();
-            switch (sta) {
-                case 201:
-                var nom = document.querySelector("#nom");
-                var email = document.querySelector("#email");
-                var wall = document.querySelector("#wallet");
-                var balance = document.querySelector("#balance");
-                nom.innerText = resolt.name;
-                email.innerText = resolt.mail;
-                wall.innerText = resolt.publicK;
-                balance.innerText = resolt.balance;
-
-                    break;
-                case 404:
-                    alert("Usuario no existe");
-                    break;
-                case 500:
-                    alert("Error en servidor");
-                    break;
-                case 401:
-                    alert("Error dde contraseña");
-                    break;
+            try {
+                
+                var resolt = await fetch("/clientes/");
+                var sta = resolt.status;
+                console.log(resolt);
+                resolt = await resolt.json();
+                switch (sta) {
+                    case 201:
+                    var nom = document.querySelector("#nom");
+                    var email = document.querySelector("#email");
+                    var wall = document.querySelector("#wallet");
+                    var balance = document.querySelector("#balance");
+                    nom.innerText = resolt.name;
+                    email.innerText = resolt.mail;
+                    wall.innerText = resolt.publicK;
+                    balance.innerText = resolt.balance;
+    
+                        break;
+                    case 404:
+                        alert("Usuario no existe");
+                        break;
+                    case 500:
+                        alert("Error en servidor");
+                        break;
+                    case 401:
+                        alert("Error dde contraseña");
+                        break;
+                }
+            } catch (error) {
+                console.log("mamo");
             }
         }
 
@@ -98,18 +103,17 @@
                 newp.textContent= resolt2[i].data;
                 var newa = document.createElement("a");
                 newa.classList.add("evev");
-                console.log(resolt2[i].fecha);
                 var f = new Date(resolt2[i].fecha).getTime();
-                
-                var res = 2*60*60000;
-                var ini = new Date(f - res).getTime();
+                res= f-7200000;
+                prueba=f-7000000;
+                var ini = new Date();
+                ini.setTime(res);
                 var hoy = Date.now();
-                console.log(f);
-                console.log(hoy);
-                if (hoy > f && hoy <=f) {
+                if (hoy < f && hoy >=ini.getTime()) {
                     newa.addEventListener("click", function () {
                         
-                        window.open("evento.html");
+                        localStorage.setItem("txt","abc");
+                        window.open("qr.html");
                     })
                     newa.textContent="Generar boleto";
                 } else {
