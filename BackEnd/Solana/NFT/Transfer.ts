@@ -7,7 +7,7 @@ const web3 = require('@solana/web3.js');
 const  fs  = require( "fs");
 
 
-async function transf(usrSk58, minit) {
+module.exports = async function (usrSk58, minit) => {
     //Conexion
     const connection = new Connection(clusterApiUrl("devnet"));
 
