@@ -1,7 +1,7 @@
 /* Importación de bibliotecas */
 const http = require('http');
 const express = require('express');
-const body_parser = require('body-parser');
+const bodyParser = require('body-parser');
 const session = require('express-session');
 const path = require('path');
 
@@ -10,6 +10,7 @@ const router = express.Router();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,"public")));
+app.use(bodyParser.text());
 
 /* Importación de los enrutadores */
 const clientes_router		= require(path.join(__dirname,'routes','cliente'));
