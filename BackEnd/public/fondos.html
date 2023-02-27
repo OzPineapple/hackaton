@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Fondos</title>
+</head>
+<body style="background: url(imagenes/registro.png);background-size: cover;">
+    <section class="gevento">
+        <div class="ev">
+            <h2>Seleccionar número de boletos</h2><br><br>
+                <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;" id="form" >
+                    
+                    <label for="numbo" class="reg">Numero de fondos a agregar:</label>
+                    <input type="number" name="cantidad" id="numbo" class="regim">
+                    
+                        <br><br>
+                    <button class="enviar">Ingresar soles</button>
+                </form>
+        </div>
+    </section>
+    <script>
+        var enviar = document.querySelector(".enviar");
+        enviar.addEventListener("click", async function (e) {
+            e.preventDefault();
+
+		let data = document.getElementById("numbo").value;
+		console.log( data );
+		let res = await fetch('/clientes/addfondos', {
+			  method: 'POST',
+			  body: data,
+			  headers:{
+				  'Content-Type': 'text/plain'
+			  }
+		});
+
+		switch( res.status ){
+			case 201:
+			    window.open("confirmacionfondos.html","_self");
+			break;
+			case 500:
+				alert("Error en el servidor, intente más tarde");
+			break;
+			case 401:
+				window.open('/isesion.html', "_self");
+			break;
+		}
+        })
+
+        
+    </script>
+
+    
+</body>
+</html>

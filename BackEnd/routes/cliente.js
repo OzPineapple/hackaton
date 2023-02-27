@@ -1,7 +1,7 @@
 var router =  require('express').Router();
-var genWallet = require('../Solana/WalletGen.js');
 var getBalance = require('../Solana/Balance.js');
 var { PublicKey } = require("@solana/web3.js");
+var solana = require("../Solana/solana.js");
 
 const db = require('../lib/mongodb.js');
 
@@ -31,9 +31,23 @@ router.post('/edit', async (req, res) => {
 });
 */
 
+router.post('/addfondos', async (req, res) => {
+	try{
+		if( ! req.session.usr ) res.status(401).send();
+		let cantidad = Number( req.body );
+		do await solana.AddFondos( req.session.usr.publicK );
+		while( cantidad > 0 );
+		res.status(201).send();
+	}catch(e){
+		console.log(e);
+		res.status(500).send();
+	}
+});
+
 router.post('/new', async (req, res) => {
 	try{
-		req.body.llavep = "" + await genWallet( req.body );
+		console.log( solana );
+		req.body.llavep = "" + await solana.GeneraCuenta( req.body );
 		console.log( req.body );
 		await db.usr_set( req.body );
 		res.status(201).send();
