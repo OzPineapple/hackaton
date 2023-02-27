@@ -9,12 +9,12 @@
 </head>
 <body style="background: url(imagenes/registro.png);background-size: cover;">
     <header class="abajo">
-        <a href="admin.html" class="logo">TICKETLAND</a>
+        <a href="admin.html" class="logo">TICKETMUNSTER</a>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="tienda.html">Tienda</a></li>
-                <li><a href="">Tienda de la comunidad</a></li>
+                <li><a href="vuser.html">Mi perfil</a></li>
                 <li><a href="isesion.html">Inicio de sesión</a></li>
                 <li><a href="registro.html" class="registro">registrarse</a></li>
             </ul>
@@ -48,7 +48,7 @@
             e.preventDefault();
             var resolt = await fetch("/clientes/");
             var sta = resolt.status;
-            var info=[];
+            console.log(resolt);
             resolt = await resolt.json();
             switch (sta) {
                 case 201:
@@ -85,7 +85,6 @@
                 method: 'GET'
             });
             resolt2 = await resolt2.json();
-            console.log(resolt2);
             switch (sta) {
                 case 201:
                 for (let i = 0; i < resolt.length; i++) {
@@ -99,11 +98,23 @@
                 newp.textContent= resolt2[i].data;
                 var newa = document.createElement("a");
                 newa.classList.add("evev");
-                newa.addEventListener("click", function () {
-                    
-                    window.open("evento.html");
-                })
-                newa.textContent="Ver mas...";
+                console.log(resolt2[i].fecha);
+                var f = new Date(resolt2[i].fecha).getTime();
+                
+                var res = 2*60*60000;
+                var ini = new Date(f - res).getTime();
+                var hoy = Date.now();
+                console.log(f);
+                console.log(hoy);
+                if (hoy > f && hoy <=f) {
+                    newa.addEventListener("click", function () {
+                        
+                        window.open("evento.html");
+                    })
+                    newa.textContent="Generar boleto";
+                } else {
+                    newa.textContent="Aun no es posible generar el boleto";
+                }
                 newdiv.appendChild(newh2);
                 newdiv.appendChild(newp);
                 newdiv.appendChild(newa);
