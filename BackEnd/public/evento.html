@@ -24,12 +24,12 @@
         <h2 style="font-size: 3em;" class="nevent" id="nom">Nombre del evento</h2><br>
         <p style="width: 80%;margin: auto;" id="des">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate praesentium rerum deserunt tempora adipisci tempore, quo illo molestiae. Asperiores veritatis sunt ab modi animi a recusandae dolor qui exercitationem enim. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae minima voluptas suscipit aliquam eum, animi impedit cumque quibusdam expedita corporis, quidem tempora cum delectus necessitatibus amet unde eveniet fugiat iure! Lorem ipsum dolor sit amet consectetur adipisicing elit. Error similique voluptatibus fugiat fugit sapiente dolore ut quibusdam eligendi! Rem deleniti a voluptates facilis quae ipsa dolore ab magnam consequuntur corrupti! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam possimus soluta corporis nihil modi excepturi harum porro blanditiis doloremque accusantium hic quis autem tempore, dicta expedita iure error. Deserunt, sunt!</p>
         <br><br>
-        <h2 style="font-size: 1.5em;" class="nevent">Lugar del evento</h2><br>
+        <h2 style="font-size: 1.5em;" class="nevent" >Lugar del evento</h2><br>
         <div class="lugarevento">
             <label for="" class="reg" style="color: black; padding: 0px 30px;" id="orga" >Nombre del recinto</label>  
             <label for="" class="reg" style="color: black; padding: 0px 10px;">Tipo de evento:</label>
             <label for="" class="reg" style="color: black; padding: 0px 10px;" id="ty">Aqui va el tipo de evento xd</label>
-            <label for=""class="reg" style="color: black; padding: 0px 10px;">Precio del boleto</label>
+            <label for=""class="reg" style="color: black; padding: 0px 10px;">Precio del boleto: $</label>
             <label for="" class="reg" style="color: black; padding: 0px 10px;" id="pre">Aqui va el precio del evento xd</label>
             <br><br>
             <button class="enviar" style="color: black;">Comprar boleto</button>
@@ -43,11 +43,13 @@
             var roganizacion = localStorage.getItem("or");
             var tipo = localStorage.getItem("ty");
             var precio = localStorage.getItem("pre");
+
             var nomre = document.querySelector("#nom");
             var des = document.querySelector("#des");
             var organi = document.querySelector("#orga");
             var ty = document.querySelector("#ty");
             var pre = document.querySelector("#pre");
+            
 
             nomre.innerText = nom;
             des.innerText = descri;
@@ -55,6 +57,11 @@
             ty.innerText = tipo;
             pre.innerText = precio;
             
+            localStorage.removeItem("nom");
+            localStorage.removeItem("des");
+            localStorage.removeItem("or");
+            localStorage.removeItem("ty");
+            localStorage.removeItem("pre");
         }
         
 

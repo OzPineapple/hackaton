@@ -353,12 +353,15 @@ select{
 }
 
 .even{
-    font-size: 2em;
+    font-size: 1.5em;
+    max-width: 10%;
+    min-width: 10%;
 }
 
 .eved{
     font-size: 1em;
-    max-width: 80%;
+    max-width: 50%;
+    min-width: 50%;
 }
 .evev{
     font-size: 1em;
