@@ -1,28 +1,20 @@
 {
-    "name": "Studious Crab #2",
-    "symbol": "CRAB",
-    "description": "The Studious Crabs are smart and productive crabs.",
-    "image": "1.png",
-    "attributes": [
-        {
-            "trait_type": "accessory",
-            "value": "pencil"
-        },
-        {
-            "trait_type": "accessory",
-            "value": "clipboard"
-        },
-        {
-            "trait_type": "books",
-            "value": "purple"
-        }
-    ],
-    "properties": {
-        "files": [
-            {
-                "uri": "1.png",
-                "type": "image/png"
-            }
-        ]
+  "name": "Number #0002",
+  "symbol": "NB",
+  "description": "Collection of 10 numbers on the blockchain. This is the number 2/10.",
+  "image": "1.png",
+  "attributes": [
+    {
+      "trait_type": "Number",
+      "value": "1"
     }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "1.png",
+        "type": "image/png"
+      }
+    ]
+  }
 }
