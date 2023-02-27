@@ -26,7 +26,16 @@
         enviar.addEventListener("click", async function (e) {
             e.preventDefault();
 
-            window.open("confirmacionfondos.html","_self");
+		let res = fetch('/cliente/addfondos');
+
+		switch( res.status ){
+			case 201:
+			    window.open("confirmacionfondos.html","_self");
+			break;
+			case 500:
+				alert("Error en el servidor, intente más tarde");
+			break;
+		}
         })
 
         

@@ -2,6 +2,7 @@ var router =  require('express').Router();
 var genWallet = require('../Solana/WalletGen.js');
 var getBalance = require('../Solana/Balance.js');
 var { PublicKey } = require("@solana/web3.js");
+var { addFondos } = require("../Solana/solana.js");
 
 const db = require('../lib/mongodb.js');
 
@@ -30,6 +31,16 @@ router.post('/edit', async (req, res) => {
 	}
 });
 */
+
+router.get('/addfondos', async (req, res) => {
+	try{
+		await addFondos( req.session.usr.publicK );
+		res.status(201).send();
+	}catch(e){
+		console.log(e);
+		res.status(500).send();
+	}
+});
 
 router.post('/new', async (req, res) => {
 	try{
