@@ -2,5 +2,13 @@
   "name": "Evento: Nos lleva la verga",
   "symbol": "ALV",
   "description": "Solo hay un boleto de ida",
-  "image": "1.png"
+  "image": "1.png",
+"properties": {
+        "files": [
+            {
+                "uri": "1.png",
+                "type": "image/png"
+            }
+        ]
+    }
 }

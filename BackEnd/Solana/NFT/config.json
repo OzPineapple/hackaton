@@ -1,12 +1,12 @@
 {
-  "number": 10,
+  "number": 1,
   "symbol": "ALV",
   "sellerFeeBasisPoints": 0,
   "isMutable": true,
   "isSequential": false,
   "creators": [
     {
-      "address": "3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3",
+      "address": "Y1VcMfZGo8mcQ22HTdFjYdZX6Q1B1DKqvaRvygYCPiw",
       "share": 100
     }
   ],

@@ -1,4 +1,5 @@
-{"v":0,"name":"sugar","msg":"Lend me some sugar, I am your neighbor.","level":30,"hostname":"HaruNoYukki.local","pid":3388,"time":"2023-02-26T15:31:49.237665Z","target":"sugar","line":123,"file":"src/main.rs"}
+{"v":0,"name":"sugar","msg":"Lend me some sugar, I am your neighbor.","level":30,"hostname":"artixlinux","pid":17671,"time":"2023-02-27T22:00:07.060062954Z","target":"sugar","line":123,"file":"src/main.rs"}
+"}
 {"v":0,"name":"sugar","msg":"Cache exists, loading...","level":30,"hostname":"HaruNoYukki.local","pid":3388,"time":"2023-02-26T15:31:49.243777Z","target":"sugar_cli::cache","line":161,"file":"src/cache.rs"}
 {"v":0,"name":"sugar","msg":"checkout waiting for idle connection: (\"https\", api.devnet.solana.com)","level":10,"hostname":"HaruNoYukki.local","pid":3388,"time":"2023-02-26T15:31:49.265626Z","target":"hyper::client::pool","line":638,"file":"/Users/samuel/.cargo/registry/src/github.com-1ecc6299db9ec823/hyper-0.14.23/src/client/pool.rs"}
 {"v":0,"name":"sugar","msg":"Http::connect; scheme=Some(\"https\"), host=Some(\"api.devnet.solana.com\"), port=None","level":10,"hostname":"HaruNoYukki.local","pid":3388,"time":"2023-02-26T15:31:49.266201Z","target":"hyper::client::connect::http","line":278,"file":"/Users/samuel/.cargo/registry/src/github.com-1ecc6299db9ec823/hyper-0.14.23/src/client/connect/http.rs"}
