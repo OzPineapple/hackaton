@@ -7,8 +7,7 @@ const db = require('../lib/mongodb.js');
 
 router.get('/', async (req, res) => {
 	try{
-		if( ! req.session.usr )
-			res.status(401).send();
+		if( ! req.session.usr ) return res.status(401).send();
 		req.session.usr.balance = await getBalance( new PublicKey( req.session.usr.publicK ) );
 		res.status(201).send( req.session.usr );
 	}catch(e){
@@ -59,6 +58,7 @@ router.post('/new', async (req, res) => {
 
 router.get('/boletos', async (req, res) => {
 	try{
+		if( ! req.session.usr ) return res.status(401).send();
 		console.log(req.session.usr.id_text);
 		res.status(201).send( await db.ticket_getByOwner( req.session.usr.id_text ) );
 	}catch(e){
