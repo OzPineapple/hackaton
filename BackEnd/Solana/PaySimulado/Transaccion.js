@@ -4,7 +4,7 @@ const web3 = require ('@solana/web3.js')
 const connection = new Connection(clusterApiUrl('devnet'));
 const  fs  = require( "fs");
 
-async function CompraBoleto(usrSk58) {
+module.exports = async function CompraBoleto(usrSk58) {
     //Llaves del servidor
     const wallet = JSON.parse(fs.readFileSync("$HOME/.config/solana/id.json"
 , "utf-8"))
@@ -45,6 +45,3 @@ async function CompraBoleto(usrSk58) {
     //Retorno de Firma
     return signature;
 }
-
-
-console.log(CompraBoleto("gDQC6nFojPdH1cDQS2TXQNZGRQXvtkEKkERetPcd8TA"));
