@@ -1,13 +1,13 @@
-import { Metaplex, keypairIdentity, bundlrStorage, token } from "@metaplex-foundation/js";
-import { createAssociatedTokenAccount, createTransferCheckedInstruction, getMint } from "@solana/spl-token";
-import { Connection, clusterApiUrl, Keypair, PublicKey, Transaction } from "@solana/web3.js";
-import bs58 from "bs58";
+const  { Metaplex, keypairIdentity, bundlrStorage, token }  = require( "@metaplex-foundation/js");
+const  { createAssociatedTokenAccount, createTransferCheckedInstruction, getMint }  = require( "@solana/spl-token");
+const  { Connection, clusterApiUrl, Keypair, PublicKey, Transaction }  = require( "@solana/web3.js");
+const  bs58  = require( "bs58");
 const web3 = require('@solana/web3.js');
 
-import fs from "fs";
+const  fs  = require( "fs");
 
 
-async function transf(usrSk58 : string, minit: string) {
+async function transf(usrSk58, minit) {
     //Conexion
     const connection = new Connection(clusterApiUrl("devnet"));
 
