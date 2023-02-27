@@ -1,6 +1,5 @@
 const  { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, sendAndConfirmTransaction, SystemProgram, Transaction }  = require( "@solana/web3.js");
 const  bs58  = require( "bs58");
-const web3 = require ('@solana/web3.js')
 const connection = new Connection(clusterApiUrl('devnet'));
 const  fs  = require( "fs");
 
@@ -27,7 +26,7 @@ async function CompraBoleto(usrSk58) {
     const Pago = SystemProgram.transfer({
         fromPubkey: sender,
         toPubkey: recipient,
-        lamports: LAMPORTS_PER_SOL * .1
+        lamports: LAMPORTS_PER_SOL
     })
     transaction.add(Pago);
 
