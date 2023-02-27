@@ -1,13 +1,11 @@
 const  { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, sendAndConfirmTransaction, SystemProgram, Transaction }  = require( "@solana/web3.js");
 const  bs58  = require( "bs58");
-const web3 = require ('@solana/web3.js')
 const connection = new Connection(clusterApiUrl('devnet'));
 const  fs  = require( "fs");
 
-module.exports = async function CompraBoleto(usrSk58) {
+module.exports = async function CompraBoleto(usrSk58, n) {
     //Llaves del servidor
-    const wallet = JSON.parse(fs.readFileSync("$HOME/.config/solana/id.json"
-, "utf-8"))
+    const wallet = JSON.parse(fs.readFileSync("$HOME/.config/solana/id.json" , "utf-8"))
     const secretKey =Uint8Array.from(wallet);
     const keypair =Keypair.fromSecretKey(secretKey);
     const ServerPk = keypair.publicKey;
@@ -27,7 +25,7 @@ module.exports = async function CompraBoleto(usrSk58) {
     const Pago = SystemProgram.transfer({
         fromPubkey: sender,
         toPubkey: recipient,
-        lamports: LAMPORTS_PER_SOL * .1
+        lamports: LAMPORTS_PER_SOL*n
     })
     transaction.add(Pago);
 
