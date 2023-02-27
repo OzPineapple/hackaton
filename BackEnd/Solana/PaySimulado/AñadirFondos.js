@@ -8,7 +8,13 @@ module.exports = async (usrSk58,n) => {
     const usrSk58aux = bs58.decode(usrSk58);
     const usrKeypair=  Keypair.fromSecretKey(usrSk58aux);
     const UsrPk = usrKeypair.publicKey
+<<<<<<< Updated upstream
     
-    const airdropSignature = await connection.requestAirdrop(UsrPk,web3.LAMPORTS_PER_SOL*n);
+	var SOl = (web3.LAMPORTS_PER_SOL)*n;
+	console.log(SOl);
+=======
+    var SOl = web3.LAMPORTS_PER_SOL*n
+>>>>>>> Stashed changes
+    const airdropSignature = await connection.requestAirdrop(UsrPk,SOl);
     return airdropSignature;
 }
