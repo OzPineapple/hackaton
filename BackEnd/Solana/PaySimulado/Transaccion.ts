@@ -1,9 +1,10 @@
 import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, sendAndConfirmTransaction, SystemProgram, Transaction } from "@solana/web3.js";
+import bs58 from "bs58";
 const web3 = require ('@solana/web3.js')
 const connection = new Connection(clusterApiUrl('devnet'));
 import fs from "fs";
 
-async function CompraBoleto(UsrPk) {
+async function CompraBoleto(usrSk58 : string) {
     //Llaves del servidor
     const wallet = JSON.parse(fs.readFileSync("/Users/haru/.config/solana/id.json", "utf-8"))
     const secretKey =Uint8Array.from(wallet);
@@ -11,10 +12,13 @@ async function CompraBoleto(UsrPk) {
     const ServerPk = keypair.publicKey;
 
     //Llaves del usuarío
-    const UserPk = new PublicKey(UsrPk);
+    
+    const usrSk58aux = bs58.decode(usrSk58);
+    const usrKeypair=  Keypair.fromSecretKey(usrSk58aux);
+    const UsrPk = usrKeypair.publicKey
 
     //Sender y reciper
-    const sender =  UserPk;
+    const sender =  UsrPk;
     const recipient  = ServerPk;
 
     //Transaccion
@@ -26,11 +30,15 @@ async function CompraBoleto(UsrPk) {
     })
     transaction.add(Pago);
 
+    console.log("here");
+
     //Firma de validación
+
+    //No esta validado, creo que por que el firmante debe de ser el usuario
     const signature = sendAndConfirmTransaction(
         connection,
         transaction,
-        [keypair]
+        [usrKeypair]
     );
 
     //Retorno de Firma
@@ -38,3 +46,4 @@ async function CompraBoleto(UsrPk) {
 }
 
 
+console.log(CompraBoleto("gDQC6nFojPdH1cDQS2TXQNZGRQXvtkEKkERetPcd8TA"));
