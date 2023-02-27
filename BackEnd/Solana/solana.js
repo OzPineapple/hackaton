@@ -1,7 +1,5 @@
-const tsimport = require("ts-import");
-solana = {};
-
-solana.GeneraCuenta = tsimport.loadSync("WalletGen.ts").GeneraCuenta;
-solana.AddFondos = tsimport.loadSync("PaySimulado/AñadirFondos.ts").AddFondos;
-
-module.exports = solana
+module.exports = {
+	GeneraCuenta : require("./WalletGen"),
+	AddFondos : require("./PaySimulado/AñadirFondos"),
+	getBalance : require("./Balance.js")
+}

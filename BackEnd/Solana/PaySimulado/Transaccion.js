@@ -1,12 +1,13 @@
-import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, sendAndConfirmTransaction, SystemProgram, Transaction } from "@solana/web3.js";
-import bs58 from "bs58";
+const  { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, sendAndConfirmTransaction, SystemProgram, Transaction }  = require( "@solana/web3.js");
+const  bs58  = require( "bs58");
 const web3 = require ('@solana/web3.js')
 const connection = new Connection(clusterApiUrl('devnet'));
-import fs from "fs";
+const  fs  = require( "fs");
 
-async function CompraBoleto(usrSk58 : string) {
+async function CompraBoleto(usrSk58) {
     //Llaves del servidor
-    const wallet = JSON.parse(fs.readFileSync("/Users/haru/.config/solana/id.json", "utf-8"))
+    const wallet = JSON.parse(fs.readFileSync("$HOME/.config/solana/id.json"
+, "utf-8"))
     const secretKey =Uint8Array.from(wallet);
     const keypair =Keypair.fromSecretKey(secretKey);
     const ServerPk = keypair.publicKey;
