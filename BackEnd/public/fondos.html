@@ -14,7 +14,7 @@
                 <form action="" style="border: 2px solid;border-color: red;width: 85%;margin: auto;padding: 20px;" id="form" >
                     
                     <label for="numbo" class="reg">Numero de fondos a agregar:</label>
-                    <input type="number" name="lug" id="numbo" class="regim"  oninput="calcular(event)">
+                    <input type="number" name="cantidad" id="numbo" class="regim">
                     
                         <br><br>
                     <button class="enviar">Ingresar soles</button>
@@ -26,7 +26,15 @@
         enviar.addEventListener("click", async function (e) {
             e.preventDefault();
 
-		let res = fetch('/cliente/addfondos');
+		let data = document.getElementById("numbo").value;
+		console.log( data );
+		let res = await fetch('/clientes/addfondos', {
+			  method: 'POST',
+			  body: data,
+			  headers:{
+				  'Content-Type': 'text/plain'
+			  }
+		});
 
 		switch( res.status ){
 			case 201:
@@ -34,6 +42,9 @@
 			break;
 			case 500:
 				alert("Error en el servidor, intente más tarde");
+			break;
+			case 401:
+				window.open('/isesion.html', "_self");
 			break;
 		}
         })
