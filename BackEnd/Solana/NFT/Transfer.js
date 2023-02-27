@@ -12,7 +12,7 @@ module.exports = async (usrSk58, minit) => {
     const connection = new Connection(clusterApiUrl("devnet"));
 
     //ServerKeypair
-    const wallet = JSON.parse(fs.readFileSync("$HOME/.config/solana/id.json", "utf-8"))
+    const wallet = JSON.parse(fs.readFileSync(process.env.HOME + "/.config/solana/id.json", "utf-8"))
     const ServerSK =Uint8Array.from(wallet);
     const ServerKeypair =Keypair.fromSecretKey(ServerSK);
 
