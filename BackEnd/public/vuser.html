@@ -36,6 +36,8 @@
             <label for="" class="refe">Balance:</label>
             <label for="" class="dato" id="balance"></label>
             <br><br>
+            <button class="enviar" style="font-size: 1em;padding: 10px;">Ingresar soles</button>
+            <br><br><br><br>
         </div>
     </section>
     <section class="lista" style="margin-top: 30px;">
@@ -142,7 +144,11 @@
             Cliente(event);
             Boletos(event);
         };
-
+        var enviar = document.querySelector(".enviar");
+        enviar.addEventListener("click", async function (e) {
+            e.preventDefault();
+            window.open("fondos.html","_self");
+        })
 
         
         

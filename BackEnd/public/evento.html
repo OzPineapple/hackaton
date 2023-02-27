@@ -58,6 +58,15 @@
             var pre = document.querySelector("#pre");
             var lug = document.querySelector("#lug");
             var lugd = document.querySelector("#lugd");
+            var enviar = document.querySelector(".enviar");
+
+            enviar.addEventListener("click", async function (e) {
+                e.preventDefault();
+                localStorage.setItem("nom",nom);
+                localStorage.setItem("ludis",ludis);
+                localStorage.setItem("pre",precio);
+                window.open("seleccion.html","_self")
+            })
             
 
             nomre.innerText = nom;
