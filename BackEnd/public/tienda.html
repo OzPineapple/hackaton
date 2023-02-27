@@ -48,26 +48,25 @@
                     localStorage.setItem("nom",resolt[i].event);
                     localStorage.setItem("des",resolt[i].data);
                     localStorage.setItem("or",resolt[i].managr);
+                    localStorage.setItem("lu",resolt[i].lugares);
+                    localStorage.setItem("dis",resolt[i].lugaresDisp);
                     var op = resolt[i].tipoEvento;
                     console.log(op);
                     switch (op) {
                         case "1":
                             localStorage.setItem("ty","Concierto");
-                            console.log(localStorage.getItem("ty"));
                             break;
                         case "2":        
                             localStorage.setItem("ty","Deporte");
-                            console.log(localStorage.getItem("ty"));
                             break;
                         case "3":
                             localStorage.setItem("ty","Cultura y teatro");
-                            console.log(localStorage.getItem("ty"));
                             break;
                         default:
                             break;
                     }
                     localStorage.setItem("pre",resolt[i].precio);
-                    window.open("evento.html");
+                    window.open("evento.html","_self");
                 })
                 newa.textContent="Ver mas...";
                 newdiv.appendChild(newh2);
