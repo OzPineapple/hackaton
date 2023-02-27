@@ -4,7 +4,7 @@ const web3 = require ('@solana/web3.js')
 const connection = new Connection(clusterApiUrl('devnet'));
 import fs from "fs";
 
-async function AddFondos(usrSk58) {
+export async function AddFondos(usrSk58) {
 
     const usrSk58aux = bs58.decode(usrSk58);
     const usrKeypair=  Keypair.fromSecretKey(usrSk58aux);
