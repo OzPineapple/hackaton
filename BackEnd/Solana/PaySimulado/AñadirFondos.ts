@@ -4,7 +4,7 @@ const web3 = require ('@solana/web3.js')
 const connection = new Connection(clusterApiUrl('devnet'));
 import fs from "fs";
 
-export async function AddFondos(usrSk58) {
+async function AddFondos(usrSk58:string) {
 
     const usrSk58aux = bs58.decode(usrSk58);
     const usrKeypair=  Keypair.fromSecretKey(usrSk58aux);
@@ -13,4 +13,3 @@ export async function AddFondos(usrSk58) {
     const airdropSignature = await connection.requestAirdrop(UsrPk,web3.LAMPORTS_PER_SOL);
     return airdropSignature;
 }
-

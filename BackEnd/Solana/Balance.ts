@@ -1,13 +1,12 @@
 import { clusterApiUrl, Connection, Keypair, PublicKey} from "@solana/web3.js";
+import bs58 from "bs58";
 
 const connection = new Connection(clusterApiUrl('devnet'));
 
-export async function getBalanceUsingWeb3(address: PublicKey): Promise<number> {
+async function getBalanceUsingWeb3(usrSk58:string): Promise<number> {
     const connection = new Connection(clusterApiUrl('devnet'));
-    return connection.getBalance(address);
+    const usrSk58aux = bs58.decode(usrSk58);
+    const usrKeypair=  Keypair.fromSecretKey(usrSk58aux);
+    const UsrPk = usrKeypair.publicKey
+    return connection.getBalance(UsrPk);
 }
-var Puk = "3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3";
-const publicKey = new PublicKey(Puk)
-getBalanceUsingWeb3(publicKey).then(balance => {
-    console.log(balance);
-})
