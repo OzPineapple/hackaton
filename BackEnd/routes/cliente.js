@@ -1,6 +1,4 @@
 var router =  require('express').Router();
-var getBalance = require('../Solana/Balance.js');
-var { PublicKey } = require("@solana/web3.js");
 var solana = require("../Solana/solana.js");
 
 const db = require('../lib/mongodb.js');
@@ -8,7 +6,7 @@ const db = require('../lib/mongodb.js');
 router.get('/', async (req, res) => {
 	try{
 		if( ! req.session.usr ) return res.status(401).send();
-		req.session.usr.balance = await getBalance( new PublicKey( req.session.usr.publicK ) );
+		req.session.usr.balance = await solana.getBalance( req.session.usr.publicK );
 		res.status(201).send( req.session.usr );
 	}catch(e){
 		console.log(e);
@@ -32,13 +30,14 @@ router.post('/edit', async (req, res) => {
 
 router.post('/addfondos', async (req, res) => {
 	try{
-		if( ! req.session.usr ) res.status(401).send();
+		if( ! req.session.usr ) return res.status(401).send();
 		let cantidad = Number( req.body );
-		do await solana.AddFondos( req.session.usr.publicK );
-		while( cantidad > 0 );
-		res.status(201).send();
+		if( cantidad > 2 ) return res.status(400).send();
+		res.status(201).send( await solana.AddFondos( req.session.usr.publicK, cantidad ) );
 	}catch(e){
 		console.log(e);
+		if( e.name == "SolanaJSONRPCError" )
+			return res.status(502).send();
 		res.status(500).send();
 	}
 });
