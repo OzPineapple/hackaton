@@ -5,7 +5,7 @@ const  fs  = require( "fs");
 
 module.exports = async function CompraBoleto(usrSk58, n) {
     //Llaves del servidor
-    const wallet = JSON.parse(fs.readFileSync("$HOME/.config/solana/id.json" , "utf-8"))
+    const wallet = JSON.parse(fs.readFileSync( process.env.HOME + "/.config/solana/id.json" , "utf-8"))
     const secretKey =Uint8Array.from(wallet);
     const keypair =Keypair.fromSecretKey(secretKey);
     const ServerPk = keypair.publicKey;
