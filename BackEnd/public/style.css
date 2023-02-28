@@ -411,6 +411,17 @@ select{
     margin: auto;
 }
 
+a.dato{
+    font-size: 1.2em;
+    color: #fff;
+    margin: auto;
+    text-decoration: none;
+}
+
+a.dato:hover{
+    color: #CA07DE;
+}
+
 .mdatos{
     margin-top: 100px;
 }

@@ -30,7 +30,7 @@ router.get('/evento/:id', async (req, res) => {
 	}
 });
 
-router.post('/evento/:id/buy', async (req, res) => {
+router.get('/evento/buy', async (req, res) => {
 	try{
 		/* Es aqui donde debe crearse el NFT e introducirlo
 		 * a la red de blockchain.
@@ -43,7 +43,8 @@ router.post('/evento/:id/buy', async (req, res) => {
 		var nft_testing = "BHyizx3aXTpDYQv5boaug5nWqVJwbsPQaTbagUPdPoRx";
 		recibo.cobro = await solana.comprarBoleto( req.session.publicK, 1 );
 		// recibo.nft = await solana.tranferirBoleto( req.session.publicK, nft_testing );
-		db.set_ticket(req.params.id,req.session.usr.id_text,recibo.cobro);
+		db.set_ticket(1,req.session.usr.id_text,recibo.cobro);
+		console.log( recibo );
 		res.status(200).send( recibo );
 	}catch(e){
 		console.log(e);

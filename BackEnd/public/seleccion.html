@@ -65,7 +65,17 @@
 
         enviar.addEventListener("click", async function (e) {
             e.preventDefault();
-            window.open("confirmacion.html","_self");
+            var resolt = await fetch("/tienda/evento/buy");
+            resolt = await resolt.json();
+            
+
+
+            alert("Compra realizada\n"+
+            "Puede visualizar sus boletos en la seccion de `Mi perfil`\n"+
+            "Este proceso puede tardar, revise el estado de su compra en la redirección de pagina");
+
+            var url="https://explorer.solana.com/address/";
+            window.open("index.html","_self");
         })
         
     </script>

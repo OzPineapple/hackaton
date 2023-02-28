@@ -32,7 +32,8 @@
             <label for="" class="dato" id="email"></label>
             <br><br>
             <label for="" class="refe">Wallet:</label>
-            <label for="" class="dato" id="wallet"></label>
+            <label for="" class="refe" style="font-size: 1em;">Visitar en solana</label><img src="imagenes/icon2.png" alt="Solana" width="5px" height="5px"><br>
+            <a href="" class="dato" id="wallet" target="_blank"></a>
             <br><br>
             <label for="" class="refe">Balance:</label>
             <label for="" class="dato" id="balance"></label>
@@ -62,7 +63,9 @@
                     bal = bal /1000000000;
                     nom.innerText = resolt.name;
                     email.innerText = resolt.mail;
-                    wall.innerText = resolt.publicK;
+                    var url="https://explorer.solana.com/address/"+resolt.pubkey+"?cluster=devnet";
+                    wall.setAttribute("href",url);
+                    wall.innerText=resolt.pubkey;
                     balance.innerText = bal;
     
                         break;
@@ -146,11 +149,7 @@
             Cliente(event);
             Boletos(event);
         };
-        var enviar = document.querySelector(".enviar");
-        enviar.addEventListener("click", async function (e) {
-            e.preventDefault();
-            window.open("fondos.html","_self");
-        })
+       
 
         
         

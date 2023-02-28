@@ -6,11 +6,13 @@ const session = require('express-session');
 const path = require('path');
 
 const app = express();
-const router = express.Router();
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname,"public")));
+app.use('/imagenes',express.static(path.join(__dirname,"public/imagenes")));
+app.use(express.static(path.join(__dirname,'public')));
 app.use(bodyParser.text());
+const port = process.env.npm_package_config_port || '8080';
+app.set('port', port);
 
 /* Importación de los enrutadores */
 const clientes_router		= require(path.join(__dirname,'routes','cliente'));
@@ -31,9 +33,6 @@ app.use("/clientes",		clientes_router		);
 app.use("/administrador",	administrador_router	);
 app.use("/usuarios",		usuarios_router	);
 app.use("/tienda",		tienda_router	);
-
-const port = process.env.npm_package_config_port || '8080';
-app.set('port', port);
 
 const server = http.createServer(app);
 server.listen(port);

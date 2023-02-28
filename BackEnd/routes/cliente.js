@@ -6,7 +6,10 @@ const db = require('../lib/mongodb.js');
 router.get('/', async (req, res) => {
 	try{
 		if( ! req.session.usr ) return res.status(401).send();
+		const pubkey = solana.getPubkey( req.session.usr.publicK );
 		req.session.usr.balance = await solana.getBalance( req.session.usr.publicK );
+		req.session.usr.pubkey = pubkey;
+		console.log( req.session.usr );
 		res.status(201).send( req.session.usr );
 	}catch(e){
 		console.log(e);
