@@ -37,11 +37,17 @@ router.post('/evento/:id/buy', async (req, res) => {
 		 * Aunque si el NFT ya esta creado solo debera cambiarse
 		 * el dueño actual del NFT
 		 */
-		var token = "fjifgdshfdsjahj"; // TODO
-		res.status(200).send( await db.set_ticket(req.params.id,req.session.usr.id,token) );
+		if( ! req.session.usr ) return res.status(401).send();
+		var recibo = {};
+		// Este nft fue generado por mí, necitamos que el server pueda generar los propios
+		var nft_testing = "BHyizx3aXTpDYQv5boaug5nWqVJwbsPQaTbagUPdPoRx";
+		recibo.cobro = await solana.comprarBoleto( req.session.publicK, 1 );
+		// recibo.nft = await solana.tranferirBoleto( req.session.publicK, nft_testing );
+		db.set_ticket(req.params.id,req.session.usr.id_text,recibo.cobro);
+		res.status(200).send( recibo );
 	}catch(e){
 		console.log(e);
-		res.status(e.status).send();
+		res.status( e.status ? e.status : 500 ).send();
 	}
 });
 
