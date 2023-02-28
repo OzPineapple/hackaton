@@ -12,31 +12,31 @@ module.exports = async (usrSk58, minit) => {
     const connection = new Connection(clusterApiUrl("devnet"));
 
     //ServerKeypair
-    const wallet = JSON.parse(fs.readFileSync(process.env.HOME + "/.config/solana/id.json", "utf-8"))
+    //const wallet = JSON.parse(fs.readFileSync(process.env.HOME + "/.config/solana/id.json", "utf-8"))
+    const wallet = JSON.parse(fs.readFileSync("/Users/haru/.config/solana/id.json", "utf-8"))
     const ServerSK =Uint8Array.from(wallet);
     const ServerKeypair =Keypair.fromSecretKey(ServerSK);
 
     //UsrKeypair
+    
     const usrSk58aux = bs58.decode(usrSk58);
     const usrKeypair=  Keypair.fromSecretKey(usrSk58aux);
+    
 
     //UsrPublickey
-    const UsrPk = usrKeypair.publicKey
+    const UsrPk = usrKeypair.publicKey;
 
     //DirNFT
-    const mintPk = new web3.PublicKey(minit);
+    const mintPk = new PublicKey(minit);
 
     //Sacamos Token account del server y la direccion del NFT
     const ServerTokenAc =await connection.getTokenAccountsByOwner(ServerKeypair.publicKey,{mint : mintPk});
     
     //Cuenta del NFT
     let mintAccount = await getMint(connection, mintPk);
-    console.log(mintAccount);
 
     //Public key del Server
     var ServerPk = ServerKeypair.publicKey;
-
-
 
     //Crea token Account del Usr
     let ata = await createAssociatedTokenAccount(
@@ -47,6 +47,7 @@ module.exports = async (usrSk58, minit) => {
       );
     //console.log(ownerAPk);
 
+    console.log("UsrPK: "+ UsrPk);
     
    // const nft = await metaplex.nfts().findByMint({ mintAddress })
 /*
@@ -58,16 +59,18 @@ module.exports = async (usrSk58, minit) => {
 */
     
     //const imageUrl = nft.json.image;
- 	console.log( "A debug: " + ServerTokenAc.value[0] );
+ //console.log( "A debug: " + ServerTokenAc.value[0] );
     let tx = new Transaction().add(
         createTransferCheckedInstruction(
           ServerTokenAc.value[0], // from (should be a token account)
-          mintPk, // mint
+          mintAccount, // mint
           ata, // to (should be a token account)
           ServerPk, // from's owner
           1, // amount, if your deciamls is 8, send 10^8 for 1 token
-          0 // decimals
+          1 // decimals // amount, if your deciamls is 8, send 10^8 for 1 token
         )
       );
+
+    console.log(tx);
 }
 

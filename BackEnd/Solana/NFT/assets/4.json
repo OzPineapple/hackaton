@@ -1,12 +1,12 @@
 {
-  "name": "Number #0005",
-  "symbol": "NB",
-  "description": "Collection of 10 numbers on the blockchain. This is the number 5/10.",
+  "name": "Ticket",
+  "symbol": "Ticket",
+  "description": "Colleccion de boletso para el evento []",
   "image": "4.png",
   "attributes": [
     {
-      "trait_type": "Number",
-      "value": "5"
+      "trait_type": "Ticket",
+      "value": "4"
     }
   ],
   "properties": {

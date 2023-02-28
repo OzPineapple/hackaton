@@ -1,6 +1,6 @@
 {
-  "name": "Numbers Collection",
-  "symbol": "NB",
+  "name": "Ticket Colleccion [Event]",
+  "symbol": "Ticket",
   "description": "Collection of 10 numbers on the blockchain.",
   "image": "collection.png",
   "attributes": [],

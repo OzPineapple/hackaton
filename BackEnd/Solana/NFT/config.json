@@ -1,12 +1,12 @@
 {
-  "number": 10,
-  "symbol": "NB",
-  "sellerFeeBasisPoints": 0,
+  "number": 6,
+  "symbol": "Ticket",
+  "sellerFeeBasisPoints": 10,
   "isMutable": true,
-  "isSequential": false,
+  "isSequential": true,
   "creators": [
     {
-      "address": "Y1VcMfZGo8mcQ22HTdFjYdZX6Q1B1DKqvaRvygYCPiw",
+      "address": "3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3",
       "share": 100
     }
   ],
