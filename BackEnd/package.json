@@ -27,6 +27,7 @@
 	},
 	"devDependencies": {
 		"@types/bs58": "^4.0.1",
+		"debug": "^4.3.4",
 		"nodemon": "^2.0.20"
 	}
 }

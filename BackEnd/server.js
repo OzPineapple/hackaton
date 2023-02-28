@@ -4,12 +4,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const path = require('path');
+var debuger = require('debug');
+var debug = debuger('server:app');
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
-app.use('/imagenes',express.static(path.join(__dirname,"public/imagenes")));
-app.use(express.static(path.join(__dirname,'public')));
+app.use('/',express.static(path.join(__dirname,"public/imagenes")));
+app.use('/',express.static(path.join(__dirname,'public')));
 app.use(bodyParser.text());
 const port = process.env.npm_package_config_port || '8080';
 app.set('port', port);
