@@ -1,0 +1,18 @@
+---
+import Base from "../layouts/Base.astro";
+import InDatosC from "../components/InDatosC.astro";
+---
+<Base titulo="Registro">
+    <InDatosC>
+        <button id="Enviar">Registrar</button>
+    </InDatosC>
+</Base>
+
+<script>
+    var button = document.getElementById("Enviar");
+    button.addEventListener("click", function enviar(e) {
+        e.preventDefault();
+        var name = document.getElementById("name").value;
+        console.log(name);
+    })
+</script>

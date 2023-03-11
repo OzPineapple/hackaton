@@ -1,0 +1,11 @@
+---
+import Base from "../layouts/Base.astro";
+import Menub from "../layouts/Menub.astro";
+import Evento from "../layouts/Evento.astro";
+const descr = "lorem isump dbfjhfhsabdhfbsadhfbsadhbfla"
+---
+
+<Base title="Eventos">
+    <Menub></Menub>
+    <Evento nombre="Nombre del evento" des={descr} fecha="Hoy"></Evento>
+</Base>

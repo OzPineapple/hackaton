@@ -1,0 +1,28 @@
+---
+export interface Props {
+    nombre: string;
+    des: string;
+    fecha: string;
+}
+const { nombre, des, fecha } = Astro.props
+const Marco = "div";
+const Titulo = "div";
+const Fecha = "div";
+const Des = "div";
+const Ver = "div";
+---
+
+<Marco>
+    <Titulo>
+        <h1>{nombre}</h1>
+    </Titulo>
+    <Des>
+        <p>{des}</p>
+    </Des>
+    <Fecha>
+        <p>{fecha}</p>
+    </Fecha>
+    <Ver>
+        <a href="">Ver más...</a>
+    </Ver>
+</Marco>
