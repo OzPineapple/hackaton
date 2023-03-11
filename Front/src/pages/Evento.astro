@@ -1,0 +1,13 @@
+<!--Se editara esta madre por carpeta para parametros multiples -->
+
+<h2>Se muestra la informacion del evento</h2>
+
+<button id="Comprar">Comprar boletos</button>
+
+<script>
+    var btn = document.getElementById("Comprar");
+    btn.addEventListener("click", function noc(e) {
+        e.preventDefault();
+        window.open("/NumBol","_self")
+    })
+</script>

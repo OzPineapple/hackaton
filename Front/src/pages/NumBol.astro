@@ -1,0 +1,17 @@
+<h2>Compra de boletos</h2>
+<form action="">
+    <label for="cant">Inrese el numero de boletos que desea comprar:</label>
+    <input type="number" name="cant" id="cant" required>
+    <button id="Sig">Siguiente</button>
+</form>
+
+<script>
+    var sig = document.getElementById("Sig");
+    var cant1 = document.getElementById("cant");
+    sig.addEventListener("click", function sig(e) {
+        e.preventDefault();
+        var url = "/Seleccionar/"+cant1.value;
+        console.log(url);
+        window.open(url,"_self");
+    })
+</script>

@@ -1,0 +1,1332 @@
+---
+const {num} = Astro.params;
+---
+<script>
+    
+    var zonaa = document.querySelectorAll(".zonaA");
+    var zonab = document.querySelectorAll(".zonaB");
+    var zonac = document.querySelectorAll(".zonaC");
+    var zonad = document.querySelectorAll(".zonaD");
+    
+    const tam = document.querySelector("div").id;
+    const tamaño = parseInt(tam,10);
+
+    var asientoa=new Array(zonaa.length);
+    var asientob=new Array(zonab.length);
+    var asientoc=new Array(zonac.length);
+    var asientod=new Array(zonad.length);
+
+    var lugares=new Array(tamaño);
+    for (let index = 0; index < lugares.length; index++) {
+        lugares[index]=0;
+    }
+    var i =0;
+    console.log(lugares);
+
+    //--------------------------------------------------- zona a ---------------------------------------------------
+        asientoa[0]= zonaa[0].querySelector("rect");
+        zonaa[0].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonaa[0].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonaa[0].id;
+                        asientoa[0].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonaa[0].id) {
+                        lugares[index]=0;
+                        asientoa[0].style.fill="#ce3030";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+            
+        }); 
+        asientoa[1]= zonaa[1].querySelector("rect");
+        zonaa[1].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonaa[1].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonaa[1].id;
+                        asientoa[1].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonaa[1].id) {
+                        lugares[index]=0;
+                        asientoa[1].style.fill="#ce3030";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoa[2]= zonaa[2].querySelector("rect");
+        zonaa[2].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonaa[2].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonaa[2].id;
+                        asientoa[2].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonaa[2].id) {
+                        lugares[index]=0;
+                        asientoa[2].style.fill="#ce3030";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoa[3]= zonaa[3].querySelector("rect");
+        zonaa[3].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonaa[3].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonaa[3].id;
+                        asientoa[3].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonaa[3].id) {
+                        lugares[index]=0;
+                        asientoa[3].style.fill="#ce3030";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoa[4]= zonaa[4].querySelector("rect");
+        zonaa[4].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonaa[4].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonaa[4].id;
+                        asientoa[4].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonaa[4].id) {
+                        lugares[index]=0;
+                        asientoa[4].style.fill="#ce3030";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoa[5]= zonaa[5].querySelector("rect");
+        zonaa[5].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonaa[5].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonaa[5].id;
+                        asientoa[5].style.fill="#315C55";
+                        break;
+                    }
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                }else{
+                    if (lugares[index]==zonaa[5].id) {
+                        lugares[index]=0;
+                        asientoa[5].style.fill="#ce3030";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        });asientoa[6]= zonaa[6].querySelector("rect");
+        zonaa[6].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonaa[6].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonaa[6].id;
+                        asientoa[6].style.fill="#315C55";
+                        break;
+                    }
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                }else{
+                    if (lugares[index]==zonaa[6].id) {
+                        lugares[index]=0;
+                        asientoa[6].style.fill="#ce3030";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        });  
+        asientoa[7]= zonaa[7].querySelector("rect");
+        zonaa[7].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonaa[7].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonaa[7].id;
+                        asientoa[7].style.fill="#315C55";
+                        break;
+                    }
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                }else{
+                    if (lugares[index]==zonaa[7].id) {
+                        lugares[index]=0;
+                        asientoa[7].style.fill="#ce3030";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoa[8]= zonaa[8].querySelector("rect");
+        zonaa[8].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonaa[8].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonaa[8].id;
+                        asientoa[8].style.fill="#315C55";
+                        break;
+                    }
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                }else{
+                    if (lugares[index]==zonaa[8].id) {
+                        lugares[index]=0;
+                        asientoa[8].style.fill="#ce3030";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        //-----------------------------------------------------------------------------Zona b--------------------------------------------------------------------------------------------------
+        asientob[0]= zonab[0].querySelector("rect");
+        zonab[0].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[0].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[0].id;
+                        asientob[0].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[0].id) {
+                        lugares[index]=0;
+                        asientob[0].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        });  asientob[1]= zonab[1].querySelector("rect");
+        zonab[1].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[1].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[1].id;
+                        asientob[1].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[1].id) {
+                        lugares[index]=0;
+                        asientob[1].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientob[2]= zonab[2].querySelector("rect");
+        zonab[2].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[2].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[2].id;
+                        asientob[2].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[2].id) {
+                        lugares[index]=0;
+                        asientob[2].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        });
+        asientob[3]= zonab[3].querySelector("path");
+        zonab[3].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[3].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[3].id;
+                        asientob[3].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[3].id) {
+                        lugares[index]=0;
+                        asientob[3].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientob[4]= zonab[4].querySelector("path");
+        zonab[4].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[4].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[4].id;
+                        asientob[4].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[4].id) {
+                        lugares[index]=0;
+                        asientob[4].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        });  
+        asientob[5]= zonab[5].querySelector("path");
+        zonab[5].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[5].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[5].id;
+                        asientob[5].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[5].id) {
+                        lugares[index]=0;
+                        asientob[5].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientob[6]= zonab[6].querySelector("rect");
+        zonab[6].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[6].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[6].id;
+                        asientob[6].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[6].id) {
+                        lugares[index]=0;
+                        asientob[6].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientob[7]= zonab[7].querySelector("rect");
+        zonab[7].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[7].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[7].id;
+                        asientob[7].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[7].id) {
+                        lugares[index]=0;
+                        asientob[7].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        });
+        asientob[8]= zonab[8].querySelector("rect");
+        zonab[8].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[8].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[8].id;
+                        asientob[8].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[8].id) {
+                        lugares[index]=0;
+                        asientob[8].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        });  
+        asientob[9]= zonab[9].querySelector("path");
+        zonab[9].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[9].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[9].id;
+                        asientob[9].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[9].id) {
+                        lugares[index]=0;
+                        asientob[9].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientob[10]= zonab[10].querySelector("path");
+        zonab[10].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[10].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[10].id;
+                        asientob[10].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[10].id) {
+                        lugares[index]=0;
+                        asientob[10].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientob[11]= zonab[11].querySelector("path");
+        zonab[11].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonab[11].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonab[11].id;
+                        asientob[11].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonab[11].id) {
+                        lugares[index]=0;
+                        asientob[11].style.fill="#f4ad58";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+    //---------------------------------------------------------------------------------------Zona C--------------------------------------------------------------------------------------
+    asientoc[0]= zonac[0].querySelector("rect");
+        zonac[0].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonac[0].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonac[0].id;
+                        asientoc[0].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonac[0].id) {
+                        lugares[index]=0;
+                        asientoc[0].style.fill="#bc91c1";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoc[1]= zonac[1].querySelector("rect");
+        zonac[1].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonac[1].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonac[1].id;
+                        asientoc[1].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonac[1].id) {
+                        lugares[index]=0;
+                        asientoc[1].style.fill="#bc91c1";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoc[2]= zonac[2].querySelector("rect");
+        zonac[2].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonac[2].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonac[2].id;
+                        asientoc[2].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonac[2].id) {
+                        lugares[index]=0;
+                        asientoc[2].style.fill="#bc91c1";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoc[3]= zonac[3].querySelector("rect");
+        zonac[3].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonac[3].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonac[3].id;
+                        asientoc[3].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonac[3].id) {
+                        lugares[index]=0;
+                        asientoc[3].style.fill="#bc91c1";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoc[4]= zonac[4].querySelector("rect");
+        zonac[4].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonac[4].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonac[4].id;
+                        asientoc[4].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonac[4].id) {
+                        lugares[index]=0;
+                        asientoc[4].style.fill="#bc91c1";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoc[5]= zonac[5].querySelector("rect");
+        zonac[5].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonac[5].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonac[5].id;
+                        asientoc[5].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonac[5].id) {
+                        lugares[index]=0;
+                        asientoc[5].style.fill="#bc91c1";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoc[6]= zonac[6].querySelector("rect");
+        zonac[6].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonac[6].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonac[6].id;
+                        asientoc[6].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonac[6].id) {
+                        lugares[index]=0;
+                        asientoc[6].style.fill="#bc91c1";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientoc[7]= zonac[7].querySelector("rect");
+        zonac[7].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonac[7].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonac[7].id;
+                        asientoc[7].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonac[7].id) {
+                        lugares[index]=0;
+                        asientoc[7].style.fill="#bc91c1";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        //--------------------------------------------------------------Zona D---------------------------------------------------------------------------------------------------------------------------
+
+        asientod[0]= zonad[0].querySelector("rect");
+        zonad[0].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonad[0].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonad[0].id;
+                        asientod[0].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonad[0].id) {
+                        lugares[index]=0;
+                        asientod[0].style.fill="#7070f9";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+            
+        }); 
+        asientod[1]= zonad[1].querySelector("rect");
+        zonad[1].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonad[1].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonad[1].id;
+                        asientod[1].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonad[1].id) {
+                        lugares[index]=0;
+                        asientod[1].style.fill="#7070f9";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientod[2]= zonad[2].querySelector("rect");
+        zonad[2].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonad[2].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonad[2].id;
+                        asientod[2].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonad[2].id) {
+                        lugares[index]=0;
+                        asientod[2].style.fill="#7070f9";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientod[3]= zonad[3].querySelector("rect");
+        zonad[3].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonad[3].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonad[3].id;
+                        asientod[3].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonad[3].id) {
+                        lugares[index]=0;
+                        asientod[3].style.fill="#7070f9";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientod[4]= zonad[4].querySelector("rect");
+        zonad[4].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonad[4].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonad[4].id;
+                        asientod[4].style.fill="#315C55";
+                        break;
+                    }   
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                    
+                }else{
+                    if (lugares[index]==zonad[4].id) {
+                        lugares[index]=0;
+                        asientod[4].style.fill="#7070f9";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientod[5]= zonad[5].querySelector("rect");
+        zonad[5].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonad[5].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonad[5].id;
+                        asientod[5].style.fill="#315C55";
+                        break;
+                    }
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                }else{
+                    if (lugares[index]==zonad[5].id) {
+                        lugares[index]=0;
+                        asientod[5].style.fill="#7070f9";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        });asientod[6]= zonad[6].querySelector("rect");
+        zonad[6].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonad[6].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonad[6].id;
+                        asientod[6].style.fill="#315C55";
+                        break;
+                    }
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                }else{
+                    if (lugares[index]==zonad[6].id) {
+                        lugares[index]=0;
+                        asientod[6].style.fill="#7070f9";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        });  
+        asientod[7]= zonad[7].querySelector("rect");
+        zonad[7].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonad[7].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonad[7].id;
+                        asientod[7].style.fill="#315C55";
+                        break;
+                    }
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                }else{
+                    if (lugares[index]==zonad[7].id) {
+                        lugares[index]=0;
+                        asientod[7].style.fill="#7070f9";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+        asientod[8]= zonad[8].querySelector("rect");
+        zonad[8].addEventListener("click", function(e)
+        {
+            e.preventDefault();
+            for (let index = 0; index < lugares.length; index++) {
+                var error=false;
+                if (lugares[index]==0) {
+                    for (let j = 0; j < lugares.length; j++) {
+                        if (lugares[j]==zonad[8].id) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if (!error) {
+                        lugares[index]=zonad[8].id;
+                        asientod[8].style.fill="#315C55";
+                        break;
+                    }
+                    error=false;
+                    console.log("Lugares: "+lugares);
+                }else{
+                    if (lugares[index]==zonad[8].id) {
+                        lugares[index]=0;
+                        asientod[8].style.fill="#7070f9";
+                        console.log("Lugares: "+lugares);
+                        break;
+                    }
+                }
+            }
+        }); 
+
+    
+</script>
+
+<div class="Escenario" id={num}>
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 822.26 777">
+    <g id="A01" class="zonaA">
+      <rect x="113.05" y="226.1" width="118.43" height="87.93" fill="#ce3030"/>
+    </g>
+    <g id="A02" class="zonaA">
+      <rect x="113.05" y="342.74" width="118.43" height="87.93" fill="#ce3030"/>
+    </g>
+    <g id="A03" class="zonaA">
+      <rect x="113.05" y="457.59" width="118.43" height="87.93" fill="#ce3030"/>
+    </g>
+    <g id="A04" class="zonaA">
+      <rect x="254.81" y="226.1" width="118.43" height="87.93" fill="#ce3030"/>
+    </g>
+    <g id="A05" class="zonaA">
+      <rect x="254.81" y="342.74" width="118.43" height="87.93" fill="#ce3030"/>
+    </g>
+    <g id="A06" class="zonaA">
+      <rect x="254.81" y="457.59" width="118.43" height="87.93" fill="#ce3030"/>
+    </g>
+    <g id="A07" class="zonaA">
+      <rect x="398.37" y="226.1" width="118.43" height="87.93" fill="#ce3030"/>
+    </g>
+    <g id="A08" class="zonaA">
+      <rect x="398.37" y="342.74" width="118.43" height="87.93" fill="#ce3030"/>
+    </g>
+    <g id="A09" class="zonaA">
+      <rect x="398.37" y="457.59" width="118.43" height="87.93" fill="#ce3030"/>
+    </g>
+    <g id="B01" class="zonaB">
+      <rect x="96.9" y="48.45" width="134.58" height="143.56" fill="#f4ad58"/>
+    </g>
+    <g id="B02" class="zonaB">
+      <rect x="238.66" y="48.45" width="125.61" height="143.56" fill="#f4ad58"/>
+    </g>
+    <g id="B03" class="zonaB">
+      <rect x="369.66" y="48.45" width="129.2" height="143.56" fill="#f4ad58"/>
+    </g>
+    <g id="B04" class="zonaB">
+      <path d="m584.99,192.01h-80.75V48.45h96.9c-5.38,47.85-10.77,95.7-16.15,143.56Z" fill="#f4ad58"/>
+    </g>
+    <g id="B05" class="zonaB">
+      <path d="m654.98,197.39c-6.87-1.34-14.05-2.55-21.53-3.59-14.66-2.04-28.48-3.13-41.27-3.59,4.79-44.86,9.57-89.72,14.36-134.58,16.09,1.16,39.9,4.77,66.39,16.15,23.25,9.99,40.53,22.51,52.04,32.3-23.33,31.1-46.66,62.21-69.98,93.31Z" fill="#f4ad58"/>
+    </g>
+    <g id="B06" class="zonaB">
+      <path d="m721.77,240.44c-6.92-5.87-14.69-11.93-23.33-17.94-12.64-8.8-24.79-15.86-35.89-21.53,23.33-31.7,46.66-63.4,69.98-95.11,14.92,10.4,32.48,24.46,50.24,43.07,17.07,17.88,29.94,35.35,39.48,50.24-33.5,13.76-66.99,27.51-100.49,41.27Z" fill="#f4ad58"/>
+    </g>
+    <g id="B07" class="zonaB">
+      <rect x="96.9" y="584.99" width="134.58" height="143.56" fill="#f4ad58"/>
+    </g>
+    <g id="B08" class="zonaB">
+      <rect x="238.66" y="584.99" width="125.61" height="143.56" fill="#f4ad58"/>
+    </g>
+    <g id="B09" class="zonaB">
+      <rect x="369.66" y="584.99" width="129.2" height="143.56" fill="#f4ad58"/>
+    </g>
+    <g id="B10" class="zonaB">
+      <path d="m584.99,584.99h-80.75v143.56h96.9c-5.38-47.85-10.77-95.7-16.15-143.56Z" fill="#f4ad58"/>
+    </g>
+    <g id="B11" class="zonaB">
+      <path d="m654.98,579.61c-6.87,1.34-14.05,2.55-21.53,3.59-14.66,2.04-28.48,3.13-41.27,3.59,4.79,44.86,9.57,89.72,14.36,134.58,16.09-1.16,39.9-4.77,66.39-16.15,23.25-9.99,40.53-22.51,52.04-32.3-23.33-31.1-46.66-62.21-69.98-93.31Z" fill="#f4ad58"/>
+    </g>
+    <g id="B12" class="zonaB">
+      <path d="m721.77,536.56c-6.92,5.87-14.69,11.93-23.33,17.94-12.64,8.8-24.79,15.86-35.89,21.53,23.33,31.7,46.66,63.4,69.98,95.11,14.92-10.4,32.48-24.46,50.24-43.07,17.07-17.88,29.94-35.35,39.48-50.24-33.5-13.76-66.99-27.51-100.49-41.27Z" fill="#f4ad58"/>
+    </g>
+    <g id="C01" class="zonaC">
+      <rect x="96.9" width="134.58" height="44.86" fill="#bc91c1"/>
+    </g>
+    <g id="C02" class="zonaC">
+      <rect x="238.66" width="125.61" height="44.86" fill="#bc91c1"/>
+    </g>
+    <g id="C03" class="zonaC">
+      <rect x="367.86" width="131" height="44.86" fill="#bc91c1"/>
+    </g>
+    <g id="C04" class="zonaC">
+      <rect x="504.24" width="96.9" height="44.86" fill="#bc91c1"/>
+    </g>
+    <g id="C05" class="zonaC">
+      <rect x="96.9" y="732.14" width="134.58" height="44.86" fill="#bc91c1"/>
+    </g>
+    <g id="C06" class="zonaC">
+      <rect x="238.66" y="732.14" width="125.61" height="44.86" fill="#bc91c1"/>
+    </g>
+    <g id="C07" class="zonaC">
+      <rect x="367.86" y="732.14" width="131" height="44.86" fill="#bc91c1"/>
+    </g>
+    <g id="C08" class="zonaC">
+      <rect x="504.24" y="732.14" width="96.9" height="44.86" fill="#bc91c1"/>
+    </g>
+    <g id="ESCENARIOO">
+      <rect y="55.63" width="89.72" height="665.74" fill="#b5b5b5"/>
+    </g>
+    <g id="D01" class="zonaD">
+      <rect x="552.69" y="258.4" width="57.42" height="43.07" fill="#7070f9"/>
+    </g>
+    <g id="D02" class="zonaD">
+      <rect x="552.69" y="314.03" width="57.42" height="43.07" fill="#7070f9"/>
+    </g>
+    <g id="D03" class="zonaD">
+      <rect x="552.69" y="369.66" width="57.42" height="43.07" fill="#7070f9"/>
+    </g>
+    <g id="D04" class="zonaD">
+      <rect x="552.69" y="425.29" width="57.42" height="43.07" fill="#7070f9"/>
+    </g>
+    <g id="D05" class="zonaD">
+      <rect x="552.69" y="480.91" width="57.42" height="43.07" fill="#7070f9"/>
+    </g>
+    <g id="D06" class="zonaD">
+      <rect x="629.85" y="425.29" width="57.42" height="43.07" fill="#7070f9"/>
+    </g>
+    <g id="D07" class="zonaD">
+      <rect x="629.85" y="369.66" width="57.42" height="43.07" fill="#7070f9"/>
+    </g>
+    <g id="D08" class="zonaD">
+      <rect x="629.85" y="314.03" width="57.42" height="43.07" fill="#7070f9"/>
+    </g>
+    <g id="D09" class="zonaD">
+      <rect x="703.43" y="369.66" width="57.42" height="43.07" fill="#7070f9"/>
+    </g>
+  </svg>
+</div>
+
+<style>
+    .Escenario{
+      width: 50%;
+    }
+  </style>
