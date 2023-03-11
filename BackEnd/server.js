@@ -21,7 +21,7 @@ const clientes_router		= require(path.join(__dirname,'routes','cliente'));
 const administrador_router	= require(path.join(__dirname,'routes','administrador'));
 const usuarios_router		= require(path.join(__dirname,'routes','usuarios'));
 const tienda_router		= require(path.join(__dirname,'routes','tienda'));
-const non_register		= require(path.join(__dirname,'routes','nonregister'));
+const root			= require(path.join(__dirname,'routes','root'));
 
 /* Configuraciones */
 /* Sesiones */
@@ -32,7 +32,7 @@ app.use(session({
 }));
 
 /* Enrutadores */
-app.use("/",			non_register	);
+app.use("/",			root			);
 app.use("/clientes",		clientes_router		);
 app.use("/administrador",	administrador_router	);
 app.use("/usuarios",		usuarios_router	);
