@@ -35,8 +35,8 @@ app.use(session({
 app.use("/",			root			);
 app.use("/clientes",		clientes_router		);
 app.use("/administrador",	administrador_router	);
-app.use("/usuarios",		usuarios_router	);
-app.use("/tienda",		tienda_router	);
+app.use("/usuarios",		usuarios_router		);
+app.use("/tienda",		tienda_router		);
 
 const server = http.createServer(app);
 server.listen(port);
