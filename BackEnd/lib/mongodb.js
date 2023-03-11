@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const { CustomError } = require('./error');
+const { CustomError, CustomStatusError } = require('./error');
 
 const uri = process.env.npm_package_config_dburi;
 
@@ -37,17 +37,17 @@ driver.admin_get = async userAdmin => {
 	let count = await admins.count();
 
 	if( count == 0 )
-		throw new CustomError( "UserNotFound", 404, 
+		throw new CustomStatusError( "UserNotFound", 404, 
 			"El usuario " + userAdmin + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
 		);
 	else if( count > 1 )
-		throw new CustomError( "Duplicated Record", 409,
+		throw new CustomStatusError( "Duplicated Record", 409,
 			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + userAdmin
 		);
 	else if (count == 1)
 		return admins.next();
 	else
-		throw new CustomError( "UnknownError", 500,
+		throw new CustomStatusError( "UnknownError", 500,
 			"Un error desconocido evita que el servidor pueda procesar la peticion"
 		);
 }
@@ -55,7 +55,7 @@ driver.admin_get = async userAdmin => {
 driver.admin_login = async ({ userAdmin, pass }) => {
 	const admin = await driver.admin_get(userAdmin);
 	if( admin.pass != pass )
-		throw new CustomError( "WrongPassword", 401,
+		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + userAdmin
 		);
 		
@@ -192,17 +192,17 @@ driver.usr_getByPublicK = async pubK => {
 	let count = await users.count();
 
 	if( count == 0 )
-		throw new CustomError( "UserNotFound", 404, 
+		throw new CustomStatusError( "UserNotFound", 404, 
 			"El usuario " + user + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
 		);
 	else if( count > 1 )
-		throw new CustomError( "Duplicated Record", 409,
+		throw new CustomStatusError( "Duplicated Record", 409,
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + users
 		);
 	else if (count == 1)
 		return users.next();
 	else
-		throw new CustomError( "UnknownError", 500,
+		throw new CustomStatusError( "UnknownError", 500,
 			"Un error desconocido evita que el servidor pueda procesar la peticion"
 		);
 }
@@ -215,17 +215,17 @@ driver.usr_getByMail = async correo => {
 	let count = await users.count();
 
 	if( count == 0 )
-		throw new CustomError( "UserNotFound", 404, 
+		throw new CustomStatusError( "UserNotFound", 404, 
 			"El correo " + correo + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
 		);
 	else if( count > 1 )
-		throw new CustomError( "Duplicated Record", 409,
+		throw new CustomStatusError( "Duplicated Record", 409,
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + correo
 		);
 	else if (count == 1)
 		return users.next();
 	else
-		throw new CustomError( "UnknownError", 500,
+		throw new CustomStatusError( "UnknownError", 500,
 			"Un error desconocido evita que el servidor pueda procesar la peticion"
 		);
 }
@@ -238,17 +238,17 @@ driver.usr_getByID = async id_usr => {
 	let count = await users.count();
 
 	if( count == 0 )
-		throw new CustomError( "UserNotFound", 404, 
+		throw new CustomStatusError( "UserNotFound", 404, 
 			"El usuario " + corr + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
 		);
 	else if( count > 1 )
-		throw new CustomError( "Duplicated Record", 409,
+		throw new CustomStatusError( "Duplicated Record", 409,
 			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + corr
 		);
 	else if (count == 1)
 		return users.next();
 	else
-		throw new CustomError( "UnknownError", 500,
+		throw new CustomStatusError( "UnknownError", 500,
 			"Un error desconocido evita que el servidor pueda procesar la peticion"
 		);
 }
@@ -256,7 +256,7 @@ driver.usr_getByID = async id_usr => {
 driver.usr_login = async ({ correo, pass }) => {
 	const usr = await driver.usr_getByMail(correo);
 	if( usr.pass != pass )
-		throw new CustomError( "WrongPassword", 401,
+		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + correo 
 		);
 		console.log(usr);
