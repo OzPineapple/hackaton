@@ -23,4 +23,24 @@ router.get('/events', async (req, res) => {
 	}
 });
 
+router.get('/resells', async (req, res) => {
+	try{
+		res.status(200);
+		res.type('json');
+		res.send( await db.getResells() );
+	}catch(e){
+		switch( e.name ){
+			case "EmptyQuery":
+				res.status(204);
+				res.send();
+			break;
+			default:
+				res.status(500);
+				res.send();
+				console.error(e);
+			break;
+		}
+	}
+});
+
 module.exports = router;
