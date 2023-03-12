@@ -51,7 +51,7 @@ driver.set_admin = async ({correo, nom, contra, user}) => {
 	size = await collAdmin.countDocuments();
 	size++;
 
-	var newAdmin = {id_text: size, mail: correo, name:nom, pass: contra, usr: user};
+	var newAdmin = {id_text: size, mail: correo, name:nom, pass: contra, usr: user, usrT: "1"};
 	await collAdmin.insertOne(newAdmin);
 	console.log("Administrador Registrado");
 
@@ -144,7 +144,7 @@ driver.ubicacion_getAll = () => {
 
 //Eventos
 
-driver.event_set = async ({eventName, type, price, date, desc, org, ubi, lug, dispo}) =>{
+driver.event_set = async ({eventName, tipoE, price, date, desc, org, ubi, lug, dispo, candy, imgURL, folioD}) =>{
 
 	var size = 0;
 	var size = 0;
@@ -154,7 +154,7 @@ driver.event_set = async ({eventName, type, price, date, desc, org, ubi, lug, di
 
 	
 
-	var newEvent = {event: eventName, data: desc, managr: org, precio: price, id_text: size, tipoEvento: type, fecha: date, ubicacion: ubi, lugares: lug, lugaresDisp:dispo};
+	var newEvent = {event: eventName, data: desc, managr: org, precio: price, id_text: size, type: tipoE, fecha: date, ubicacion: ubi, lugares: lug, lugaresDisp:dispo, cMach:candy, imgU: imgURL, docF: folioD};
 	collEvento.insertOne(newEvent, function(err,res){
 		if (err)
 			throw(err)
@@ -207,7 +207,7 @@ driver.usr_set = async ({nom, correo, contra, llavep}) => {
 	size = await collUsuario.countDocuments();
 	size++;
 
-	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, publicK: llavep};
+	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, publicK: llavep, usrT: "2"};
 	await collUsuario.insertOne(newUsuario);
 	console.log("Usuario Registrado");
 }
