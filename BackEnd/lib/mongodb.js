@@ -15,7 +15,7 @@ const collUbicacion = databse.collection('Ubicacion');
 var driver = {};
 
 driver.getResells = () => { throw new CustomError("NoCodedYet", null); }
-driver.login = ( name, password ) => { throw new CustomError("NoCodedYet", null); }
+driver.login = ( name, password ) => { return driver.loginG(name, password);}
 driver.getEvents = () => { throw new CustomError("NoCodedYet", null); }
 driver.newEvent  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 driver.upEvent	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
@@ -356,24 +356,36 @@ driver.ticket_update = (id_tick, id_own) => {
 
 //Login General
 
-driver.loginG = (data, pass) => {
+driver.loginG = async (data, pass) => {
 
-	const usu = this.usr_login(data, pass);
+	var usu, admin;
 
-	const admin = this.admin_login(data, pass);
+	try{
+		usu = await driver.usr_login(data, pass);
+		console.log(usu);
+	} catch (e){
+		console.log(e);
+	}
 
-	if (usu!=null && admin!=null){
-		throw new CustomStatusError( "Duplicated Record", 409,
+	try{
+		admin = await driver.admin_login(data, pass);
+		console.log(admin);
+	}catch (e){
+		console.log(e);
+	}
+
+	if (usu!=undefined && admin!=undefined){
+		throw new CustomStatusError( "DuplicatedRecord", 409,
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + data
 		);
-	}else if(usu!=null){
+	}else if(usu!=undefined){
 		return usu;
-	}else if(admin!=null){
+	}else if(admin!=undefined){
 		return admin;
 	}
 	else
 		throw new CustomStatusError( "SomethingWentWrong", 500,
-			"La chingadera hace cosas raras, buggaso" + data);
+			"La chingadera hace cosas raras, buggaso con:" + data);
 
 }
 

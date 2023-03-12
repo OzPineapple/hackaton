@@ -1,5 +1,5 @@
-_id,id_text,mail,name,pass,publicK
-63f9ba0820671a0d07ec67e8,1,pruebaUsr@mail.com,pruebaUsuario,contraseña,pruebak
-63fceeaf49ef486486af1388,2,'jojo@mail.com','jojopass','Jozelotl','2jUwAFLK5gnonUKxTzMB27tzBKGj926kj5vgh6KNY4oYr36Pn4M2EkFRPvmEvgGGSgwkoUyZAEwLFoAMzanhmQpY'
-63fd1a698474fd8043f7d088,3,'oz@mail.com','ozpass','Oz','5mWh5x4aWBhhqhCeUDoVr9XYwqyDDbktsvoRMX2wY6yM5qSqxLWFPq9wwo5AAyzCfThzYcFWJu7FJVkuZQBTDPyg'
-63fd1cf30fe9903e812ae3a6,4,'test@mail.com','testpass','Testing','35XzqbB5gxuXhqXWKRa9jThXexf2zwAS8r8ZT2b4ZHeGcUjJffyr7e1Lws4DvFVKao6D2BiE2aeHzNS9yhF7SkMy'
+_id,id_text,mail,name,pass,publicK,usrT
+63f9ba0820671a0d07ec67e8,1,pruebaUsr@mail.com,pruebaUsuario,contraseña,pruebak,2
+63fceeaf49ef486486af1388,2,"'jojo@mail.com'","'jojopass'","'Jozelotl'","'2jUwAFLK5gnonUKxTzMB27tzBKGj926kj5vgh6KNY4oYr36Pn4M2EkFRPvmEvgGGSgwkoUyZAEwLFoAMzanhmQpY'",2
+63fd1a698474fd8043f7d088,3,"'oz@mail.com'","'ozpass'","'Oz'","'5mWh5x4aWBhhqhCeUDoVr9XYwqyDDbktsvoRMX2wY6yM5qSqxLWFPq9wwo5AAyzCfThzYcFWJu7FJVkuZQBTDPyg'",2
+63fd1cf30fe9903e812ae3a6,4,"'test@mail.com'","'testpass'","'Testing'","'35XzqbB5gxuXhqXWKRa9jThXexf2zwAS8r8ZT2b4ZHeGcUjJffyr7e1Lws4DvFVKao6D2BiE2aeHzNS9yhF7SkMy'",2
