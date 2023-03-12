@@ -4,9 +4,3 @@ export {
 	CreateWall as createWallet,
 	Balance as getBalance
 }
-
-async function main() {
-	console.log( await CreateWall() );
-}
-
-main();
