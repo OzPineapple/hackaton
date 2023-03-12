@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+import MenuC from "../layouts/MenuC.astro";
+---
+
+<Base titulo="Datos el usuario">
+    <MenuC />
+    <label for="">Nombre:</label><label for="" id="Dato">Nombre del usuario</label><br><br>
+    <label for="">Correo</label><label for="" id="Dato">Correo</label><br><br>
+    <label for="">Wallet</label><label for="" id="Dato"><a href="">Aqui va la wallet xd</a></label><br><br>
+    <button id="Modificar">Editar Datos</button>
+    <button id="Modificar">Borrar cuenta</button>
+</Base>
+
+<script>
+    var btn = document.getElementById("Modificar");
+    btn.addEventListener("click", function name(e) {
+        e.preventDefault();
+        window.open("/EUser","_self");
+    })
+</script>
