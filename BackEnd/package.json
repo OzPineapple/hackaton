@@ -9,7 +9,8 @@
 		"port": "3000"
 	},
 	"scripts": {
-		"start": "node ./server.js"
+		"start": "node ./server.js",
+		"debug": "node inspect ./server.js"
 	},
 	"dependencies": {
 		"@metaplex-foundation/js": "^0.18.1",
