@@ -16,7 +16,7 @@ router.get('/events', async (req, res) => {
 				res.status(204);
 				res.send();
 			break;
-			default: next(err);
+			default: next(e);
 		}
 	}
 });
@@ -32,7 +32,7 @@ router.get('/resells', async (req, res) => {
 				res.status(204);
 				res.send();
 			break;
-			default: next(err);
+			default: next(e);
 		}
 	}
 });
@@ -63,7 +63,7 @@ router.post('/login', async (req, res) => {
 				res.status(401);
 				res.send();
 			break;
-			default: next(err);
+			default: next(e);
 		}
 	}
 });
@@ -84,7 +84,7 @@ router.post('/new', async (req, res) => {
 				res.status(409);
 				res.send();
 			break;
-			default: next(err);
+			default: next(e);
 		}
 	}
 });
