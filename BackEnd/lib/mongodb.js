@@ -15,7 +15,7 @@ const collUbicacion = databse.collection('Ubicacion');
 var driver = {};
 
 driver.getResells = () => { throw new CustomError("NoCodedYet", null); }
-driver.login = ( name, password ) => { driver.loginG(name, password); }
+driver.login = ( name, password ) => { return driver.loginG(name, password);}
 driver.getEvents = () => { throw new CustomError("NoCodedYet", null); }
 driver.newEvent  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 driver.upEvent	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
@@ -242,10 +242,10 @@ driver.usr_getByMail = async (correo) => {
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
 
+	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
 			"El correo " + correo + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
-		);if( count == 0 )
-	
+		);
 	else if( count > 1 )
 		throw new CustomStatusError( "Duplicated Record", 409,
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + correo
@@ -356,24 +356,36 @@ driver.ticket_update = (id_tick, id_own) => {
 
 //Login General
 
-driver.loginG = (data, pass) => {
+driver.loginG = async (data, pass) => {
 
-	const usu = driver.usr_login(data, pass);
+	var usu, admin;
 
-	const admin = driver.admin_login(data, pass);
+	try{
+		usu = await driver.usr_login(data, pass);
+		console.log(usu);
+	} catch (e){
+		console.log(e);
+	}
 
-	if (usu!=null && admin!=null){
+	try{
+		admin = await driver.admin_login(data, pass);
+		console.log(admin);
+	}catch (e){
+		console.log(e);
+	}
+
+	if (usu!=undefined && admin!=undefined){
 		throw new CustomStatusError( "DuplicatedRecord", 409,
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + data
 		);
-	}else if(usu!=null){
+	}else if(usu!=undefined){
 		return usu;
-	}else if(admin!=null){
+	}else if(admin!=undefined){
 		return admin;
 	}
 	else
 		throw new CustomStatusError( "SomethingWentWrong", 500,
-			"La chingadera hace cosas raras, buggaso" + data);
+			"La chingadera hace cosas raras, buggaso con:" + data);
 
 }
 

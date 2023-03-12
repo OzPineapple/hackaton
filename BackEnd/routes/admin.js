@@ -9,10 +9,10 @@ import client_router from   './crud/client.js';
 var router = express.Router();
 
 router.use( async (req, res, next) => {
-	const auth = req.headers['authorization'];
+	var auth = req.headers['authorization'];
 	if( typeof auth == 'undefined' )
 		return res.status(403).send();
-	auth = auth.slip(' ');
+	auth = auth.split(' ');
 	if( auth[0] != 'Bearer' )
 		return res.status(406).send();
 	try{
