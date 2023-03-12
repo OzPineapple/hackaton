@@ -4,6 +4,7 @@
 		"dbname": "TicketMunster",
 		"secretKey": "HiperSecretKeyWithMagicCats",
 		"jwtttl": "1h",
+		"errlogfile": "errors.log",
 		"port": "3000"
 	},
 	"scripts": {

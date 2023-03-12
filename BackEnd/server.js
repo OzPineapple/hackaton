@@ -4,8 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const path = require('path');
-var debuger = require('debug');
-var debug = debuger('server:app');
+const fs = require('fs');
 
 const app = express();
 
@@ -37,6 +36,18 @@ app.use("/clientes",		clientes_router		);
 app.use("/administrador",	administrador_router	);
 app.use("/usuarios",		usuarios_router		);
 app.use("/tienda",		tienda_router		);
+
+// Error handler
+app.use((err, req, res, next) => {
+	res.status(500);
+	res.send();
+	console.error(err);
+	fs.writeFile(
+		process.env.npm_package_config_errlogfile,
+		JSON.stringify([ err, req, res ]),
+		{ flag: 'a' }
+	);
+})
 
 const server = http.createServer(app);
 server.listen(port);

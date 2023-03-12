@@ -14,11 +14,7 @@ router.get('/events', async (req, res) => {
 				res.status(204);
 				res.send();
 			break;
-			default:
-				res.status(500);
-				res.send();
-				console.error(e);
-			break;
+			default: next(err);
 		}
 	}
 });
@@ -34,11 +30,7 @@ router.get('/resells', async (req, res) => {
 				res.status(204);
 				res.send();
 			break;
-			default:
-				res.status(500);
-				res.send();
-				console.error(e);
-			break;
+			default: next(err);
 		}
 	}
 });
@@ -57,7 +49,7 @@ router.post('/login', async (req, res) => {
 		res.type('json');
 		res.send({ 
 			token: token,
-			user_type: user_data.type
+			user_type: user_data.user_type
 		});
 	}catch(e){
 		switch( e.name ){
@@ -69,11 +61,7 @@ router.post('/login', async (req, res) => {
 				res.status(401);
 				res.send();
 			break;
-			default:
-				res.status(500);
-				res.send();
-				console.error(e);
-			break;
+			default: next(err);
 		}
 	}
 });
