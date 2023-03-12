@@ -10,11 +10,14 @@ import MenuGuardia from "../layouts/MenuGuardia.astro";
     </div>
 </Base>
 
-<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+
 <script type="text/javascript">
 
     var scanner = new Instascan.Scanner({video: document.getElementById("previsualizacion")});
-
+    
+    scanner.addListener("scan", function (respuesta) {
+        console.log(respuesta);
+    });
     Instascan.Camera.getCameras().then(function(cameras){
         if (cameras.length > 0) {
             scanner.start(cameras[0]);
@@ -26,8 +29,5 @@ import MenuGuardia from "../layouts/MenuGuardia.astro";
         alert("Error "+e);
     });
 
-    scanner.addListener("scan", function (respuesta) {
-        console.log(respuesta);
-    });
 
 </script>
