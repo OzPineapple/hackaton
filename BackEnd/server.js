@@ -31,6 +31,7 @@ app.use("/", root);
 // Error handler
 app.use((err, req, res, next) => {
 	if( err.name == "NotCodedYet" ) res.status(501);
+	else if( err.status ) res.status(err.status);
 	else res.status(500);
 	res.send();
 	console.error(err);
