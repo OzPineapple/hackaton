@@ -44,7 +44,7 @@ router.delete('/:id', async (req, res, next) => {
 	}}
 });
 
-router.update('/:id', async (req, res, next) => {
+router.patch('/:id', async (req, res, next) => {
 	try{
 		await db.upClient( req.body );
 		res.status(200);
