@@ -14,9 +14,33 @@ const collUbicacion = databse.collection('Ubicacion');
 
 var driver = {};
 
-driver.getEvents = () => { throw new CustomError("NoCodedYet", null); }
 driver.getResells = () => { throw new CustomError("NoCodedYet", null); }
 driver.login = ( name, password ) => { throw new CustomError("NoCodedYet", null); }
+driver.getEvents = () => { throw new CustomError("NoCodedYet", null); }
+driver.newEvent  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.upEvent	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.getEvent	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.rmEvent	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getOrgans = () => { throw new CustomError("NoCodedYet", null); }
+driver.newOrgan	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.upOrgan	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.getOrgan	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.rmOrgan	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getGuards = () => { throw new CustomError("NoCodedYet", null); }
+driver.newGuard	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.upGuard	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.getGuard	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.rmGuard	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getAdmins = () => { throw new CustomError("NoCodedYet", null); }
+driver.newAdmin	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.upAdmin	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.getAdmin	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.rmAdmin	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getClients = () => { throw new CustomError("NoCodedYet", null); }
+driver.newClient  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.upClient	  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.getClient  = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.rmClient	  = ( id ) => { throw new CustomError("NoCodedYet", null); }
 
 //Admin
 
