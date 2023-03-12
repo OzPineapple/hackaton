@@ -2,13 +2,10 @@ import { Keypair, PublicKey, Transaction } from "@solana/web3.js";
 import { bundlrStorage, keypairIdentity, Metaplex, toBigNumber, toCandyMachine, toDateTime, toMetaplexFile} from "@metaplex-foundation/js";
 import fs from "fs";
 import { Conn } from "../Util";
-import { url } from "inspector";
 
 const ServerW = JSON.parse(fs.readFileSync( "/Users/haru/.config/solana/id.json", "utf-8"));
 const ServerSK = Uint8Array.from(ServerW);
 const ServerKeypair = Keypair.fromSecretKey(ServerSK);
-//console.log(ServerKeypair.publicKey);
-//const metaplexCMv3 = Metaplex.make(Conn()).use(keypairIdentity(ServerKeypair));
 const metaplex = Metaplex.make(Conn()).use(keypairIdentity(ServerKeypair)).use(bundlrStorage({
   address : 'https://devnet.bundlr.network',
   timeout: 60000,
@@ -19,17 +16,21 @@ const metaplex = Metaplex.make(Conn()).use(keypairIdentity(ServerKeypair)).use(b
 export async function LoadImage(Url : string) {
     //Carga la imagen el buffer
     const imgBuffer = fs.readFileSync(Url);
+    //Coloca en el archivo la imagen anteriormente colocada en el buffer
     const imgMetaplexFile = toMetaplexFile(imgBuffer, "Prueba");
+    //Termina de Subir la imagen a metaplex ahora si que si
     const imgUri = await metaplex.storage().upload(imgMetaplexFile);
-    console.log(`   Image URI:`,imgUri);
+    //Retorna la url de la img para su posterior uso
     return imgUri;
 }
-
+//Carga la metadaata correspondiente la funcion requiere los siguientes parametros 
+//nombre del Nft, la direccion de la url, el tipo de la imagen a cargar (generalmente es un PNG) y los atributos que contiene el nft 
 export async function LoadMetadata(nftName : string, description : string, imgUri : string, imgType : string, attributes : {trait_type : string, value : string}[]) {
-  console.log(`Step 2 - Uploading Metadata`);
+  //La constante uri es la url que va a almacenar los datos del nft cuando se suban a Arwave
   const { uri } = await metaplex
     .nfts()
     .uploadMetadata({
+      //creo que ya no tengo que repetir lo de arriba
         name: nftName,
         description: description,
         image: imgUri,
@@ -47,6 +48,7 @@ export async function LoadMetadata(nftName : string, description : string, imgUr
     return uri;  
 }
 
+//Esta funcion recibe el simbolo de la coleccion, la fecha de inicio de la venta y la fecha del final de la misma
 export async function CandyMachineSCreation(Simbol : string, dateS : string, dateE : string) {
     //Esta linea concatena el nombre Ticket con el simbolo (Abrebiatura asiganda)
     var NTicket = "Ticket " + Simbol;
@@ -55,6 +57,7 @@ export async function CandyMachineSCreation(Simbol : string, dateS : string, dat
     const { nft: collectionNft } = await metaplex.nfts().create({
         //Le colocamos nombre a la coleccion
         name: NTicket,
+        //insertamos el simbolo
         symbol : Simbol,
         //Aqui debería ir la uri correspondiente a la imagen de la COLECCION
         uri: 'https://arweave.net/mf1-iPM3vyMpQQj7Mw6Y2mpe-v9vaHyeSHbRvJ8r7IU',
@@ -62,16 +65,20 @@ export async function CandyMachineSCreation(Simbol : string, dateS : string, dat
         sellerFeeBasisPoints: 1000,
         //Lo que hacemos es una coleccion?
         isCollection: true,
+        //Es mutable la coleccion
         isMutable: true,
+        //¿Quien puede actualizar la CM v3?
         updateAuthority : ServerKeypair
 
       });
       
-    // Create the Candy Machine.
+    // Crea la Candy machine
     const { candyMachine } = await metaplex.candyMachines().create({
+      //¿Quienes son los creadores? ¿Cuanto se llevan de la venta 
         creators : [
           {address : ServerKeypair.publicKey, share : 100}
         ],
+        //Detalles de la coleccion, la direccion de la misma 
         collection: {
           address: collectionNft.address,
           updateAuthority: ServerKeypair,
@@ -91,7 +98,6 @@ export async function CandyMachineSCreation(Simbol : string, dateS : string, dat
         //Tiene candy guards?
         withoutCandyGuard: true,
     });
-    console.log("Estamos aqui");
     //Segun esta mamada ya esta creada la chingadera
     console.log(candyMachine.address);
     return candyMachine.address;
@@ -99,17 +105,20 @@ export async function CandyMachineSCreation(Simbol : string, dateS : string, dat
 }
 
 
-//Esta funcion busca una CM con su direccion (actualmente no veo una buena razon para descomentarla)
-
+//Esta funcion busca una CM con su direccion
 export async function FetchCandymachine(Key : String) {
+  //Crea una CM que recibe de la busqueda 
   const candyMachine = await metaplex
   .candyMachines()
   .findByAddress({ address: new PublicKey(Key) });
+  //Exporta la CM
   return candyMachine;
 }
 
+//Mintea los NFT
 export async function Mint(metadataUri: string, name: string, sellerFee: number, symbol: string, creators: {address: PublicKey, share: number}[]){
     console.log(`Step 3 - Minting NFT`);
+    //Crea un objeto nft
     const { nft } = await metaplex
     .nfts()
     .create({
@@ -141,6 +150,7 @@ export async function InsertingItemsCM(CMadress : String, uri : String, id : any
   });
 }
 
+//Crea la funcion de testing
 async function Test() {
 var MetadataUri = "https://arweave.net/PeHHnFoJ5ussgXbGt7BMKbweeQ9TZ98el-M3hfvsPiw";
 }
