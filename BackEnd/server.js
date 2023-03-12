@@ -1,9 +1,10 @@
 /* Importación de bibliotecas */
-const http = require('http');
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const fs = require('fs');
+import http from "node:http";
+import path from 'node:path';
+import fs from 'node:fs';
+import express from 'express';
+import bodyParser from 'body-parser';
+import session from 'express-session';
 
 const app = express();
 
