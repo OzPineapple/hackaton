@@ -1,0 +1,13 @@
+---
+import Base from "../layouts/Base.astro";
+import MenuAdmin from "../layouts/MenuAdmin.astro";
+import InDatosOr from "../components/InDatosOr.astro";
+---
+<!--Posible envio de parametros -->
+<Base titulo="Gestionar usuario">
+    <MenuAdmin/>
+    <InDatosOr>
+        <button>Actualizar Datos</button><br><br>
+        <button>Borrar cuenta</button>
+    </InDatosOr>
+</Base>

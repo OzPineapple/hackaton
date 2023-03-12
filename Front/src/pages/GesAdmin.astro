@@ -1,0 +1,13 @@
+---
+import Base from "../layouts/Base.astro";
+import MenuAdmin from "../layouts/MenuAdmin.astro";
+import InDatosC from "../components/InDatosCyA.astro";
+---
+<!--Posible envio de parametros -->
+<Base titulo="Gestionar Admin">
+    <MenuAdmin/>
+    <InDatosC>
+        <button>Actualizar Datos</button><br><br>
+        <button>Borrar cuenta</button>
+    </InDatosC>
+</Base>
