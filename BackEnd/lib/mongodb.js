@@ -56,7 +56,7 @@ driver.admin_get = async userAdmin => {
 		);
 }
 
-driver.admin_login = async ({ userAdmin, pass }) => {
+driver.admin_login = async (userAdmin, pass) => {
 	const admin = await driver.admin_get(userAdmin);
 	if( admin.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
@@ -68,7 +68,7 @@ driver.admin_login = async ({ userAdmin, pass }) => {
 
 //TipoEvento
 
-driver.eventType_getByName = async eventType => {
+driver.eventType_getByName = async (eventType) => {
 	const query = { tipoEvento: eventType };
 	const options = {projection: {_id: 0}};
 	
@@ -77,8 +77,8 @@ driver.eventType_getByName = async eventType => {
 	return tipo.next();
 }
 
-driver.eventType_getByID = async eventType => {
-	const query = { id_text: eventType };
+driver.eventType_getByID = async (eventTypeID) => {
+	const query = { id_text: eventTypeID };
 	const options = {projection: {_id: 0}};
 	
 	const tipo = await collTipoEvento.find(query, options);
@@ -89,7 +89,7 @@ driver.eventType_getByID = async eventType => {
 
 //Ubicacion
 
-driver.ubicacion_getByName = async ubi =>{
+driver.ubicacion_getByName = async (ubi) =>{
 	const query = { ubicacion: ubi };
 	const options = {projection: {_id: 0}};
 	
@@ -98,8 +98,8 @@ driver.ubicacion_getByName = async ubi =>{
 	return lugar.next();
 }
 
-driver.ubicacion_getByID = async ubi =>{
-	const query = { id_text: ubi };
+driver.ubicacion_getByID = async (ubID) =>{
+	const query = { id_text: ubID };
 	const options = {projection: {_id: 0}};
 	
 	const lugar = await collUbicacion.find(query, options);
@@ -211,7 +211,7 @@ driver.usr_getByPublicK = async pubK => {
 		);
 }
 
-driver.usr_getByMail = async correo => {
+driver.usr_getByMail = async (correo) => {
 	const query = { mail: correo };
 	const options = {projection: {_id: 0}};
 	
@@ -257,7 +257,7 @@ driver.usr_getByID = async id_usr => {
 		);
 }
 
-driver.usr_login = async ({ correo, pass }) => {
+driver.usr_login = async (correo, pass) => {
 	const usr = await driver.usr_getByMail(correo);
 	if( usr.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
@@ -327,6 +327,29 @@ driver.ticket_update = (id_tick, id_own) => {
 		else
 			console.log("Boleto Actualizado, Nuevo Dueño Asignado");
 	});
+
+}
+
+//Login General
+
+driver.loginG = (data, pass) => {
+
+	const usu = this.usr_login(data, pass);
+
+	const admin = this.admin_login(data, pass);
+
+	if (usu!=null && admin!=null){
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + data
+		);
+	}else if(usu!=null){
+		return usu;
+	}else if(admin!=null){
+		return admin;
+	}
+	else
+		throw new CustomStatusError( "SomethingWentWrong", 500,
+			"La chingadera hace cosas raras, buggaso" + data);
 
 }
 
