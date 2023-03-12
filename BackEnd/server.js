@@ -6,21 +6,16 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 
-const app = express();
-
-app.use(express.urlencoded({ extended: true }));
-app.use('/',express.static(path.join(__dirname,"public/imagenes")));
-app.use('/',express.static(path.join(__dirname,'public')));
-app.use(bodyParser.text());
-const port = process.env.npm_package_config_port || '8080';
-app.set('port', port);
-
 /* Importación de los enrutadores */
-const clientes_router		= require(path.join(__dirname,'routes','cliente'));
-const administrador_router	= require(path.join(__dirname,'routes','administrador'));
-const usuarios_router		= require(path.join(__dirname,'routes','usuarios'));
-const tienda_router		= require(path.join(__dirname,'routes','tienda'));
-const root			= require(path.join(__dirname,'routes','root'));
+import root			from './routes/root.js';
+
+const app = express();
+const port = process.env.npm_package_config_port || '8080';
+
+/* Configuaración del servidor */
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.set('port', port);
 
 /* Configuraciones */
 /* Sesiones */
@@ -32,10 +27,6 @@ app.use(session({
 
 /* Enrutadores */
 app.use("/",			root			);
-app.use("/clientes",		clientes_router		);
-app.use("/administrador",	administrador_router	);
-app.use("/usuarios",		usuarios_router		);
-app.use("/tienda",		tienda_router		);
 
 // Error handler
 app.use((err, req, res, next) => {

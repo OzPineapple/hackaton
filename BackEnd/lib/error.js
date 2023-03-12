@@ -1,4 +1,4 @@
-class CustomStatusError extends Error {
+export class CustomStatusError extends Error {
 	constructor( name, status, message ){
 		super( message );
 		this.status = status;
@@ -6,14 +6,9 @@ class CustomStatusError extends Error {
 	}
 }
 
-class CustomError extends Error {
+export class CustomError extends Error {
 	constructor( name, message ){
 		super( message );
 		this.name = name;
 	}
-}
-
-module.exports = {
-	CustomStatusError,
-	CustomError
 }

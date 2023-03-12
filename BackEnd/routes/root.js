@@ -1,7 +1,8 @@
-var router = require('express').Router();
-const solana = require("../Solana/solana.js");
-const db = require('../lib/mongodb.js');
-const jwt = require('jsonwebtoken');
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import db from '../lib/mongodb.js';
+
+const router = express.Router();
 
 router.get('/events', async (req, res) => {
 	try{
@@ -66,4 +67,17 @@ router.post('/login', async (req, res) => {
 	}
 });
 
-module.exports = router;
+router.post('/new', async (req, res) => {
+	try{
+		await db.newUser(
+			req.body.name,
+			req.body.email,
+			req.body.password,
+		);
+		res.status(201);
+		res.send();
+	}catch(e){
+	}
+});
+
+export default router;

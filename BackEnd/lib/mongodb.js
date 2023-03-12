@@ -1,9 +1,9 @@
-const MongoClient = require('mongodb').MongoClient;
-const { CustomError, CustomStatusError } = require('./error');
+import mongodb from 'mongodb';
+import { CustomError, CustomStatusError } from './error.js';
 
 const uri = process.env.npm_package_config_dburi;
 
-const client	= new MongoClient( uri );
+const client	= new mongodb.MongoClient( uri );
 const databse	= client.db( process.env.npm_package_config_dbname );
 const collAdmin = databse.collection('Admin');
 const collUsuario = databse.collection('Usuario');
@@ -330,4 +330,4 @@ driver.ticket_update = (id_tick, id_own) => {
 
 }
 
-module.exports = driver;
+export default driver;
