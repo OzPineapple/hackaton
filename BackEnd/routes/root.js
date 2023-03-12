@@ -1,6 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import db from '../lib/mongodb.js';
+import * as katamari from '../lib/katamari.js';
 
 const router = express.Router();
 
@@ -73,10 +74,18 @@ router.post('/new', async (req, res) => {
 			req.body.name,
 			req.body.email,
 			req.body.password,
+			await katamari.createWallet()
 		);
 		res.status(201);
 		res.send();
 	}catch(e){
+		switch( e.name ){
+			case "DuplicatedQuery":
+				res.status(409);
+				res.send();
+			break;
+			default: next(err);
+		}
 	}
 });
 
