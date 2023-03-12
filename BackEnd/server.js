@@ -26,11 +26,12 @@ app.use(session({
 }));
 
 /* Enrutadores */
-app.use("/",			root			);
+app.use("/", root);
 
 // Error handler
 app.use((err, req, res, next) => {
-	res.status(500);
+	if( err.name = "NotCodedYet" ) res.status(501);
+	else res.status(500);
 	res.send();
 	console.error(err);
 	fs.writeFile(
