@@ -15,7 +15,7 @@ const collUbicacion = databse.collection('Ubicacion');
 var driver = {};
 
 driver.getResells = () => { throw new CustomError("NoCodedYet", null); }
-driver.login = ( name, password ) => { throw new CustomError("NoCodedYet", null); }
+driver.login = ( name, password ) => { driver.loginG(name, password); }
 driver.getEvents = () => { throw new CustomError("NoCodedYet", null); }
 driver.newEvent  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 driver.upEvent	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
@@ -242,10 +242,10 @@ driver.usr_getByMail = async (correo) => {
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
 
-	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
 			"El correo " + correo + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
-		);
+		);if( count == 0 )
+	
 	else if( count > 1 )
 		throw new CustomStatusError( "Duplicated Record", 409,
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + correo
@@ -358,12 +358,12 @@ driver.ticket_update = (id_tick, id_own) => {
 
 driver.loginG = (data, pass) => {
 
-	const usu = this.usr_login(data, pass);
+	const usu = driver.usr_login(data, pass);
 
-	const admin = this.admin_login(data, pass);
+	const admin = driver.admin_login(data, pass);
 
 	if (usu!=null && admin!=null){
-		throw new CustomStatusError( "Duplicated Record", 409,
+		throw new CustomStatusError( "DuplicatedRecord", 409,
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + data
 		);
 	}else if(usu!=null){
