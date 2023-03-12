@@ -1,7 +1,12 @@
-import * as pkg from './Solana/Wallet.cjs';
+import { CreateWall, Balance } from './Solana/Wallet.js';
+
+export {
+	CreateWall as createWallet,
+	Balance as getBalance
+}
 
 async function main() {
-	console.log( pkg );
+	console.log( await CreateWall() );
 }
 
 main();
