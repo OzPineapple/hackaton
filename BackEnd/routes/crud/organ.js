@@ -3,7 +3,7 @@ import db from '../../lib/mongodb.js';
 
 var router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
 	try{
 		await db.getOrgans( req.body );
 		res.status(201);
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 	}}
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
 	try{
 		await db.newOrgan( req.body );
 		res.status(201);
@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
 	}}
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
 	try{
 		res.status(200);
 		res.type('json');
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
 	}}
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res, next) => {
 	try{
 		await db.rmOrgan( req.params.id );
 		res.status(200);
@@ -44,7 +44,7 @@ router.delete('/:id', async (req, res) => {
 	}}
 });
 
-router.update('/:id', async (req, res) => {
+router.update('/:id', async (req, res, next) => {
 	try{
 		await db.upOrgan( req.body );
 		res.status(200);

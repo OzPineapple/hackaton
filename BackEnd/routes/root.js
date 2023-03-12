@@ -5,7 +5,7 @@ import * as katamari from '../lib/katamari.js';
 
 const router = express.Router();
 
-router.get('/events', async (req, res) => {
+router.get('/events', async (req, res, next) => {
 	try{
 		res.status(200);
 		res.type('json');
@@ -21,7 +21,7 @@ router.get('/events', async (req, res) => {
 	}
 });
 
-router.get('/resells', async (req, res) => {
+router.get('/resells', async (req, res, next) => {
 	try{
 		res.status(200);
 		res.type('json');
@@ -37,7 +37,7 @@ router.get('/resells', async (req, res) => {
 	}
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {
 	try{
 		const user_data = await db.login( req.body.name, req.body.password );
 		const token = jwt.sign( 
@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
 	}
 });
 
-router.post('/new', async (req, res) => {
+router.post('/new', async (req, res, next) => {
 	try{
 		await db.newUser(
 			req.body.name,
