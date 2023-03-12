@@ -15,6 +15,7 @@ const collUbicacion = databse.collection('Ubicacion');
 var driver = {};
 
 driver.getEvents = () => { throw new CustomError("NoCodedYet", null); }
+driver.login = ( name, password ) => { throw new CustomError("NoCodedYet", null); }
 
 //Admin
 
