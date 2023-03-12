@@ -5,27 +5,25 @@ import event_router  from   './crud/event.js';
 import guard_router  from   './crud/guard.js';
 import organ_router  from   './crud/organ.js';
 import client_router from   './crud/client.js';
+import { getJwt } from '../lib/util.js';
 
 var router = express.Router();
 
 router.use( async (req, res, next) => {
-	var auth = req.headers['authorization'];
-	if( typeof auth == 'undefined' )
-		return res.status(403).send();
-	auth = auth.split(' ');
-	if( auth[0] != 'Bearer' )
-		return res.status(406).send();
+	debugger;
 	try{
-		var decoded = await jwt.verify(
-			auth[1],
-			process.env.npm_package_config_secretKey
-		);
-		if( decoded.user_type != 'administrator' )
+		const decode = await getJwt( req );
+		if( decoded.user_type != 1 )
 			return res.status(403).send();
 		next();
-	}catch(e){
-		next(e);
-	}
+	}catch(e){ switch(e.name){
+		case "undefined":
+			console.error(e);
+			return res.status(403).send();
+		case "NoBearer":
+			console.error(e);
+			return res.status(406).send();
+	}}
 });
 
 router.use('/',       admin_router);
