@@ -10,6 +10,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^2.0.18"
+    "astro": "^2.0.18",
+    "instascan": "^1.0.0",
+    "jsqr": "^1.4.0",
+    "qrcode": "^1.5.1"
   }
 }
