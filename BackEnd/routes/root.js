@@ -41,7 +41,9 @@ router.get('/resells', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
 	try{
 		const user_data = await db.login( req.body.name, req.body.password );
-		if( ! user_data ) throw new CustomStatusError( "NullDBQuey", 500, "Asked database for user data but " user_data " was recived" );
+		if( ! user_data )
+			throw new CustomStatusError( "NullDBQuey", 500,
+				"Asked database for user data but " + user_data + " was recived" );
 		const token = await jwt.sign( 
 			user_data,
 			process.env.npm_package_config_secretKey,
