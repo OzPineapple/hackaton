@@ -1,0 +1,9 @@
+post	/admin/event/ ->  newEvent( request.body )
+get 	/admin/event/ ->  getEvent( request.body.id )
+update	/admin/event/ ->  upEvent ( request.body )
+delete	/admin/event/ ->  rmEvent ( request.body.id )
+
+post	/admin/guard/ ->  newEvent( request.body )
+get 	/admin/guard/ ->  newEvent( request.body.id )
+update	/admin/guard/ ->  upEvent ( request.body )
+delete	/admin/guard/ ->  rmEvent ( request.body.id )
