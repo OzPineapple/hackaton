@@ -17,8 +17,8 @@ import MenuGuardia from "../layouts/MenuGuardia.astro";
     var scanner = new Instascan.Scanner({video: document.getElementById("previsualizacion")});
 
     
-    scanner.addListener("scan", function (respuesta) {
-        console.log(respuesta);
+    scanner.addListener("scan", function (e, respuesta) {
+        alert(respuesta);
     });
     Instascan.Camera.getCameras().then(function(cameras){
         if (cameras.length > 0) {

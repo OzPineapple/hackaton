@@ -1,0 +1,28 @@
+---
+export interface Props {
+    nombre: string;
+    email: string;
+    pkey: string;
+}
+const { nombre, correo, email, pkey } = Astro.props
+const Marco = "div";
+const Nombre = "div";
+const Email = "div";
+const PKey = "div";
+const Ver = "div";
+---
+
+<Marco>
+    <Nombre>
+        <h2>{nombre}</h2>
+    </Nombre>
+    <Email>
+        <h2>{email}</h2>
+    </Email>
+    <PKey>
+        <h2>{pkey}</h2>
+    </PKey>
+    <Ver>
+        <h2><a href="">Ver mas...</a></h2>
+    </Ver>
+</Marco>
