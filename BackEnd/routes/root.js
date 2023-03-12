@@ -55,7 +55,7 @@ router.post('/login', async (req, res, next) => {
 		res.type('json');
 		res.send({ 
 			token: token,
-			user_type: user_data.user_type
+			user_type: user_data.usrT
 		});
 	}catch(e){
 		switch( e.name ){
