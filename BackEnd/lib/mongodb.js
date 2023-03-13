@@ -35,16 +35,16 @@ driver.upGuard	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 driver.getGuard	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
 driver.rmGuard	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
 driver.getAdmins = () => { return driver.admin_getAll(); }
-driver.newAdmin	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.upAdmin	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.getAdmin	 = ( id ) => { driver.admin_getByID(id); }
+driver.newAdmin	 = ( reqBody ) => { return driver.admin_get(reqBody); }
+driver.upAdmin	 = ( reqBody ) => { return driver.admin_update(reqBody); }
+driver.getAdmin	 = ( id ) => { return driver.admin_getByID(id); }
 driver.rmAdmin	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
-driver.getClients = () => { throw new CustomError("NoCodedYet", null); }
-driver.newClient  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.upClient	  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.getClient  = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getClients = () => { return driver.usr_getAll(); }
+driver.newClient  = ( reqBody ) => { return driver.usr_set(reqBody); }
+driver.upClient	  = ( reqBody ) => { return driver.usr_update(reqBody); }
+driver.getClient  = ( id ) => { return driver.usr_getByID(id); }
 driver.rmClient	  = ( id ) => { throw new CustomError("NoCodedYet", null); }
-driver.getPrivateKeyOfClient = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getPrivateKeyOfClient = ( id ) => { return driver.usr_getPrivKByID(id); }
 
 //Admin
 
@@ -127,6 +127,18 @@ driver.admin_login = async (userAdmin, pass) => {
 		);
 		
 		return admin;
+}
+
+driver.admin_update = ({id_usr, correo, nom, contra, usu}) => {
+
+	db.collUsuario.updateOne({id_text: id_usr}, {mail: correo, name: nom, pass: contra, usr:usu}, function(err, res){
+		if (err)
+			throw(err)
+		else
+			console.log("Usuario Actualizado");
+			return res;
+	});
+
 }
 
 //TipoEvento
@@ -234,6 +246,7 @@ driver.event_update = ({id_eve, prec, fech}) => {
 			throw(err)
 		else
 			console.log("Evento Actualizado");
+			return res;
 	});
 
 }
@@ -246,14 +259,14 @@ driver.usr_set = async ({nom, correo, contra, llavep}) => {
 	size = await collUsuario.countDocuments();
 	size++;
 
-	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, publicK: llavep, usrT: "2"};
+	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, privateK: llavep, usrT: "2"};
 	await collUsuario.insertOne(newUsuario);
 	console.log("Usuario Registrado");
 }
 
-driver.usr_getByPublicK = async pubK => {
-	const query = { publicK: pubK };
-	const options = {projection: {_id: 0}};
+driver.usr_getByPrivateK = async privK => {
+	const query = { privateK: privK };
+	const options = {_id: 0};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
@@ -276,7 +289,7 @@ driver.usr_getByPublicK = async pubK => {
 
 driver.usr_getByMail = async (correo) => {
 	const query = { mail: correo };
-	const options = {projection: {_id: 0}};
+	const options = {_id: 0};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
@@ -297,20 +310,43 @@ driver.usr_getByMail = async (correo) => {
 		);
 }
 
-driver.usr_getByID = async id_usr => {
+driver.usr_getByID = async (id_usr) => {
 	const query = { id_text: id_usr };
-	const options = {projection: {_id: 0}};
+	const options = {_id: 0};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
-			"El usuario " + corr + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+			"El usuario " + id_usr + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
 		);
 	else if( count > 1 )
 		throw new CustomStatusError( "Duplicated Record", 409,
-			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + corr
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + id_usr
+		);
+	else if (count == 1)
+		return users.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.usr_getPrivKByID = async ( idUsr ) => {
+	const query = { id_text: idUsr };
+	const options = {_id: 0, privateK: 1};
+	
+	const users = await collUsuario.find(query, options);
+	let count = await users.count();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"El usuario " + idUsr + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + idUsr
 		);
 	else if (count == 1)
 		return users.next();
@@ -337,8 +373,21 @@ driver.usr_update = ({id_usr, nom, correo, contra}) => {
 			throw(err)
 		else
 			console.log("Usuario Actualizado");
+			return res;
 	});
 
+}
+
+driver.usr_getAll = async () => {
+
+	const query = {};
+
+	const options = {_id: 0, pass:0};
+
+	const usrs = collUsuario.find(query, options);
+	
+	return usrs;
+	
 }
 
 //Boletos
