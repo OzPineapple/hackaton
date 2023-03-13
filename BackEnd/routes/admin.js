@@ -6,15 +6,19 @@ import guard_router  from   './crud/guard.js';
 import organ_router  from   './crud/organ.js';
 import client_router from   './crud/client.js';
 import { getJwt } from '../lib/util.js';
+import debuger from 'debug';
 
 var router = express.Router();
+const debug = debuger('server:admin');
 
 router.use( async (req, res, next) => {
 	debugger;
 	try{
-		const decode = await getJwt( req );
-		if( decoded.user_type != 1 )
+		const decoded = getJwt( req );
+		debug( "usrT:" + decoded.usrT );
+		if( decoded.usrT != 1 )
 			return res.status(403).send();
+		debug("allowed");
 		next();
 	}catch(e){ switch(e.name){
 		case "undefined":
@@ -23,6 +27,7 @@ router.use( async (req, res, next) => {
 		case "NoBearer":
 			console.error(e);
 			return res.status(406).send();
+		default: next(e);
 	}}
 });
 
