@@ -28,7 +28,7 @@ export async function CreateACollection (Nombre, LocalUriImg, Descripcion, Secci
 	return cosas;
 }
 
-export function CreateWallet(){
+export function createWallet(){
 	return CreateWall();
 }
 
