@@ -3,7 +3,7 @@ import { bundlrStorage, keypairIdentity, Metaplex, toBigNumber, toDateTime, toMe
 import fs from "fs";
 import { Conn} from "../Util.js";
 
-const ServerW = JSON.parse(fs.readFileSync("/Users/haru/.config/solana/id.json", "utf-8"));
+const ServerW = JSON.parse(fs.readFileSync(process.env.HOME + "/.config/solana/id.json", "utf-8"));
 const ServerSK = Uint8Array.from(ServerW);
 const ServerKeypair = Keypair.fromSecretKey(ServerSK);
 
