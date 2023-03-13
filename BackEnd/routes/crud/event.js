@@ -1,5 +1,9 @@
 import express from 'express';
 import db from '../../lib/mongodb.js';
+import * as katamari from '../../lib/katamari.js';
+import debuger from 'debug';
+
+const debug = debuger("server:admin:event");
 
 var router = express.Router();
 
@@ -15,6 +19,15 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
 	try{
+		debug("New candy machine for event is begin genrerated");
+		req.body.candy_machine_address = await CreateACollection (
+			req.body.Nombre,
+			req.body.LocalUriImg,
+			req.body.Descripcion,
+			req.body.TarifaReventa,
+			req.body.Simbolo
+		);
+		debug( "Candy machine address: " + req.body.candy_machine_address );
 		await db.newEvent( req.body );
 		res.status(201);
 		res.send();

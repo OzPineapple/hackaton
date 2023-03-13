@@ -45,6 +45,7 @@ driver.upClient	  = ( reqBody ) => { return driver.usr_update(reqBody); }
 driver.getClient  = ( id ) => { return driver.usr_getByID(id); }
 driver.rmClient	  = ( id ) => { throw new CustomError("NoCodedYet", null); }
 driver.getPrivateKeyOfClient = ( id ) => { return driver.usr_getPrivKByID(id); }
+driver.getCMaddressOfEvent = ( id ) => { throw new CustomError("NoCodedYet", null); }
 
 //Admin
 
