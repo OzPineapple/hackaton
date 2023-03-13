@@ -21,6 +21,7 @@ export async function LoadImage(Url, nombre) {
     //Termina de Subir la imagen a metaplex ahora si que si
     const imgUri = await metaplex.storage().upload(imgMetaplexFile);
     //Retorna la url de la img para su posterior uso
+    console.log(imgUri);
     return imgUri;
 }
 
@@ -52,9 +53,11 @@ export async function LoadMetadata(nftName, description, imgUri, imgType, attrib
     //Retorna la URL de la metadata ya montada en la nube (Arewave)
     return uri;
 }
-
-//Crea el nft correspondiente a la coleccion
-export async function CrearColeccionNFT(Nombre, UriMetadata, TarifaReventa) {
+//Esta funcion recibe el simbolo de la coleccion, la fecha de inicio de la venta y la fecha del final de la misma
+export async function CandyMachineSCreation(Simbol, dateS, dateE) {
+    //Esta linea concatena el nombre Ticket con el simbolo (Abrebiatura asiganda)
+    var NTicket = "Ticket " + Simbol;
+    //Creamos la coleccion
     const { nft: collectionNft } = await metaplex.nfts().create({
         name: Nombre,
         uri: UriMetadata,
@@ -79,11 +82,9 @@ export async function CandyMachineSCreation(uriCollection, Simbolo, BoletosDispo
             updateAuthority: ServerKeypair,
         },
         guards: {
-            /*
             startDate: { date: toDateTime(dateS) },
             endDate: { date: toDateTime(dateE) },
-            */
-            mintLimit: { id: 1, limit: 5 }
+            mintLimit: { id: 1, limit: 5 },
         },
         isMutable: true,
         itemsAvailable: toBigNumber(BoletosDisponibles),
@@ -97,10 +98,9 @@ export async function CandyMachineSCreation(uriCollection, Simbolo, BoletosDispo
     });
 
     //Segun esta mamada ya esta creada la chingadera
+    console.log(candyMachine.address);
     return candyMachine.address;
-};
-
-
+}
 //Esta funcion busca una CM con su direccion
 export async function FetchCandymachine(Key) {
     //Crea una CM que recibe de la busqueda 
@@ -142,3 +142,9 @@ export async function InsertingItemsCM(CMadress, uri, id) {
         ],
     });
 }
+//Crea la funcion de testing
+async function Test() {
+    var MetadataUri = "https://arweave.net/PeHHnFoJ5ussgXbGt7BMKbweeQ9TZ98el-M3hfvsPiw";
+}
+var CMaddress = "6kB8At33nJj3mWpEd9dRGfgRF47fwkeQH7ZJp1cGMHbe";
+Test();
