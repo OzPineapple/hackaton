@@ -404,7 +404,7 @@ driver.set_ticket = (idEvento, idUsr, token) => {
 	})
 	size++;
 
-	var newBoleto = {id_text: size, evento: idEvento, nft: token, owner: idUsr, fecha: this.event_getByID.fecha};
+	var newBoleto = {id_text: size, evento: idEvento, nft: token, owner: idUsr, fechaE: driver.event_getByID(idEvento).fecha};
 	collBoleto.insertOne(newBoleto, async function(err,res){
 
 		var nDisp = await event_getByID(idEvento).lugaresDisp
