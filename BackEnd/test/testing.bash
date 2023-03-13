@@ -1,10 +1,23 @@
 #!/bin/bash
 
-URL=http://localhost:3000
+set -x
 
-echo "Iniciando sesion desde un usuario inexistente"
-curl --verbose -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "usr=fake&pass=fake" $URL/usuarios/login
-echo "Iniciando sesion con una contraseña erronea"
-curl --verbose -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "usr=admin&pass=fake" $URL/usuarios/login
-echo "Iniciando sesion con un usuario correcto"
-curl --verbose -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "usr=admin&pass=admin" $URL/usuarios/login
+URL=http://localhost:3000
+VERBOSE=--verbose
+
+appLoginAdmin(){
+	curl \
+		$VERBOSE \
+		-X POST \
+		-H "Content-Type: application/x-www-form-urlencoded" \
+		-d "name=admin&password=admin" \
+		$URL/login
+}
+
+appAdminGet(){
+	curl \
+		$VERBOSE \
+		-X GET \
+		-H "Authorization: Bearer $1" \
+		$URL/admin/
+}
