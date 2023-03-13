@@ -3,6 +3,7 @@ import { LoadImage, LoadMetadata, CrearColeccionNFT, CandyMachineSCreation } fro
 import { AccountLayout } from "@solana/spl-token";
 import { getMetadata } from './Solana/NFT/NFT.js'
 
+export { getPubKey } from './Solana/Wallet.js';
 
 //Nota voy a suponer que las imagenes cargadas al nft solo serán en formato png, en caso de que no, favor de avisar para convertir el tipo de la imagen en un
 //string variable, deacuerdo a la imagen cargada, Debe de recbir un arreglo de objetos llamado Atributos (No deberia estar la funcion de subir imagen)

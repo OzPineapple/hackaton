@@ -44,6 +44,7 @@ driver.newClient  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); 
 driver.upClient	  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 driver.getClient  = ( id ) => { throw new CustomError("NoCodedYet", null); }
 driver.rmClient	  = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getPrivateKeyOfClient = ( id ) => { throw new CustomError("NoCodedYet", null); }
 
 //Admin
 

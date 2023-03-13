@@ -30,25 +30,20 @@ router.use( async (req, res, next) => {
 
 router.use('/ticket', ticket);
 
-router.use( async (req, res, next) => {
+//router.use('/', crud);
+
+router.get('/', async (req, res) => {
 	try{
 		const decoded = getJwt( req );
-		debug( "id_text: " + decoded.id_text );
-		if( decoded.id_text != req.params.id )
-			return res.status(403).send();
-		debug("allowed: user is accessing to his own information");
-		next();
+		var data = getClient( decoded.id_text );
+		data.publicK = getPubKey( await db.getPrivateKeyOfClient( decoded.id_text ) );
+		debug('user asking for own info');
+		debug(data);
+		res.status(200);
+		res.send(data);
 	}catch(e){ switch(e.name){
-		case "undefined":
-			console.error(e);
-			return res.status(403).send();
-		case "NoBearer":
-			console.error(e);
-			return res.status(406).send();
 		default: next(e);
 	}}
 });
-
-router.use('/', crud);
 
 export default router;
