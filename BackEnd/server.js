@@ -6,6 +6,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import debuger from 'debug';
+import cors from 'cors';
 
 /* Importación de los enrutadores */
 import root from './routes/root.js';
@@ -19,6 +20,7 @@ const logerr = debuger("server:global_err_handler");
 /* Configuaración del servidor */
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.text());
+app.use(cors());
 app.set('port', port);
 
 /* Configuraciones */
