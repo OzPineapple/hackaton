@@ -1,16 +1,25 @@
-import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, SystemProgram, Transaction } from "@solana/web3.js";
+import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, SystemProgram, Transaction, Keypair } from "@solana/web3.js";
+
 //Importacion para las transformaciones de base 58 y binario
 import bs58 from "bs58";
+import fs from "fs";
+
+const ServerW = JSON.parse(fs.readFileSync("/Users/haru/.config/solana/id.json", "utf-8"));
+const ServerSK = Uint8Array.from(ServerW);
+const ServerKeypair = Keypair.fromSecretKey(ServerSK);
+
 //Crea una conexion con la testnet/devnet (nada más cambian el nombre)
 export function Conn() {
     const conn = new Connection(clusterApiUrl('devnet'), "confirmed");
     return conn;
 }
+
 //Decodifica algo en base 58 y lo transforma a binario
 export function Decode(ElemDecode) {
     var decode = bs58.decode(ElemDecode);
     return decode;
 }
+
 //Codifica algo en binario a base 58
 export function Encode(ElemCode) {
     var code = bs58.encode(ElemCode);

@@ -1,4 +1,7 @@
-import { Keypair, sendAndConfirmTransaction, SystemProgram, Transaction } from "@solana/web3.js";
+import { Keypair, sendAndConfirmTransaction, SystemProgram, Transaction, PublicKey} from "@solana/web3.js";
+import { TOKEN_PROGRAM_ID, AccountLayout } from "@solana/spl-token";
+import * as SPLToken from "@solana/spl-token";
+
 import { Decode, Encode, Solecitos, Conn } from "./Util.js";
 //Crea una Wallet de 0 sin semilla
 export function CreateWall() {
@@ -9,6 +12,7 @@ export function CreateWall() {
     //Retorna la SK ya codificada en base 58
     return UsrSK58;
 }
+
 //Funcion para la transaccion entre cuentas
 export function P2PTrasaction(sender, reciber, a) {
     //Usando las secret key para ontener los Kaypairs
@@ -31,6 +35,7 @@ export function P2PTrasaction(sender, reciber, a) {
     //Regresa la firma de la transaccion
     return signature;
 }
+
 //Funcion para obtener el balance
 export async function Balance(UsrSK58) {
     //Obtiene la conexion 
@@ -44,3 +49,15 @@ export async function Balance(UsrSK58) {
     //Retorna el balance
     return Balance;
 }
+
+export async function GetTokenAccounts(usrPK){
+
+    let response = await Conn().getTokenAccountsByOwner( new PublicKey(usrPK),
+    {
+        programId:TOKEN_PROGRAM_ID
+    });
+    return response;
+}
+
+
+GetTokenAccounts("3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3");
