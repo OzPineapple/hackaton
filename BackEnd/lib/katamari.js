@@ -1,3 +1,4 @@
+import debuger from 'debug';
 
 import { GetTokenAccounts, CreateWall, Balance, P2PTrasaction } from './Solana/Wallet.js';
 import { LoadImage, LoadMetadata, CrearColeccionNFT, CandyMachineSCreation } from './Solana/NFT/CandyMachineV3.js'
@@ -7,6 +8,8 @@ import { getMetadata } from './Solana/NFT/NFT.js'
 import { CompraBoleto } from './Solana/Pay/Compra.js';
 import { AñadirFondos } from './Solana/Pay/AñadirFondos.js';
 import { Transferencia } from './Solana/NFT/Tansferencia.js';
+
+const debug = debuger('server:katamari');
 
 export { getPubKey } from './Solana/Wallet.js';
 
@@ -20,14 +23,14 @@ export async function CreateACollection (Nombre, LocalUriImg, Descripcion, Tarif
 
 	var uriCollection =   await CrearColeccionNFT(Nombre, metaData, TarifaReventa);
 
-	console.log(uriCollection);
+	debug(uriCollection);
 	
 	//Esta madre deberia recibir una fecha de inicio y una fecha de fin para la impresion de NFT
 	var CMaddress =  await CandyMachineSCreation(uriCollection, Simbolo, BoletosDisponibles);
 
 	var {cosas} = ({ ImgUri : imgUri, metaDataUrl: metaData, CmAddress : CMaddress});
 
-	console.log(cosas);
+	debug(cosas);
 
 	return cosas;
 }
@@ -46,7 +49,7 @@ export async function CreateAndMintNFT(Nombre, Descripcion, imgUri, CMaddress, S
 	
 	let {response2} = await Mint(CMaddress);
 
-	console.log("Funciona esta madre creo")
+	debug("Funciona esta madre creo")
 }
 
 export function CreateWallet(){
@@ -64,11 +67,11 @@ export async function GetAndFilrtMetadata(UsrPK){
 		var nft = await getMetadata(AccountLayout.decode(TAc.value[i].account.data).mint.toString());
 
 		
-		console.log("iteracion:  " + i);
+		debug("iteracion:  " + i);
 		if(nft.json != undefined){
 			if(nft.json.attributes != undefined){
 				if (nft.json.attributes[0] != undefined){
-					console.log(nft.json.attributes[0].value);
+					debug(nft.json.attributes[0].value);
 				if (nft.json.attributes[0].value == "true") {
 					BoletosSinUsar.push(nft);
 				}
@@ -112,7 +115,7 @@ CreateAndMintNFT(Nombre, Descripcion, imgUri, CMaddress, Seccion, Asiento)
 async function test() {
 	var BoletosSinUsar = [];
 	BoletosSinUsar = await GetAndFilrtMetadata("3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3");
-	console.log(BoletosSinUsar[0].address.toString())
+	debug(BoletosSinUsar[0].address.toString())
 }
 test();
 */
