@@ -1,4 +1,4 @@
-import { GetTokenAccounts,CreateWall, Balance, P2PTrasaction } from './Solana/Wallet.js';
+import { GetTokenAccounts, CreateWall, Balance, P2PTrasaction } from './Solana/Wallet.js';
 import { LoadImage, LoadMetadata, CrearColeccionNFT, CandyMachineSCreation } from './Solana/NFT/CandyMachineV3.js'
 import { AccountLayout } from "@solana/spl-token";
 import { getMetadata } from './Solana/NFT/NFT.js'
@@ -29,59 +29,9 @@ export async function CreateACollection (Nombre, LocalUriImg, Descripcion, Secci
 }
 
 export function CreateWallet(){
-	CreateWall();
+	return CreateWall();
 }
 
-export async function GetAndFilrtMetadara(UsrPK){
-	var BoletosSinUsar = [];
-	
-	let TAc = await GetTokenAccounts(UsrPK); 
-	var i = 0;
-	var nft = await getMetadata(TAc.value[i].pubkey.toString())
-	/*
-	while(TAc.value[i] != undefined){
-		console.log("iteracion:  " + i);
-		var nft = await getMetadata(TAc.value[i].pubkey.toString())
-		if (nft.json.attributes[0].value == "false") {
-			BoletosSinUsar.push(nft);
-		}
-		i++;
-	}
-	*/
-
-
-	/*
-	let TAc = await GetTokenAccounts(UsrPK);
-	TAc.value.forEach(async (tokenAccount) => {
-        const accountData = AccountLayout.decode(tokenAccount.account.data);
-		
-		var nft =  await getMetadata(accountData.mint);
-		
-	});
-	*/
-	
-
-	return BoletosSinUsar;
+export function getBalance(){
+	return Balance();
 }
-
-async function test() {
-	var BoletosSinUsar = [];
-	BoletosSinUsar = await GetAndFilrtMetadara("3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3");
-	//console.log(BoletosSinUsar[0])
-}
-
-test();
-/*
-var Nombre = "KatamariTour Collection";
-var LocalUriImg ="./Solana/NFT/Pruebas/katamari.png";
-var Descripcion = "Boleto para ...";
-var Seccion = "A";
-var Simbolo = "SUS"
-var  Asiento = "10";
-var TarifaReventa = "1000";
-var BoletosDisponibles = 3;
-
-2uTsiK6DjnZWjhAEYSjRFQNStXtHU9grkRHGcMyRqtF4
-
-CreateACollection(Nombre, LocalUriImg, Descripcion, Seccion, Asiento, TarifaReventa, Simbolo);
-*/
