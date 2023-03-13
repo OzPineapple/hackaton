@@ -634,7 +634,14 @@ driver.grd_login = async (mailGrd, pass) => {
 
 driver.loginG = async (data, pass) => {
 
-	var usu, admin, org;
+	var usu, admin, org, grd;
+
+	try{
+		grd = await driver.grd_login(data, pass);
+		debug(grd);
+	}catch (e){
+		console.log(e);
+	}
 
 	try{
 		org = await driver.org_login(data, pass);
@@ -657,18 +664,19 @@ driver.loginG = async (data, pass) => {
 		console.log(e);
 	}
 
-	if (usu!=undefined && admin!=undefined){
-		throw new CustomStatusError( "DuplicatedRecord", 409,
-			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + data
-		);
-	}else if(usu!=undefined){
-		return usu;
-	}else if(admin!=undefined){
+	if (admin!=undefined && usu==undefined && org==undefined && grd==undefined){
 		return admin;
+	}else if(usu!=undefined && admin==undefined && org==undefined && grd==undefined){
+		return usu;
+	}else if(org!=undefined && admin==undefined && usu==undefined && grd==undefined){
+		return org;
+	}else if(grd!=undefined && admin==undefined && usu==undefined && org==undefined){
+		return grd;
 	}
-	else
-		throw new CustomStatusError( "NotFound", 404,
+	else{
+		throw new CustomStatusError( "SomethingWentWrong", 404,
 			"No hay registros con:" + data);
+	}
 
 }
 
