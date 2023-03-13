@@ -3,8 +3,10 @@ import jwt from 'jsonwebtoken';
 import db from '../lib/mongodb.js';
 import * as katamari from '../lib/katamari.js';
 import { CustomError, CustomStatusError } from '../lib/error.js';
+import debuger from 'debug';
 
 const router = express.Router();
+const debug = debuger('server:root');
 
 router.get('/events', async (req, res, next) => {
 	try{
@@ -40,6 +42,7 @@ router.get('/resells', async (req, res, next) => {
 
 router.post('/login', async (req, res, next) => {
 	try{
+		debug( "login: ", req.body );
 		const user_data = await db.login( req.body.name, req.body.password );
 		if( ! user_data )
 			throw new CustomStatusError( "NullDBQuey", 500,
