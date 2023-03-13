@@ -18,11 +18,11 @@ const collUbicacion = databse.collection('Ubicacion');
 var driver = {};
 
 driver.getResells = () => { throw new CustomError("NoCodedYet", null); }
-driver.login = ( name, password ) => { return driver.loginG(name, password);}
-driver.getEvents = () => { throw new CustomError("NoCodedYet", null); }
-driver.newEvent  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.upEvent	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.getEvent	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.login = ( name, password ) => { return driver.loginG(name, password); }
+driver.getEvents = () => { return driver.event_getAll(); }
+driver.newEvent  = ( reqBody ) => { return driver.event_set(reqBody); }
+driver.upEvent	 = ( reqBody ) => { return driver.event_update(reqBody); }
+driver.getEvent	 = ( id ) => { return driver.event_getByID(id); }
 driver.rmEvent	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
 driver.getOrgans = () => { throw new CustomError("NoCodedYet", null); }
 driver.newOrgan	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
@@ -34,10 +34,10 @@ driver.newGuard	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 driver.upGuard	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 driver.getGuard	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
 driver.rmGuard	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
-driver.getAdmins = () => { throw new CustomError("NoCodedYet", null); }
+driver.getAdmins = () => { return driver.admin_getAll(); }
 driver.newAdmin	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 driver.upAdmin	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.getAdmin	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getAdmin	 = ( id ) => { driver.admin_getByID(id); }
 driver.rmAdmin	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
 driver.getClients = () => { throw new CustomError("NoCodedYet", null); }
 driver.newClient  = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
@@ -60,9 +60,9 @@ driver.set_admin = async ({correo, nom, contra, user}) => {
 
 }
 
-driver.admin_get = async userAdmin => {
+driver.admin_getByUsr = async (userAdmin) => {
 	const query = { usr: userAdmin };
-	const options = {projection: {_id: 0}};
+	const options = {_id: 0};
 	
 	const admins = await collAdmin.find(query, options);
 	let count = await admins.count();
@@ -81,6 +81,41 @@ driver.admin_get = async userAdmin => {
 		throw new CustomStatusError( "UnknownError", 500,
 			"Un error desconocido evita que el servidor pueda procesar la peticion"
 		);
+}
+
+driver.admin_getByID = async (idAdmin) => {
+	const query = { id_text: idAdmin };
+	const options = {_id: 0, pass: 0};
+	
+	const admins = await collAdmin.find(query, options);
+	let count = await admins.count();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"El usuario " + idAdmin + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + idAdmin 
+		);
+	else if (count == 1)
+		return admins.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.admin_getAll = async () => {
+
+	const query = {};
+
+	const options = {_id: 0, pass:0};
+
+	const admins = collAdmin.find(query, options);
+	
+	return admins;
+	
 }
 
 driver.admin_login = async (userAdmin, pass) => {
