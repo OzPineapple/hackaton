@@ -2,6 +2,8 @@ import { Keypair, PublicKey, sendAndConfirmTransaction, Transaction } from "@sol
 const { createAssociatedTokenAccount, createTransferCheckedInstruction, getMint } = require("@solana/spl-token");
 import fs from "fs";
 import { Conn, Decode } from "../Util.js";
+
+
 export async function Transferencia(UsrSK58, minit) {
     //Llaves del servidor a este punto ya deberías saber que estoy haciendo
     const ServerW = JSON.parse(fs.readFileSync(process.env.HOME + "/.config/solana/id.json", "utf-8"));

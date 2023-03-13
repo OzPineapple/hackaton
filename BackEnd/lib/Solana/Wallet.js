@@ -52,6 +52,7 @@ export async function Balance(UsrSK58) {
 
 export async function GetTokenAccounts(usrPK){
 
+    let response2 = await Conn().getTokenLargestAccounts
     let response = await Conn().getTokenAccountsByOwner( new PublicKey(usrPK),
     {
         programId:TOKEN_PROGRAM_ID

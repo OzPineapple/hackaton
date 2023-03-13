@@ -4,10 +4,6 @@ import { clusterApiUrl, Connection, LAMPORTS_PER_SOL, SystemProgram, Transaction
 import bs58 from "bs58";
 import fs from "fs";
 
-const ServerW = JSON.parse(fs.readFileSync("/Users/haru/.config/solana/id.json", "utf-8"));
-const ServerSK = Uint8Array.from(ServerW);
-const ServerKeypair = Keypair.fromSecretKey(ServerSK);
-
 //Crea una conexion con la testnet/devnet (nada más cambian el nombre)
 export function Conn() {
     const conn = new Connection(clusterApiUrl('devnet'), "confirmed");
