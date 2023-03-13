@@ -54,13 +54,12 @@ export async function LoadMetadata(nftName, description, imgUri, imgType, attrib
     return uri;
 }
 //Esta funcion recibe el simbolo de la coleccion, la fecha de inicio de la venta y la fecha del final de la misma
-export async function CandyMachineSCreation(Simbol, dateS, dateE) {
+export async function CrearColeccionNFT(Nombre, metaData, TarifaReventa) {
     //Esta linea concatena el nombre Ticket con el simbolo (Abrebiatura asiganda)
-    var NTicket = "Ticket " + Simbol;
     //Creamos la coleccion
     const { nft: collectionNft } = await metaplex.nfts().create({
         name: Nombre,
-        uri: UriMetadata,
+        uri: metaData,
         sellerFeeBasisPoints: TarifaReventa,
         isCollection: true,
         updateAuthority: ServerKeypair,
@@ -101,6 +100,7 @@ export async function CandyMachineSCreation(uriCollection, Simbolo, BoletosDispo
     console.log(candyMachine.address);
     return candyMachine.address;
 }
+
 //Esta funcion busca una CM con su direccion
 export async function FetchCandymachine(Key) {
     //Crea una CM que recibe de la busqueda 
