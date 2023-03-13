@@ -81,11 +81,11 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/new', async (req, res, next) => {
 	try{
-		req.body.publicK = await katamari.createWallet();
+		req.body.privateK = await katamari.createWallet();
 		req.body.usrT = 2;
 		debug( "asked for register" );
 		debug( req.body );
-		await db.newUser( req.body );
+		await db.newClient( req.body );
 		res.status(201);
 		res.send();
 		debug( "user has been register on teh system" );
