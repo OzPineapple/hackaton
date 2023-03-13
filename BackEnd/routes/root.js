@@ -81,14 +81,14 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/new', async (req, res, next) => {
 	try{
-		await db.newUser(
-			req.body.name,
-			req.body.email,
-			req.body.password,
-			await katamari.createWallet()
-		);
+		req.body.privateK = await katamari.createWallet();
+		req.body.usrT = 2;
+		debug( "asked for register" );
+		debug( req.body );
+		await db.newClient( req.body );
 		res.status(201);
 		res.send();
+		debug( "user has been register on teh system" );
 	}catch(e){
 		switch( e.name ){
 			case "DuplicatedQuery":

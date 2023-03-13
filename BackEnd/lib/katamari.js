@@ -1,11 +1,14 @@
-import { GetTokenAccounts,CreateWall, Balance, P2PTrasaction } from './Solana/Wallet.js';
-import { LoadImage, LoadMetadata, CrearColeccionNFT, CandyMachineSCreation, LoadMetadataCollection, InsertingItemsCM, Mint } from './Solana/NFT/CandyMachineV3.js'
-import { AccountLayout, transfer } from "@solana/spl-token";
+
+import { GetTokenAccounts, CreateWall, Balance, P2PTrasaction } from './Solana/Wallet.js';
+import { LoadImage, LoadMetadata, CrearColeccionNFT, CandyMachineSCreation } from './Solana/NFT/CandyMachineV3.js'
+import { AccountLayout } from "@solana/spl-token";
+
 import { getMetadata } from './Solana/NFT/NFT.js'
 import { CompraBoleto } from './Solana/Pay/Compra';
 import { AñadirFondos } from './Solana/Pay/AñadirFondos';
 import { Transferencia } from './Solana/NFT/Tansferencia.js';
 
+export { getPubKey } from './Solana/Wallet.js';
 
 //Nota voy a suponer que las imagenes cargadas al nft solo serán en formato png, en caso de que no, favor de avisar para convertir el tipo de la imagen en un
 //string variable, deacuerdo a la imagen cargada, Debe de recbir un arreglo de objetos llamado Atributos (No deberia estar la funcion de subir imagen)
@@ -28,6 +31,7 @@ export async function CreateACollection (Nombre, LocalUriImg, Descripcion, Tarif
 
 	return cosas;
 }
+
 
 export async function CreateAndMintNFT(Nombre, Descripcion, imgUri, CMaddress, Seccion, Asiento){
 	/*
@@ -126,3 +130,11 @@ var BoletosDisponibles = 10;
 CreateACollection(Nombre, LocalUriImg, Descripcion, Seccion, Asiento, TarifaReventa, Simbolo);
 
 */
+
+export function createWallet(){
+	return CreateWall();
+}
+
+export function getBalance(){
+	return Balance();
+}

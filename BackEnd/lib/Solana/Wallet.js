@@ -50,6 +50,16 @@ export async function Balance(UsrSK58) {
     return Balance;
 }
 
+//Funcion para obtener la llave publica
+export async function getPubKey(UsrSK58) {
+    //Obtiene Keypair de la SK de 
+    var UsrKeypair = Keypair.fromSecretKey(Decode(UsrSK58));
+    //Obtiene la Public Key de la Keypair
+    var UsrPK = UsrKeypair.publicKey;
+    //Retorna la llave publica
+    return UsrPK;
+}
+
 export async function GetTokenAccounts(usrPK){
 
     let response2 = await Conn().getTokenLargestAccounts
