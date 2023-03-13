@@ -1,7 +1,64 @@
-<form action="">
+<form action="" method="post" onsubmit="send(event)">
     <label for="email">Email:</label>
     <input type="email" name="email" id="email"><br><br>
     <label for="password">Contraseña</label>
     <input type="password" name="password" id="password"><br><br>
-    <button id="Enviar">Inicias Sesion</button>
+    <button id="Enviar" type="submit">Inicias Sesion</button>
 </form>
+
+<script type="text/javascript">
+    var btn = document.getElementById("Enviar");
+    
+    async function send(e){
+        e.preventDefault();
+        var data  = new URLSearchParams();
+        data.append( "name", "admin");
+        data.append( "password", "admin");
+            let resolt = await fetch("http://localhost:3000/login",{
+                method: 'post', body:data,
+            });
+            var sta = resolt.status;
+            resolt = await resolt.json();
+            switch (sta) {
+                case 200:
+                    alert("Bienvenido!");
+                    var token = resolt.token;
+                    var tipo = resolt.user_data.usrT;
+                    switch (tipo) {
+                        case "1":
+                            localStorage.setItem("token",token);
+                            
+                            window.open("/IndexAdmin/","_self");
+                            break;
+                        case "2":
+                            window.open("/IndexUser","_self");
+                            break;
+                        case "3":
+                            window.open("IndexOrga","_self");
+                            break;
+                        case "4":
+                            window.open("IndexGuardia","_self");
+                            break
+                        default:
+                            console.log("Mamo");
+                            break;
+                    }
+
+                    //
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                    case 500:
+                    alert("Error en servidor");
+                    break;
+                    case 502:
+                        alert("Solana se disocio");
+                        break;
+                        case 401:
+                            alert("Error dde contraseña");
+                            break;
+            }
+        }
+        
+    </script>

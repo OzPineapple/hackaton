@@ -4,15 +4,43 @@ import InDatosC from "../components/InDatosCyA.astro";
 ---
 <Base titulo="Registro">
     <InDatosC>
-        <button id="Enviar">Registrar</button>
+        <button id="Enviar" type="submit">Registrar</button>
     </InDatosC>
 </Base>
 
-<script>
-    var button = document.getElementById("Enviar");
-    button.addEventListener("click", function enviar(e) {
+<script type="text/javascript">
+    var name = document.getElementById("name");
+    var email = document.getElementById("email");
+    var pass = document.getElementById("password");
+
+    async function send(e){
+
         e.preventDefault();
-        var name = document.getElementById("name").value;
-        console.log(name);
-    })
-</script>
+        var data  = new URLSearchParams();
+        data.append( "name", name.value);
+        data.append( "mail", email.value);
+        data.append( "pass", pass.value);
+            let resolt = await fetch("http://localhost:3000/new",{
+                method: 'post', body:data,
+            });
+            switch (resolt.status) {
+                case 200:
+                    alert("Bienvenido!");
+                    window.open("/index","_self");
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                    case 500:
+                    alert("Error en servidor");
+                    break;
+                    case 502:
+                        alert("Solana se disocio");
+                        break;
+                        case 401:
+                            alert("Error dde contraseña");
+                            break;
+            }
+        }
+        
+    </script>
