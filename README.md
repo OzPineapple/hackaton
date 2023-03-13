@@ -10,3 +10,16 @@ make install
 ```bash
 make
 ```
+### Server NPM
+Deploy mode
+```bash
+npm start
+```
+Develoment mode
+```bash
+npm run dev
+```
+Debug mode
+```bash
+npm run debug
+```

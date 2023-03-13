@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import debuger from 'debug';
 
 /* Importación de los enrutadores */
 import root from './routes/root.js';
@@ -12,6 +13,7 @@ import admin from './routes/admin.js';
 
 const app = express();
 const port = process.env.npm_package_config_port || '8080';
+const debug = debuger("server:");
 
 /* Configuaración del servidor */
 app.use(express.urlencoded({ extended: true }));
@@ -46,4 +48,4 @@ app.use((err, req, res, next) => {
 
 const server = http.createServer(app);
 server.listen(port);
-console.log( "Servidor escuchando peticiones en puerto " + port ); 
+debug( "Listening on port " + port ); 

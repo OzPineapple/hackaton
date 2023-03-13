@@ -9,8 +9,9 @@
 		"port": "3000"
 	},
 	"scripts": {
-		"start": "DEBUG=express:router:*,server:* node ./server.js",
-		"debug": "DEBUG=express:router:*,server:* node inspect ./server.js"
+		"start": "node ./server.js",
+		"dev": "DEBUG=express:router:*,server:* nodemon ./server.js",
+		"debug": "node inspect ./server.js"
 	},
 	"dependencies": {
 		"@metaplex-foundation/js": "^0.18.1",

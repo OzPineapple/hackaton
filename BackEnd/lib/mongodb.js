@@ -1,5 +1,8 @@
 import mongodb from 'mongodb';
 import { CustomError, CustomStatusError } from './error.js';
+import debuger from 'debug';
+
+const debug = debuger("server:mongodb");
 
 const uri = process.env.npm_package_config_dburi;
 
@@ -362,14 +365,14 @@ driver.loginG = async (data, pass) => {
 
 	try{
 		usu = await driver.usr_login(data, pass);
-		console.log(usu);
+		debug(usu);
 	} catch (e){
 		console.log(e);
 	}
 
 	try{
 		admin = await driver.admin_login(data, pass);
-		console.log(admin);
+		debug(admin);
 	}catch (e){
 		console.log(e);
 	}

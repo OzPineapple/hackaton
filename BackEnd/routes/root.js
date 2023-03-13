@@ -42,7 +42,8 @@ router.get('/resells', async (req, res, next) => {
 
 router.post('/login', async (req, res, next) => {
 	try{
-		debug( "login: ", req.body );
+		debug( "request for login" );
+		debug( req.body );
 		const user_data = await db.login( req.body.name, req.body.password );
 		if( ! user_data )
 			throw new CustomStatusError( "NullDBQuey", 500,
@@ -54,12 +55,15 @@ router.post('/login', async (req, res, next) => {
 				expiresIn: process.env.npm_package_config_jwtttl
 			}
 		);
+		const data = { 
+			token: token,
+			user_data: user_data
+		};
+		debug("valid so response:");
+		debug(data);
 		res.status(200);
 		res.type('json');
-		res.send({ 
-			token: token,
-			user_type: user_data.usrT
-		});
+		res.send(data);
 	}catch(e){
 		switch( e.name ){
 			case "EmptyQuery":
