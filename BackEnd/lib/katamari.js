@@ -4,8 +4,8 @@ import { LoadImage, LoadMetadata, CrearColeccionNFT, CandyMachineSCreation } fro
 import { AccountLayout } from "@solana/spl-token";
 
 import { getMetadata } from './Solana/NFT/NFT.js'
-import { CompraBoleto } from './Solana/Pay/Compra';
-import { AñadirFondos } from './Solana/Pay/AñadirFondos';
+import { CompraBoleto } from './Solana/Pay/Compra.js';
+import { AñadirFondos } from './Solana/Pay/AñadirFondos.js';
 import { Transferencia } from './Solana/NFT/Tansferencia.js';
 
 export { getPubKey } from './Solana/Wallet.js';

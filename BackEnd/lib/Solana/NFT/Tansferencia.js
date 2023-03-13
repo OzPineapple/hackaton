@@ -1,5 +1,5 @@
 import { Keypair, PublicKey, sendAndConfirmTransaction, Transaction } from "@solana/web3.js";
-const { createAssociatedTokenAccount, createTransferCheckedInstruction, getMint } = require("@solana/spl-token");
+import { createAssociatedTokenAccount, createTransferCheckedInstruction, getMint }from "@solana/spl-token";
 import fs from "fs";
 import { Conn, Decode } from "../Util.js";
 
