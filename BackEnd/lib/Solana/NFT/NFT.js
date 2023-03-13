@@ -14,15 +14,9 @@ const metaplex = Metaplex.make(Conn()).use(keypairIdentity(ServerKeypair));
 export async function getMetadata(key){
   
     const mint = new PublicKey(key);
-    
-    console.log(key);
-    console.log(mint);
 
     const nft = await metaplex.nfts().findByMint({mintAddress : mint});
 
-    const A = nft.json.attributes;
-
     return nft;
-
 
 }

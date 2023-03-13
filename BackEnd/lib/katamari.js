@@ -32,42 +32,37 @@ export function CreateWallet(){
 	CreateWall();
 }
 
-export async function GetAndFilrtMetadara(UsrPK){
+export async function GetAndFilrtMetadata(UsrPK){
 	var BoletosSinUsar = [];
 	
 	let TAc = await GetTokenAccounts(UsrPK); 
 	var i = 0;
-	var nft = await getMetadata(TAc.value[i].pubkey.toString())
-	/*
+	
 	while(TAc.value[i] != undefined){
+	
+		var nft = await getMetadata(AccountLayout.decode(TAc.value[i].account.data).mint.toString());
+
+		
 		console.log("iteracion:  " + i);
-		var nft = await getMetadata(TAc.value[i].pubkey.toString())
-		if (nft.json.attributes[0].value == "false") {
-			BoletosSinUsar.push(nft);
+		if(nft.json != undefined){
+			if(nft.json.attributes[0] != undefined){
+				console.log(nft.json.attributes[0].value);
+				if (nft.json.attributes[0].value == "false") {
+					BoletosSinUsar.push(nft);
+				}
+			}
 		}
+		
 		i++;
 	}
-	*/
-
-
-	/*
-	let TAc = await GetTokenAccounts(UsrPK);
-	TAc.value.forEach(async (tokenAccount) => {
-        const accountData = AccountLayout.decode(tokenAccount.account.data);
-		
-		var nft =  await getMetadata(accountData.mint);
-		
-	});
-	*/
-	
 
 	return BoletosSinUsar;
 }
 
 async function test() {
 	var BoletosSinUsar = [];
-	BoletosSinUsar = await GetAndFilrtMetadara("3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3");
-	//console.log(BoletosSinUsar[0])
+	BoletosSinUsar = await GetAndFilrtMetadata("3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3");
+	console.log(BoletosSinUsar[0].address.toString())
 }
 
 test();
