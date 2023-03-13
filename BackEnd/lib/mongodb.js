@@ -14,6 +14,8 @@ const collEvento = databse.collection('Evento');
 const collTipoEvento = databse.collection('tipoEvento');
 const collBoleto = databse.collection('Boleto');
 const collUbicacion = databse.collection('Ubicacion');
+const collOrganizador = databse.collection('Organizador');
+const collGuardia = databse.collection('Guardia');
 
 var driver = {};
 
@@ -23,29 +25,29 @@ driver.getEvents = () => { return driver.event_getAll(); }
 driver.newEvent  = ( reqBody ) => { return driver.event_set(reqBody); }
 driver.upEvent	 = ( reqBody ) => { return driver.event_update(reqBody); }
 driver.getEvent	 = ( id ) => { return driver.event_getByID(id); }
-driver.rmEvent	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
-driver.getOrgans = () => { throw new CustomError("NoCodedYet", null); }
-driver.newOrgan	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.upOrgan	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.getOrgan	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
-driver.rmOrgan	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
-driver.getGuards = () => { throw new CustomError("NoCodedYet", null); }
-driver.newGuard	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.upGuard	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
-driver.getGuard	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
-driver.rmGuard	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+// driver.rmEvent	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getOrgans = () => { return driver.org_getAll(); }
+driver.newOrgan	 = ( reqBody ) => { return driver.set_org(reqBody); }
+// driver.upOrgan	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.getOrgan	 = ( id ) => { return driver.org_getByID(id); }
+// driver.rmOrgan	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getGuards = () => { return driver.grd_getAll(); }
+driver.newGuard	 = ( reqBody ) => { return driver.set_grd(reqBody); }
+// driver.upGuard	 = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
+driver.getGuard	 = ( id ) => { return driver.grd_getByID(id) }
+// driver.rmGuard	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
 driver.getAdmins = () => { return driver.admin_getAll(); }
 driver.newAdmin	 = ( reqBody ) => { return driver.admin_get(reqBody); }
 driver.upAdmin	 = ( reqBody ) => { return driver.admin_update(reqBody); }
 driver.getAdmin	 = ( id ) => { return driver.admin_getByID(id); }
-driver.rmAdmin	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
+// driver.rmAdmin	 = ( id ) => { throw new CustomError("NoCodedYet", null); }
 driver.getClients = () => { return driver.usr_getAll(); }
 driver.newClient  = ( reqBody ) => { return driver.usr_set(reqBody); }
 driver.upClient	  = ( reqBody ) => { return driver.usr_update(reqBody); }
 driver.getClient  = ( id ) => { return driver.usr_getByID(id); }
-driver.rmClient	  = ( id ) => { throw new CustomError("NoCodedYet", null); }
+// driver.rmClient	  = ( id ) => { throw new CustomError("NoCodedYet", null); }
 driver.getPrivateKeyOfClient = ( id ) => { return driver.usr_getPrivKByID(id); }
-driver.getCMaddressOfEvent = ( id ) => { throw new CustomError("NoCodedYet", null); }
+driver.getCMaddressOfEvent = ( id ) => { return driver.event_getCM(id); }
 driver.addResell = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 
 //Admin
@@ -122,12 +124,12 @@ driver.admin_getAll = async () => {
 }
 
 driver.admin_login = async (userAdmin, pass) => {
-	const admin = await driver.admin_get(userAdmin);
+	const admin = await driver.admin_getByUsr(userAdmin);
 	if( admin.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + userAdmin
 		);
-		
+	else
 		return admin;
 }
 
@@ -239,6 +241,12 @@ driver.event_getAll = async () => {
 	
 	return eventos;
 	
+}
+
+driver.event_getCM = async (eventId) => {
+	const evnt = driver.event_getByID(eventId);
+
+	return evnt.cMach;
 }
 
 driver.event_update = ({id_eve, prec, fech}) => {
@@ -364,11 +372,11 @@ driver.usr_login = async (correo, pass) => {
 		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + correo 
 		);
-		console.log(usr);
+	else
 		return usr;
 }
 
-driver.usr_update = ({id_usr, nom, correo, contra}) => {
+/* driver.usr_update = ({id_usr, nom, correo, contra}) => {
 
 	db.collUsuario.updateOne({id_text: id_usr}, {mail: correo, name: nom, pass: contra}, function(err, res){
 		if (err)
@@ -378,7 +386,7 @@ driver.usr_update = ({id_usr, nom, correo, contra}) => {
 			return res;
 	});
 
-}
+} */
 
 driver.usr_getAll = async () => {
 
@@ -444,11 +452,196 @@ driver.ticket_update = (id_tick, id_own) => {
 
 }
 
+//Organizador
+
+driver.set_org = async ({nom, correo, contra, wallt, clab, rf}) => {
+
+	var size = 0;
+
+	size = await collOrganizador.countDocuments();
+	size++;
+
+	var newOrg = {id_text: size, name:nom, mail: correo, pass: contra, wallet: wallt, CLABE: clab, rfc: rf, usrT: "3"};
+	await collOrganizador.insertOne(newOrg);
+	console.log("Administrador Registrado");
+
+}
+
+driver.org_getByMail = async (mailOrg) => {
+	const query = { mail: mailOrg };
+	const options = {_id: 0};
+	
+	const orgs = await collOrganizador.find(query, options);
+	let count = await orgs.countDocuments();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"El usuario " + mailOrg + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + mailOrg
+		);
+	else if (count == 1)
+		return orgs.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.org_getByID = async (idOrg) => {
+	const query = { id_text: idOrg };
+	const options = {_id: 0, pass: 0};
+	
+	const orgs = await collOrganizador.find(query, options);
+	let count = await orgs.countDocuments();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"El usuario " + idOrg + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + idOrg 
+		);
+	else if (count == 1)
+		return orgs.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.org_getAll = async () => {
+
+	const query = {};
+
+	const options = {_id: 0, pass:0};
+
+	const orgs = collOrganizador.find(query, options);
+	
+	return orgs;
+	
+}
+
+driver.org_login = async (mailOrg, pass) => {
+	const org = await driver.org_get(mailOrg);
+	if( org.pass != pass )
+		throw new CustomStatusError( "WrongPassword", 401,
+			"La contraseña no es correcta para el usuario " + mailOrg
+		);
+	else
+		return org;
+}
+
+/*driver.org_update = ({id_usr, correo, nom, contra, usu}) => {
+
+	db.collOrganizador.updateOne({id_text: id_usr}, {mail: correo, name: nom, pass: contra, usr:usu}, function(err, res){
+		if (err)
+			throw(err)
+		else
+			console.log("Usuario Actualizado");
+			return res;
+	});
+
+}*/
+
+//Guardia
+
+driver.set_grd = async ({nom, correo, contra, eventId}) => {
+
+	var size = 0;
+
+	size = await collGuardia.countDocuments();
+	size++;
+
+	var newGrd = {id_text: size, name:nom, mail: correo, pass: contra, event: eventId, usrT: "4"};
+	await collGuardia.insertOne(newGrd);
+	console.log("Guardia Registrado");
+
+}
+
+driver.grd_getByMail = async (mailGrd) => {
+	const query = { mail: mailGrd };
+	const options = {_id: 0};
+	
+	const grds = await collGuardia.find(query, options);
+	let count = await grds.countDocuments();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"El usuario " + mailGrd + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + mailGrd
+		);
+	else if (count == 1)
+		return grds.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.grd_getByID = async (idGrd) => {
+	const query = { id_text: idGrd };
+	const options = {_id: 0, pass: 0};
+	
+	const grds = await collGuardia.find(query, options);
+	let count = await grds.countDocuments();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"El usuario " + idGrd + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + idGrd 
+		);
+	else if (count == 1)
+		return grds.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.grd_getAll = async () => {
+
+	const query = {};
+
+	const options = {_id: 0, pass:0};
+
+	const grds = collGuardia.find(query, options);
+	
+	return grds;
+	
+}
+
+driver.grd_login = async (mailGrd, pass) => {
+	const grd = await driver.org_get(mailGrd);
+	if( grd.pass != pass )
+		throw new CustomStatusError( "WrongPassword", 401,
+			"La contraseña no es correcta para el usuario " + mailGrd
+		);
+	else
+		return grd;
+}
+
 //Login General
 
 driver.loginG = async (data, pass) => {
 
-	var usu, admin;
+	var usu, admin, org;
+
+	try{
+		org = await driver.org_login(data, pass);
+		debug(org);
+	}catch (e){
+		console.log(e);
+	}
 
 	try{
 		usu = await driver.usr_login(data, pass);
