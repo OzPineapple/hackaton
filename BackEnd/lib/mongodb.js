@@ -387,8 +387,8 @@ driver.loginG = async (data, pass) => {
 		return admin;
 	}
 	else
-		throw new CustomStatusError( "SomethingWentWrong", 500,
-			"La chingadera hace cosas raras, buggaso con:" + data);
+		throw new CustomStatusError( "NotFound", 404,
+			"No hay registros con:" + data);
 
 }
 
