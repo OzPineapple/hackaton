@@ -46,4 +46,17 @@ router.get('/', async (req, res) => {
 	}}
 });
 
+roter.put('/', async (req, res) => {
+	try{
+		const decoded = getJwt( req );
+		var data = getClient( decoded.id_text );
+		UsrSK58 = await db.getPrivateKeyOfClient( decoded.id_text );
+		Añadir(2, UsrSK58);
+		res.status(202);
+		res.send();
+	}catch(e){switch(e.name){
+		default: next(e);
+	}}
+});
+
 export default router;
