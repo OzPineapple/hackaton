@@ -8,10 +8,10 @@ import { getMetadata } from './Solana/NFT/NFT.js'
 import { CompraBoleto } from './Solana/Pay/Compra.js';
 import { AñadirFondos } from './Solana/Pay/AñadirFondos.js';
 import { Transferencia } from './Solana/NFT/Tansferencia.js';
+import { Encode } from './Solana/Util.js';
+import { genPubKey } from './Solana/Wallet.js';
 
 const debug = debuger('server:katamari');
-
-export { getPubKey } from './Solana/Wallet.js';
 
 //Nota voy a suponer que las imagenes cargadas al nft solo serán en formato png, en caso de que no, favor de avisar para convertir el tipo de la imagen en un
 //string variable, deacuerdo a la imagen cargada, Debe de recbir un arreglo de objetos llamado Atributos (No deberia estar la funcion de subir imagen)
@@ -138,6 +138,10 @@ export function createWallet(){
 	return CreateWall();
 }
 
-export function getBalance(){
-	return Balance();
+export function getBalance(privk){
+	return Balance(privk);
+}
+
+export function getPubKey( privk ){
+	return genPubKey(privk);
 }

@@ -39,8 +39,8 @@ router.get('/', async (req, res, next) => {
 		const decoded = getJwt( req );
 		var data = await db.getClient( decoded.id_text );
 		const privateK = await db.getPrivateKeyOfClient( decoded.id_text );
-		debug('privateK: ' + typeof privateK );
 		data.publicK = await katamari.getPubKey( privateK );
+		data.balance = await katamari.getBalance( privateK );
 		debug('user asking for own info');
 		debug(data);
 		res.status(200);

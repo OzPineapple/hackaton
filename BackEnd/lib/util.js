@@ -11,7 +11,6 @@ export function getJwt(req) {
 	auth = auth.split(' ');
 	if( auth[0] != 'Bearer' )
 		throw new CustomError("NoBearer", "The scheme for this authorization is wrong");
-	debug( auth );
 	return jwt.verify(
 		auth[1],
 		process.env.npm_package_config_secretKey

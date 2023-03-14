@@ -1,6 +1,9 @@
 import { Keypair, sendAndConfirmTransaction, SystemProgram, Transaction, PublicKey} from "@solana/web3.js";
 import { TOKEN_PROGRAM_ID, AccountLayout } from "@solana/spl-token";
 import * as SPLToken from "@solana/spl-token";
+import debuger from 'debug';
+
+const debug = debuger("server:katamari:Wallet")
 
 import { Decode, Encode, Solecitos, Conn } from "./Util.js";
 //Crea una Wallet de 0 sin semilla
@@ -51,13 +54,13 @@ export async function Balance(UsrSK58) {
 }
 
 //Funcion para obtener la llave publica
-export async function getPubKey(UsrSK58) {
+export async function genPubKey(UsrSK58) {
     //Obtiene Keypair de la SK de 
     var UsrKeypair = Keypair.fromSecretKey(Decode(UsrSK58));
     //Obtiene la Public Key de la Keypair
     var UsrPK = UsrKeypair.publicKey;
     //Retorna la llave publica
-    return UsrPK;
+    return UsrPK.toString();
 }
 
 export async function GetTokenAccounts(usrPK){
