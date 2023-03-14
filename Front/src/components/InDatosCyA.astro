@@ -1,4 +1,11 @@
-<form action="">
+---
+export interface Props {
+    titulo: string;
+}
+const { titulo } = Astro.props
+---
+<h2>{titulo}</h2><br>
+<form action="" method="post" onsubmit="send(event)">
     <label for="name">Nombre:</label>
     <input type="text" name="name" id="name"><br><br>
     <label for="email">Email:</label>
@@ -7,3 +14,4 @@
     <input type="password" name="password" id="password"><br><br>
     <slot></slot>
 </form>
+

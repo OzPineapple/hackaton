@@ -2,7 +2,7 @@ import express from 'express';
 import { getJwt } from '../lib/util.js';
 import db from '../lib/mongodb.js';
 import * as katamari from '../lib/katamari.js';
-import { getJwt } from '../lib/util.js';
+//import { getJwt } from '../lib/util.js';
 import debuger from 'debug';
 
 const debug = debuger('server:client:ticket');
@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
 		res.send(data);
 	}catch(e){switch(e.name){
 		default: next(e);
-	}
+	}}
 });
 
 router.post('/buy', async (req, res, next) => {

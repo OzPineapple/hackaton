@@ -2,10 +2,41 @@
 import Base from "../layouts/Base.astro";
 import Menub from "../layouts/Menub.astro";
 import Evento from "../layouts/BaseEvento.astro";
-const descr = "lorem isump dbfjhfhsabdhfbsadhfbsadhbfla"
+const descr = "lorem isump dbfjhfhsabdhfbsadhfbsadhbflaLorem ipsum dolor sit, amet consectetur adipisicing elit. Quis voluptas blanditiis eaque, ipsa ipsam error minus et eligendi eius perspiciatis laudantium animi delectus ad sit deleniti. Amet facere ipsam fuga?"
+import BaseReventa from "../layouts/BaseReventa.astro";
 ---
+<script>
+     window.onload = (event) => {
+            send(event);
+        };
 
+    async function send(e){
+        e.preventDefault();
+        
+            let resolt = await fetch("http://localhost:3000/events" );
+            var sta = resolt.status;
+            resolt = await resolt.json();
+            switch (sta) {
+                case 200:    
+                    console.log(resolt);
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                    case 500:
+                    alert("Error en servidor");
+                    break;
+                    case 502:
+                        alert("Solana se disocio");
+                        break;
+                        case 401:
+                            alert("Error dde contraseña");
+                            break;
+            }
+        }
+</script>
 <Base titulo="eventos">
     <Menub></Menub>
     <Evento nombre="Nombre del evento" des={descr} fecha="Hoy"></Evento>
+    <BaseReventa nombre="Nombre del evento de reventa" des={descr} fecha="mañana jsjsjs" />
 </Base>
