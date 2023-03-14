@@ -36,7 +36,7 @@ router.use('/ticket', ticket);
 router.get('/', async (req, res, next) => {
 	try{
 		const decoded = getJwt( req );
-		var data = getClient( decoded.id_text );
+		var data = await db.getClient( decoded.id_text );
 		data.publicK = getPubKey( await db.getPrivateKeyOfClient( decoded.id_text ) );
 		debug('user asking for own info');
 		debug(data);
