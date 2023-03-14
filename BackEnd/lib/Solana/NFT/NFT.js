@@ -11,6 +11,22 @@ const ServerKeypair = Keypair.fromSecretKey(ServerSK);
 const metaplex = Metaplex.make(Conn()).use(keypairIdentity(ServerKeypair));
 
 
+export async function GetOwnerFromAMint(mint){
+    const largestAccounts = await Conn().getTokenLargestAccounts(new PublicKey(mint));
+    const largestAccountInfo = await Conn().getParsedAccountInfo(largestAccounts.value[0].address);
+    const owner = largestAccountInfo.value.data.parsed.info.owner
+    return owner;
+}
+
+
+
+
+
+
+
+
+
+//Funciones utiles que no han sido implementadas
 export async function getMetadata(key){
   
     const mint = new PublicKey(key);

@@ -1,13 +1,27 @@
 import debuger from 'debug';
 
-import { GetTokenAccounts, CreateWall, Balance, P2PTrasaction } from './Solana/Wallet.js';
+import { CreateWall, Balance} from './Solana/Wallet.js';
 import { LoadImage, LoadMetadata, CrearColeccionNFT, CandyMachineSCreation } from './Solana/NFT/CandyMachineV3.js'
-import { AccountLayout } from "@solana/spl-token";
+import fs from "fs";
 
-import { getMetadata } from './Solana/NFT/NFT.js'
+import {Keypair} from '@solana/web3.js';
+
+export { getPubKey } from './Solana/Wallet.js';
+import {GetOwnerFromAMint } from './Solana/NFT/NFT.js'
 import { CompraBoleto } from './Solana/Pay/Compra.js';
 import { AñadirFondos } from './Solana/Pay/AñadirFondos.js';
 import { Transferencia } from './Solana/NFT/Tansferencia.js';
+import {Mint, LoadMetadataCollection, InsertingItemsCM} from './Solana/NFT/CandyMachineV3.js'
+import { Conn, Decode } from './Solana/Util.js';
+import { keypairIdentity, Metaplex } from '@metaplex-foundation/js';
+
+
+const ServerW = JSON.parse(fs.readFileSync(process.env.HOME + "/.config/solana/id.json", "utf-8"));
+const ServerSK = Uint8Array.from(ServerW);
+const ServerKeypair = Keypair.fromSecretKey(ServerSK);
+
+const metaplex = new Metaplex(Conn()).use(keypairIdentity(ServerKeypair));
+
 import { Encode } from './Solana/Util.js';
 import { genPubKey } from './Solana/Wallet.js';
 
@@ -15,47 +29,108 @@ const debug = debuger('server:katamari');
 
 //Nota voy a suponer que las imagenes cargadas al nft solo serán en formato png, en caso de que no, favor de avisar para convertir el tipo de la imagen en un
 //string variable, deacuerdo a la imagen cargada, Debe de recbir un arreglo de objetos llamado Atributos (No deberia estar la funcion de subir imagen)
-export async function CreateACollection (Nombre, LocalUriImg, Descripcion, TarifaReventa, Simbolo ){
-	
+export async function CreateACollection (Nombre, LocalUriImg, Descripcion, TarifaReventa, Simbolo, BoletosDisponibles ){
+
 	var imgUri = await LoadImage(LocalUriImg, Nombre);
-
 	var metaData =  await LoadMetadataCollection(Nombre, Descripcion,imgUri, "img/png");
-
 	var uriCollection =   await CrearColeccionNFT(Nombre, metaData, TarifaReventa);
-
-	debug(uriCollection);
-	
-	//Esta madre deberia recibir una fecha de inicio y una fecha de fin para la impresion de NFT
 	var CMaddress =  await CandyMachineSCreation(uriCollection, Simbolo, BoletosDisponibles);
 
-	var {cosas} = ({ ImgUri : imgUri, metaDataUrl: metaData, CmAddress : CMaddress});
-
-	debug(cosas);
-
-	return cosas;
+	var objetos = [];
+	objetos.push({
+		ImgUri : imgUri,
+		MetaDataUrl : metaData,
+		UriCollection : uriCollection.toString(),
+		CmAddress : CMaddress.toString()
+	})
+	
+	return objetos;
 }
 
-
-export async function CreateAndMintNFT(Nombre, Descripcion, imgUri, CMaddress, Seccion, Asiento){
-	/*
-	var UriMetadata =  await LoadMetadata(Nombre, Descripcion,imgUri, "img/png",[
-		{"trait_type" :  "Valido", "value" : "true"},
-		{"trait_type" : "Seccion", "value" : Seccion},
-		{"trait_type" : "Asiento", "value" : Asiento}
-	]);
-
+export async function CreateNFTNoAttributes(Nombre, CMaddress, UriMetadata){
 	let {response} = await InsertingItemsCM(CMaddress, Nombre, UriMetadata);
-*/
-	
-	let {response2} = await Mint(CMaddress);
 
-	debug("Funciona esta madre creo")
+	return response;
+}
+
+export async function MintNft(CMaddress, UsrPK58){ 
+	var nftAddress = await Mint(CMaddress, UsrPK58);
+
+	return nftAddress.toString();
+}
+
+export async function Compra(UsrSK58, Precio, CMaddress){
+	let signature = await CompraBoleto(UsrSK58, Precio);
+	
+	var UsrSK = Decode(UsrSK58);
+	var UsrKeypair = Keypair.fromSecretKey(UsrSK);
+	var UsrPK58 = UsrKeypair.publicKey.toString();
+
+
+	if (signature != null ){
+		let signatureTx = await Mint(CMaddress, UsrPK58);
+		return signatureTx
+	} else {
+		return "Algo ha salido mal"; 
+	};
 }
 
 export function CreateWallet(){
 	CreateWall();
 }
 
+export async function Añadir(x, UsrSK58){
+	let airdropSignature =	AñadirFondos(x, UsrSK58);
+	return airdropSignature;
+}
+
+export function createWallet(){
+	return CreateWall();
+}
+
+export function getBalance(){
+	return Balance();
+}
+
+export function getPubKey (Usr58){
+	return genPubKey(Usr58);
+}
+
+export async function getOwnerFromAMint(mint){
+	return await GetOwnerFromAMint(mint);
+}
+getOwnerFromAMint("9hhpF8P353ejCGsFda91W4CngK6Ew6qBwuJvkYU7FFdw");
+
+
+
+
+
+//Funciones utiles que no se estan usando
+export async function CreateNFT(Nombre, Descripcion, imgUri, CMaddress, Seccion, Asiento){
+	
+	var UriMetadata =  await LoadMetadata(Nombre, Descripcion,imgUri, "img/png",[
+		{"trait_type" :  "Valido", "value" : "true"},
+		{"trait_type" : "Seccion", "value" : Seccion},
+		{"trait_type" : "Asiento", "value" : Asiento}
+	]);
+	
+	let {response} = await InsertingItemsCM(CMaddress, Nombre, UriMetadata);
+	
+}
+
+export async function CompraYTransfer(x, UsrSK58, mint){
+	let signature = await CompraBoleto(UsrSK58, x);
+
+	if (signature != null ){
+		let signatureTx = await Transferencia(UsrSK58, mint);
+		return signatureTx
+	} else {
+		return "Algo ha salido mal"; 
+	};
+}
+
+
+//Hacer la mamada de matarlos
 export async function GetAndFilrtMetadata(UsrPK){
 	var BoletosSinUsar = [];
 	
@@ -83,65 +158,4 @@ export async function GetAndFilrtMetadata(UsrPK){
 	}
 
 	return BoletosSinUsar;
-}
-
-//x es la cantidad en Soles de la compra, UsrSK58 es auto explicativo, Minit es la direccion del nft, NO de la TAc (Esta configurado para el server si necesitas validar las reventas avisame)
-export async function CompraYTransfer(x, UsrSK58, minit){
-	let signature = await CompraBoleto(UsrSK58, x);
-	let signatureTx = await Transferencia(UsrSK58, mint);
-	
-}
-
-export async function Añadir(x, UsrSK58){
-	let airdropSignature =	AñadirFondos(x, UsrSK58);
-	return airdropSignature;
-}
-
-
-/*
-var Simbolo = "SUS"
-var Nombre = "Ticket " + Simbolo;
-var Descripcion = "Boleto para...";
-var imgUri = "https://arweave.net/pnplCDRsW0nKEyMQRP6gk46fk0zZWa-RbhZRX3Dwepk";
-var CMaddress = "C44qvmZGo6bP3KWBsk54pMisoiKZCtLU77ii62BkRHFC";
-var Seccion = "A";
-var Asiento = "10";
-
-
-CreateAndMintNFT(Nombre, Descripcion, imgUri, CMaddress, Seccion, Asiento)
-*/
-
-/*
-async function test() {
-	var BoletosSinUsar = [];
-	BoletosSinUsar = await GetAndFilrtMetadata("3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3");
-	debug(BoletosSinUsar[0].address.toString())
-}
-test();
-*/
-
-/*
-var Nombre = "KatamariTour Collection";
-var LocalUriImg ="./Solana/NFT/Pruebas/prueba.png";
-var Descripcion = "Boleto para ...";
-var Seccion = "A";
-var Simbolo = "SUS"
-var  Asiento = "10";
-var TarifaReventa = "1000";
-var BoletosDisponibles = 10;
-
-CreateACollection(Nombre, LocalUriImg, Descripcion, Seccion, Asiento, TarifaReventa, Simbolo);
-
-*/
-
-export function createWallet(){
-	return CreateWall();
-}
-
-export function getBalance(privk){
-	return Balance(privk);
-}
-
-export function getPubKey( privk ){
-	return genPubKey(privk);
 }

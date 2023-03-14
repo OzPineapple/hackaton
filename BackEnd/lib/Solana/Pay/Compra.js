@@ -1,5 +1,6 @@
 import { Keypair, sendAndConfirmTransaction, SystemProgram, Transaction } from "@solana/web3.js";
 import fs from "fs";
+import { type } from "os";
 import { Conn, Decode, Solecitos } from "../Util.js";
 
 export async function CompraBoleto(UsrSK58, n) {
@@ -24,7 +25,7 @@ export async function CompraBoleto(UsrSK58, n) {
 
     //Firma de validacion
     const signature = sendAndConfirmTransaction(Conn(), transaccion, [UsrKeypair]);
-    
+
     //retorno de la firma
     return signature;
 }
