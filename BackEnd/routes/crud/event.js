@@ -46,7 +46,7 @@ router.get('/:id', async (req, res, next) => {
 	}}
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.post('/delete/:id', async (req, res, next) => {
 	try{
 		await db.rmEvent( req.params.id );
 		res.status(200);
@@ -57,7 +57,7 @@ router.delete('/:id', async (req, res, next) => {
 	}}
 });
 
-router.patch('/:id', async (req, res, next) => {
+router.post('/edit/:id', async (req, res, next) => {
 	try{
 		await db.upEvent( req.body );
 		res.status(200);

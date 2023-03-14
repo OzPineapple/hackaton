@@ -97,7 +97,7 @@ driver.admin_getByUsr = async (userAdmin) => {
 
 driver.admin_getByUsrL = async (userAdmin) => {
 	const query = { usr: userAdmin };
-	const options =  {projection: {_id: 0, pass: 1}};
+	const options =  {projection: {_id: 0, id_text: 1, pass: 1}};
 	
 	const admins = collAdmin.find(query, options);
 	let count = await admins.count();
@@ -181,9 +181,9 @@ driver.eventType_getByName = async (eventType) => {
 	const query = { tipoEvento: eventType };
 	const options =  {projection: {_id: 0}};
 	
-	const tipo = await collTipoEvento.find(query, options);
+	const tipo = collTipoEvento.find(query, options);
 	
-	return tipo.next();
+	return await tipo.next();
 }
 
 driver.eventType_getByID = async (eventTypeID) => {
@@ -353,7 +353,7 @@ driver.usr_getByMail = async (correo) => {
 
 driver.usr_getByMailL = async (correo) => {
 	const query = { mail: correo };
-	const options =  {projection: {_id: 0, pass: 1}};
+	const options =  {projection: {_id: 0, id_text: 1, pass: 1}};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
@@ -545,7 +545,7 @@ driver.org_getByMail = async (mailOrg) => {
 
 driver.org_getByMailL = async (mailOrg) => {
 	const query = { mail: mailOrg };
-	const options =  {projection: {_id: 0, pass: 1}};
+	const options =  {projection: {_id: 0, id_text: 1, pass: 1}};
 	
 	const orgs = await collOrganizador.find(query, options);
 	let count = await orgs.count();
@@ -663,7 +663,7 @@ driver.grd_getByMail = async (mailGrd) => {
 
 driver.grd_getByMailL = async (mailGrd) => {
 	const query = { mail: mailGrd };
-	const options =  {projection: {_id: 0, pass: 1}};
+	const options =  {projection: {_id: 0, id_text: 1, pass: 1}};
 	
 	const grds = await collGuardia.find(query, options);
 	let count = await grds.count();
