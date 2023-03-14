@@ -101,3 +101,27 @@ SomethingWentWrong: No hay registros con:contraseña
     at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:677:9)
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
     at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+/client at Mon Mar 13 2023 23:12:30 GMT-0600 (hora estándar central)
+ReferenceError: getClient is not defined
+    at file:///C:/Users/gggam/Desktop/hackaton/BackEnd/routes/client.js:51:14
+    at Layer.handle [as handle_request] (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\index.js:280:10)
+    at file:///C:/Users/gggam/Desktop/hackaton/BackEnd/routes/client.js:18:3
+    at Layer.handle [as handle_request] (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\layer.js:95:5)
+/client at Mon Mar 13 2023 23:14:45 GMT-0600 (hora estándar central)
+ReferenceError: db is not defined
+    at file:///C:/Users/gggam/Desktop/hackaton/BackEnd/routes/client.js:51:14
+    at Layer.handle [as handle_request] (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\index.js:280:10)
+    at file:///C:/Users/gggam/Desktop/hackaton/BackEnd/routes/client.js:18:3
+    at Layer.handle [as handle_request] (C:\Users\gggam\Desktop\hackaton\BackEnd\node_modules\express\lib\router\layer.js:95:5)
