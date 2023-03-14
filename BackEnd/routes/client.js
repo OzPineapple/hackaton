@@ -2,6 +2,9 @@ import express from 'express';
 import crud from './crud/client.js';
 import ticket from './ticket.js';
 import { getJwt } from '../lib/util.js';
+import debuger from 'debug';
+
+const debug = debuger('server:client');
 
 var router = express.Router();
 
