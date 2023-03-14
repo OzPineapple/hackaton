@@ -4,13 +4,11 @@ import fs from "fs";
 import {Conn, Encode} from "../Util.js";
 import { Connection } from "@solana/web3.js/lib/index.cjs.js";
 
-const connection = new Connection(clusterApiUrl('devnet'));
-
 const ServerW = JSON.parse(fs.readFileSync(process.env.HOME + "/.config/solana/id.json", "utf-8"));
 const ServerSK = Uint8Array.from(ServerW);
 const ServerKeypair = Keypair.fromSecretKey(ServerSK);
 
-const metaplex = Metaplex.make(connection).use(keypairIdentity(ServerKeypair)).use(bundlrStorage({
+const metaplex = Metaplex.make(Conn()).use(keypairIdentity(ServerKeypair)).use(bundlrStorage({
     address: 'https://devnet.bundlr.network',
     providerUrl: 'https://api.devnet.solana.com',
     timeout: 60000,
@@ -33,9 +31,7 @@ export async function LoadImage(Url, nombre) {
 //nombre del Nft, la direccion de la url, el tipo de la imagen a cargar (generalmente es un PNG) y los atributos que contiene el nft 
 export async function LoadMetadataCollection(nftName, description, imgUri, imgType) {
     //La constante uri es la url que va a almacenar los datos del nft cuando se suban a Arwave
-    const { uri } = await metaplex
-        .nfts()
-        .uploadMetadata({
+    const { uri } = await metaplex.nfts() .uploadMetadata({
         //Aqui va el nombre del nft
         name: nftName,
         //Aqui va su descripcion (Es diferente para la coleccion y para el boleto)
@@ -51,7 +47,8 @@ export async function LoadMetadataCollection(nftName, description, imgUri, imgTy
                 },
             ]
         }
-    });
+    },{ commitment: "finalized" }
+    );
     //Retorna la URL de la metadata ya montada en la nube (Arewave)
     return uri;
 }
@@ -60,7 +57,7 @@ export async function LoadMetadataCollection(nftName, description, imgUri, imgTy
 //nombre del Nft, la direccion de la url, el tipo de la imagen a cargar (generalmente es un PNG) y los atributos que contiene el nft 
 export async function LoadMetadata(nftName, description, imgUri, imgType, attributes) {
     //La constante uri es la url que va a almacenar los datos del nft cuando se suban a Arwave
-    const { uri } = await metaplex .nfts().uploadMetadata({
+    const { uri } = await metaplex.nfts().uploadMetadata({
         //Aqui va el nombre del nft
         name: nftName,
         //Aqui va su descripcion (Es diferente para la coleccion y para el boleto)
@@ -69,6 +66,30 @@ export async function LoadMetadata(nftName, description, imgUri, imgType, attrib
         image: imgUri,
         //Atributos del boleto, puede estar blanco en caso de que no haya
         attributes: attributes,
+        //Que archivos y de que tipo estan linkeados aqui
+        properties: {
+            files: [
+                {
+                    type: imgType,
+                    uri: imgUri,
+                },
+            ]
+        }
+    });
+    //Retorna la URL de la metadata ya montada en la nube (Arewave)
+    return uri;
+}
+
+//Funcion que carga la metadata pero sin attributos
+export async function LoadMetadataNoAttributes(nftName, description, imgUri, imgType) {
+    //La constante uri es la url que va a almacenar los datos del nft cuando se suban a Arwave
+    const { uri } = await metaplex .nfts().uploadMetadata({
+        //Aqui va el nombre del nft
+        name: nftName,
+        //Aqui va su descripcion (Es diferente para la coleccion y para el boleto)
+        description: description,
+        //Url de la imagen subida a arewavae
+        image: imgUri,
         //Que archivos y de que tipo estan linkeados aqui
         properties: {
             files: [
@@ -93,7 +114,9 @@ export async function CrearColeccionNFT(Nombre, metaData, TarifaReventa) {
         sellerFeeBasisPoints: TarifaReventa,
         isCollection: true,
         updateAuthority: ServerKeypair,
-      });
+      }, { commitment: "finalized" }
+
+      );
       return collectionNft.address;
 }
 
@@ -123,9 +146,10 @@ export async function CandyMachineSCreation(uriCollection, Simbolo, BoletosDispo
         //Items maximos que la CMv3 puede crear
         maxEditionSupply: toBigNumber(0),
         //Tiene candy guards?
-        withoutCandyGuard: false,
+        withoutCandyGuard: true,
 
-    });
+    }, { commitment: "finalized" }
+    );
 
     //Segun esta mamada ya esta creada la chingadera
     return candyMachine.address;
@@ -144,6 +168,7 @@ export async function FetchCandymachine(Key) {
 //Inserta items en la CM3, recibe la direccion de la CM, la Uri del JSOn y un Nombre el Nombre del nft más la iteracion(id del boleto)
 export async function InsertingItemsCM(CMaddress, nombre, uriMetadata) {
     const candyMachine = await FetchCandymachine (CMaddress);
+    
     const items = [];
         items.push({
             name : nombre,
@@ -152,32 +177,44 @@ export async function InsertingItemsCM(CMaddress, nombre, uriMetadata) {
     const {response} = await metaplex.candyMachines().insertItems({
         candyMachine,
         items : items,
-    },{commitment : 'Hecho'});
+    },{ commitment: "finalized" });
 
-    console.log("Items añadidos a la CM");
- 
-
+    console.log (response);
     return response;
 }
 
 //Mintea los NFT
-export async function Mint(CMaddress) {
+export async function Mint(CMaddress, Usr58) {
 
     //Crea un objeto nft
     const candyMachine = await metaplex.candyMachines().findByAddress({address : new PublicKey(CMaddress)});
     const collectionUpdateAuthority = ServerKeypair.publicKey;
-    
-    console.log("Estamos adentro");
+
+    const UsrPK58 = new PublicKey(Usr58);
 
     let {nft} = await metaplex.candyMachines().mint({
             candyMachine,
             collectionUpdateAuthority,
-    });
+            owner : UsrPK58
+            
+    },{commitment : "finalized"});
 
-    console.log("Se ha minteado el pedo");
-    console.log(`✅ - Minted NFT: ${nft.address.toString()}`);
-    console.log(`     https://explorer.solana.com/address/${nft.address.toString()}?cluster=devnet`);
-    return response;
+    return nft.address;
+}
 
-   
+//Mint to usr
+export async function MintToUsr(CMaddress) {
+
+    //Crea un objeto nft
+    const candyMachine = await metaplex.candyMachines().findByAddress({address : new PublicKey(CMaddress)});
+    const collectionUpdateAuthority = ServerKeypair.publicKey;
+
+    let {nft} = await metaplex.candyMachines().mint({
+            candyMachine,
+            collectionUpdateAuthority,
+            
+    },{commitment : "finalized"});
+
+    return nft.address;
+
 }
