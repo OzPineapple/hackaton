@@ -4,6 +4,7 @@ import ticket from './ticket.js';
 import { getJwt } from '../lib/util.js';
 import debuger from 'debug';
 import db from '../lib/mongodb.js';
+import * as katamari from '../lib/katamari.js';
 
 const debug = debuger('server:client');
 
@@ -37,7 +38,7 @@ router.get('/', async (req, res, next) => {
 	try{
 		const decoded = getJwt( req );
 		var data = await db.getClient( decoded.id_text );
-		data.publicK = getPubKey( await db.getPrivateKeyOfClient( decoded.id_text ) );
+		data.publicK = katamari.getPubKey( await db.getPrivateKeyOfClient( decoded.id_text ) );
 		debug('user asking for own info');
 		debug(data);
 		res.status(200);
