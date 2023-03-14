@@ -25,7 +25,7 @@ import MenuC from "../layouts/MenuC.astro";
         var header = "Bearer "+localStorage.getItem("token");
         data.append( "name", "admin");
             let resolt = await fetch("http://localhost:3000/client",{
-                method: 'PUT', headers:{'Authorization':header},
+                method: 'get', headers:{'Authorization':header},
             });
             var sta = resolt.status;
             switch (sta) {

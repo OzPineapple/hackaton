@@ -18,22 +18,25 @@ import Menub from "../layouts/Menub.astro";
 </style>
 
 <script type="text/javascript">
-    var name = document.getElementById("name");
+    
     var email = document.getElementById("email");
     var pass = document.getElementById("password");
 
     async function send(e){
 
         e.preventDefault();
+        var name = document.querySelector("#name").value;
         var data  = new URLSearchParams();
-        console.log(name.value);
-        data.append( "nom", name.value);
+        data.append( "nom", name);
         data.append( "correo", email.value);
         data.append( "contra", pass.value);
             let resolt = await fetch("http://localhost:3000/new",{
                 method: 'post', body:data,
             });
-            switch (resolt.status) {
+            var sta = resolt.status;
+            //resolt=resolt.json();
+            console.log(resolt);
+            switch (sta) {
                 case 201:
                     alert("Bienvenido!");
                     window.open("/index","_self");

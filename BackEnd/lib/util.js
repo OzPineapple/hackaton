@@ -5,7 +5,6 @@ import debuger from 'debug';
 const debug = debuger('server:util:jwt');
 
 export function getJwt(req) {
-	debugger;
 	var auth = req.headers['authorization'];
 	if( typeof auth == 'undefined' )
 		throw new CustomError("undefined", "The authorization header is empty" );

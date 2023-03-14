@@ -10,6 +10,7 @@ var router = express.Router();
 
 router.use( async (req, res, next) => {
 	try{
+		debugger;
 		const decoded = getJwt( req );
 		debug( "usrT:" + decoded.usrT );
 		if( decoded.usrT != 2 )
