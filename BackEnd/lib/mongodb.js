@@ -778,7 +778,7 @@ driver.loginG = async (data, pass) => {
 	if (admin!=undefined && usu==undefined && org==undefined && grd==undefined){
 		return driver.admin_getByID(admin.id_text);
 	}else if(usu!=undefined && admin==undefined && org==undefined && grd==undefined){
-		return driver.admin_getByID(usu.id_text);
+		return driver.usr_getByID(usu.id_text);
 	}else if(org!=undefined && admin==undefined && usu==undefined && grd==undefined){
 		return driver.org_getByID(org.id_text);
 	}else if(grd!=undefined && admin==undefined && usu==undefined && org==undefined){
