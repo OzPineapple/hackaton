@@ -10,7 +10,7 @@
 	},
 	"scripts": {
 		"start": "node ./server.js",
-		"dev": "DEBUG=express:router,server:* nodemon ./server.js",
+		"dev": "DEBUG=server:* nodemon ./server.js",
 		"windev": "SET DEBUG=server:* && nodemon ./server.js",
 		"debug": "node inspect ./server.js"
 	},
