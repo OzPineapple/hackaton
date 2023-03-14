@@ -74,7 +74,30 @@ driver.set_admin = async ({correo, nom, contra, user}) => {
 
 driver.admin_getByUsr = async (userAdmin) => {
 	const query = { usr: userAdmin };
-	const options =  {projection: {_id: 0}};
+	const options =  {projection: {_id: 0, pass: 0}};
+	
+	const admins = collAdmin.find(query, options);
+	let count = await admins.count();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"El usuario " + userAdmin + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + userAdmin
+		);
+	else if (count == 1)
+		return admins.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.admin_getByUsrL = async (userAdmin) => {
+	const query = { usr: userAdmin };
+	const options =  {projection: {_id: 0, pass: 1}};
 	
 	const admins = collAdmin.find(query, options);
 	let count = await admins.count();
@@ -131,7 +154,7 @@ driver.admin_getAll = async () => {
 }
 
 driver.admin_login = async (userAdmin, pass) => {
-	const admin = await driver.admin_getByUsr(userAdmin);
+	const admin = await driver.admin_getByUsrL(userAdmin);
 	if( admin.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + userAdmin
@@ -158,9 +181,9 @@ driver.eventType_getByName = async (eventType) => {
 	const query = { tipoEvento: eventType };
 	const options =  {projection: {_id: 0}};
 	
-	const tipo = await collTipoEvento.find(query, options);
+	const tipo = collTipoEvento.find(query, options);
 	
-	return tipo.next();
+	return await tipo.next();
 }
 
 driver.eventType_getByID = async (eventTypeID) => {
@@ -308,6 +331,29 @@ driver.usr_getByPrivateK = async privK => {
 driver.usr_getByMail = async (correo) => {
 	const query = { mail: correo };
 	const options =  {projection: {_id: 0, pass: 0, privateK: 0}};
+	
+	const users = await collUsuario.find(query, options);
+	let count = await users.count();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"El correo " + correo + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + correo
+		);
+	else if (count == 1)
+		return users.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.usr_getByMailL = async (correo) => {
+	const query = { mail: correo };
+	const options =  {projection: {_id: 0, pass: 1}};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
@@ -536,7 +582,7 @@ driver.org_getAll = async () => {
 }
 
 driver.org_login = async (mailOrg, pass) => {
-	const org = await driver.org_get(mailOrg);
+	const org = await driver.org_getByID(mailOrg);
 	if( org.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + mailOrg
@@ -631,7 +677,7 @@ driver.grd_getAll = async () => {
 }
 
 driver.grd_login = async (mailGrd, pass) => {
-	const grd = await driver.org_get(mailGrd);
+	const grd = await driver.grd_getByMail(mailGrd);
 	if( grd.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + mailGrd
