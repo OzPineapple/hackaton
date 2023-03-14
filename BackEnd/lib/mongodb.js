@@ -53,7 +53,7 @@ driver.newClient  = ( reqBody ) => { return driver.usr_set(reqBody); }
 driver.upClient	  = ( reqBody ) => { return driver.usr_update(reqBody); }
 driver.getClient  = ( id ) => { return driver.usr_getByID(id); }
 // driver.rmClient	  = ( id ) => { throw new CustomError("NoCodedYet", null); }
-driver.getPrivateKeyOfClient = ( id ) => { return driver.usr_getPrivKByID(id); }
+driver.getPrivateKeyOfClient = ( id ) => { return driver.usr_getPrivKByID(id).toISOString(); }
 driver.getCMaddressOfEvent = ( id ) => { return driver.event_getCM(id); }
 driver.addResell = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 
@@ -100,7 +100,7 @@ driver.admin_getByID = async (idAdmin) => {
 	const options = {_id: 0, pass: 0};
 	
 	const admins = await collAdmin.find(query, options);
-	let count = await admins.count();
+	let count = await admins.countDocuments();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -355,8 +355,8 @@ driver.usr_getPrivKByID = async ( idUsr ) => {
 	const query = { id_text: idUsr };
 	const options = {_id: 0, privateK: 1};
 	
-	const users = await collUsuario.find(query, options);
-	let count = await users.count();
+	const users = collUsuario.find(query, options);
+	let count = await users.countDocuments();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -366,8 +366,10 @@ driver.usr_getPrivKByID = async ( idUsr ) => {
 		throw new CustomStatusError( "Duplicated Record", 409,
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + idUsr
 		);
-	else if (count == 1)
-		return users.next();
+	else if (count == 1){
+		debug(await users.next());
+		return await users.next();
+	}
 	else
 		throw new CustomStatusError( "UnknownError", 500,
 			"Un error desconocido evita que el servidor pueda procesar la peticion"
