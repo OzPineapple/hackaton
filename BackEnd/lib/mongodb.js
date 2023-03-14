@@ -63,7 +63,7 @@ driver.set_admin = async ({correo, nom, contra, user}) => {
 
 	var size = 0;
 
-	size = await collAdmin.countDocuments();
+	size = await collAdmin.count();
 	size++;
 
 	var newAdmin = {id_text: size, mail: correo, name:nom, pass: contra, usr: user, usrT: "1"};
@@ -100,7 +100,7 @@ driver.admin_getByID = async (idAdmin) => {
 	const options = {_id: 0, pass: 0};
 	
 	const admins = await collAdmin.find(query, options);
-	let count = await admins.countDocuments();
+	let count = await admins.count();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -211,7 +211,7 @@ driver.event_set = async ({eventName, tipoE, price, date, desc, org, ubi, lug, d
 	var size = 0;
 	var size = 0;
 
-	size = await collUsuario.countDocuments();
+	size = await collUsuario.count();
 	size++;
 
 	
@@ -273,7 +273,7 @@ driver.event_update = ({id_eve, prec, fech}) => {
 driver.usr_set = async ({nom, correo, contra, llavep}) => {
 	var size = 0;
 
-	size = await collUsuario.countDocuments();
+	size = await collUsuario.count();
 	size++;
 
 	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, privateK: llavep, usrT: "2"};
@@ -356,7 +356,7 @@ driver.usr_getPrivKByID = async ( idUsr ) => {
 	const options = {_id: 0, privateK: 1};
 	
 	const users = collUsuario.find(query, options);
-	let count = await users.countDocuments();
+	let count = await users.count();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -416,7 +416,7 @@ driver.set_ticket = (idEvento, idUsr, token) => {
 
 	var size = 0;
 
-	collBoleto.countDocuments(function(err,num){
+	collBoleto.count(function(err,num){
 		if(err)
 			throw(err)
 		else
@@ -444,7 +444,7 @@ driver.ticket_getByOwner = async idUsr => {
 	const options = {projection: {_id: 0}};
 	
 	const bol = collBoleto.find(query, options);
-	console.log( await collBoleto.countDocuments());
+	console.log( await collBoleto.count());
 	console.log( await collBoleto.find().toArray());
 	const arry = await bol.toArray();
 	console.log(  arry );
@@ -468,7 +468,7 @@ driver.set_org = async ({nom, correo, contra, wallt, clab, rf}) => {
 
 	var size = 0;
 
-	size = await collOrganizador.countDocuments();
+	size = await collOrganizador.count();
 	size++;
 
 	var newOrg = {id_text: size, name:nom, mail: correo, pass: contra, wallet: wallt, CLABE: clab, rfc: rf, usrT: "3"};
@@ -482,7 +482,7 @@ driver.org_getByMail = async (mailOrg) => {
 	const options = {_id: 0};
 	
 	const orgs = await collOrganizador.find(query, options);
-	let count = await orgs.countDocuments();
+	let count = await orgs.count();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -505,7 +505,7 @@ driver.org_getByID = async (idOrg) => {
 	const options = {_id: 0, pass: 0};
 	
 	const orgs = await collOrganizador.find(query, options);
-	let count = await orgs.countDocuments();
+	let count = await orgs.count();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -563,7 +563,7 @@ driver.set_grd = async ({nom, correo, contra, eventId}) => {
 
 	var size = 0;
 
-	size = await collGuardia.countDocuments();
+	size = await collGuardia.count();
 	size++;
 
 	var newGrd = {id_text: size, name:nom, mail: correo, pass: contra, event: eventId, usrT: "4"};
@@ -577,7 +577,7 @@ driver.grd_getByMail = async (mailGrd) => {
 	const options = {_id: 0};
 	
 	const grds = await collGuardia.find(query, options);
-	let count = await grds.countDocuments();
+	let count = await grds.count();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -600,7 +600,7 @@ driver.grd_getByID = async (idGrd) => {
 	const options = {_id: 0, pass: 0};
 	
 	const grds = await collGuardia.find(query, options);
-	let count = await grds.countDocuments();
+	let count = await grds.count();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -708,7 +708,7 @@ driver.set_solA = async ({org, evento}) => {
 
 	var size = 0;
 
-	size = await collSolicitudA.countDocuments();
+	size = await collSolicitudA.count();
 	size++;
 
 	var newSolA = {id_text: size, managr: org, event: evento, status: "1"};
@@ -722,7 +722,7 @@ driver.solA_getByID = async (idSolA) => {
 	const options = {_id: 0};
 	
 	const solsA = await collSolicitudA.find(query, options);
-	let count = await solsA.countDocuments();
+	let count = await solsA.count();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -770,7 +770,7 @@ driver.set_solB = async ({org, eventID, docURL, raz}) => {
 
 	var size = 0;
 
-	size = await collSolicitudB.countDocuments();
+	size = await collSolicitudB.count();
 	size++;
 
 	var newSolB = {id_text: size, managr: org, event: eventID, docSol: docURL, status: "1", razones: raz};
@@ -784,7 +784,7 @@ driver.solB_getByID = async (idSolB) => {
 	const options = {_id: 0};
 	
 	const solsB = await collSolicitudB.find(query, options);
-	let count = await solsB.countDocuments();
+	let count = await solsB.count();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -832,7 +832,7 @@ driver.set_solC = async ({org, eventID, docURL, raz}) => {
 
 	var size = 0;
 
-	size = await collSolicitudC.countDocuments();
+	size = await collSolicitudC.count();
 	size++;
 
 	var newSolC = {id_text: size, managr: org, event: eventID, docSol: docURL, status: "1", razones: raz};
@@ -846,7 +846,7 @@ driver.solC_getByID = async (idSolC) => {
 	const options = {_id: 0};
 	
 	const solsC = await collSolicitudC.find(query, options);
-	let count = await solsC.countDocuments();
+	let count = await solsC.count();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -894,7 +894,7 @@ driver.set_Seg = async (tipoS, admi, dat, idSol, desc) => {
 
 	var size = 0;
 
-	size = await collSeguimiento.countDocuments();
+	size = await collSeguimiento.count();
 	size++;
 
 	var newSeg = {id_text: size, tipoSol: tipoS, admin: admi, fecha: dat, solicitud: idSol, descripcion: desc};
@@ -909,7 +909,7 @@ driver.set_compra = async ({buyID, bolID, dateC}) => {
 
 	var size = 0;
 
-	size = await collCompra.countDocuments();
+	size = await collCompra.count();
 	size++;
 
 	var newCom = {id_text: size, buyer: buyID, ticket: bolID, sellStatus: "1", fechaC: dateC};
@@ -924,7 +924,7 @@ driver.set_reSell = async ({sellerID, bolID, precio}) => {
 
 	var size = 0;
 
-	size = await collReVenta.countDocuments();
+	size = await collReVenta.count();
 	size++;
 
 	var newReS = {id_text: size, seller: sellerID, ticket: bolID, sellStatus: "1", price: precio};
@@ -939,7 +939,7 @@ driver.set_reCom = async ({buyID, reSellID, dateC}) => {
 
 	var size = 0;
 
-	size = await collReCompra.countDocuments();
+	size = await collReCompra.count();
 	size++;
 
 	var newReC = {id_text: size, buyer: buyID, sell: reSellID, fechaC: dateC};
