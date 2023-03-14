@@ -6,7 +6,6 @@ import fs from "fs";
 
 import {Keypair} from '@solana/web3.js';
 
-export { getPubKey } from './Solana/Wallet.js';
 import {GetOwnerFromAMint } from './Solana/NFT/NFT.js'
 import { CompraBoleto } from './Solana/Pay/Compra.js';
 import { AñadirFondos } from './Solana/Pay/AñadirFondos.js';
