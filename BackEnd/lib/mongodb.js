@@ -423,7 +423,7 @@ driver.usr_getPrivKByID = async ( idUsr ) => {
 }
 
 driver.usr_login = async (correo, pass) => {
-	const usr = await driver.usr_getByMail(correo);
+	const usr = await driver.usr_getByMailL(correo);
 	if( usr.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + correo 
@@ -458,7 +458,7 @@ driver.usr_getAll = async () => {
 
 //Boletos
 
-driver.set_ticket = (idEvento, idUsr, token) => {
+driver.set_ticket = (idEvento, sec, seat, token) => {
 
 	var size = 0;
 
@@ -470,7 +470,7 @@ driver.set_ticket = (idEvento, idUsr, token) => {
 	})
 	size++;
 
-	var newBoleto = {id_text: size, evento: idEvento, nft: token, owner: idUsr, fechaE: driver.event_getByID(idEvento).fecha};
+	var newBoleto = {id_text: size, evento: idEvento, nft: token, seccion: sec, asiento: seat, fechaE: driver.event_getByID(idEvento).fecha};
 	collBoleto.insertOne(newBoleto, async function(err,res){
 
 		var nDisp = await event_getByID(idEvento).lugaresDisp
@@ -480,33 +480,30 @@ driver.set_ticket = (idEvento, idUsr, token) => {
 		else
 			db.collEvento.updateOne({id_text: idEvento},{lugaresDisp: nDisp});
 			console.log("Boleto Generado");
+			return res;
 	})
 
 }
 
-driver.ticket_getByOwner = async idUsr => {
-	const query = { owner: "" + idUsr, fecha:{$gt: new Date().toISOString()} };
-	//const query = { owner: "" + idUsr };
+driver.ticket_getByPubK = async pubK => {
+	const query = { nft: pubK};
 	const options =  {projection: {_id: 0}};
 	
 	const bol = collBoleto.find(query, options);
-	console.log( await collBoleto.count());
-	console.log( await collBoleto.find().toArray());
-	const arry = await bol.toArray();
-	console.log(  arry );
-	return arry;
+
+	return await arry;
 }
 
-driver.ticket_update = (id_tick, id_own) => {
+/*driver.ticket_update = (id_tick, id_own) => {
 
-	db.collBoleto.updateOne({id_text: id_tick}, {owner: id_own}, function(err, res){
+	db.collBoleto.updateOne({id_text: id_tick}, {}, function(err, res){
 		if (err)
 			throw(err)
 		else
-			console.log("Boleto Actualizado, Nuevo Dueño Asignado");
+			console.log("Boleto Actualizado");
 	});
 
-}
+}*/
 
 //Organizador
 
@@ -525,7 +522,30 @@ driver.set_org = async ({nom, correo, contra, wallt, clab, rf}) => {
 
 driver.org_getByMail = async (mailOrg) => {
 	const query = { mail: mailOrg };
-	const options =  {projection: {_id: 0}};
+	const options =  {projection: {_id: 0, pass: 0}};
+	
+	const orgs = await collOrganizador.find(query, options);
+	let count = await orgs.count();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"El usuario " + mailOrg + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + mailOrg
+		);
+	else if (count == 1)
+		return orgs.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.org_getByMailL = async (mailOrg) => {
+	const query = { mail: mailOrg };
+	const options =  {projection: {_id: 0, pass: 1}};
 	
 	const orgs = await collOrganizador.find(query, options);
 	let count = await orgs.count();
@@ -582,7 +602,11 @@ driver.org_getAll = async () => {
 }
 
 driver.org_login = async (mailOrg, pass) => {
+<<<<<<< HEAD
 	const org = await driver.org_getByID(mailOrg);
+=======
+	const org = await driver.org_getByMailL(mailOrg);
+>>>>>>> c50c0ff735ce7632dbb167eddc64c7177969bda2
 	if( org.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + mailOrg
@@ -620,7 +644,30 @@ driver.set_grd = async ({nom, correo, contra, eventId}) => {
 
 driver.grd_getByMail = async (mailGrd) => {
 	const query = { mail: mailGrd };
-	const options =  {projection: {_id: 0}};
+	const options =  {projection: {_id: 0, pass: 0}};
+	
+	const grds = await collGuardia.find(query, options);
+	let count = await grds.count();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"El usuario " + mailGrd + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Demaciados usuarios duplicados, deberían ser únicos para la busqueda " + mailGrd
+		);
+	else if (count == 1)
+		return grds.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.grd_getByMailL = async (mailGrd) => {
+	const query = { mail: mailGrd };
+	const options =  {projection: {_id: 0, pass: 1}};
 	
 	const grds = await collGuardia.find(query, options);
 	let count = await grds.count();
@@ -677,7 +724,11 @@ driver.grd_getAll = async () => {
 }
 
 driver.grd_login = async (mailGrd, pass) => {
+<<<<<<< HEAD
 	const grd = await driver.grd_getByMail(mailGrd);
+=======
+	const grd = await driver.grd_getByMailL(mailGrd);
+>>>>>>> c50c0ff735ce7632dbb167eddc64c7177969bda2
 	if( grd.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + mailGrd
@@ -874,14 +925,14 @@ driver.solB_update = ({id_solB, stat}) => {
 
 //Solicitudes Cambio
 
-driver.set_solC = async ({org, eventID, docURL, raz}) => {
+driver.set_solC = async ({org, eventID, docURL, cambio}) => {
 
 	var size = 0;
 
 	size = await collSolicitudC.count();
 	size++;
 
-	var newSolC = {id_text: size, managr: org, event: eventID, docSol: docURL, status: "1", razones: raz};
+	var newSolC = {id_text: size, managr: org, event: eventID, docSol: docURL, status: "1", datos: cambio};
 	await collSolicitudC.insertOne(newSolC);
 	console.log("Solicitud de Cambio Registrada");
 
