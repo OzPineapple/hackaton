@@ -20,6 +20,9 @@ const collSeguimiento = databse.collection('Seguimiento');
 const collSolicitudA = databse.collection('SolicitudA');
 const collSolicitudB = databse.collection('SolicitudB');
 const collSolicitudC = databse.collection('SolicitudC');
+const collReVenta = databse.collection('reVenta');
+const collCompra = databse.collection('Compra');
+const collReCompra = databse.collection('reCompra')
 
 var driver = {};
 
@@ -885,7 +888,7 @@ driver.solC_update = ({id_solB, stat}) => {
 
 //Seguimientos
 
-driver. set_Seg = async (tipoS, admi, dat, idSol, desc) => {
+driver.set_Seg = async (tipoS, admi, dat, idSol, desc) => {
 
 	var size = 0;
 
@@ -895,6 +898,51 @@ driver. set_Seg = async (tipoS, admi, dat, idSol, desc) => {
 	var newSeg = {id_text: size, tipoSol: tipoS, admin: admi, fecha: dat, solicitud: idSol, descripcion: desc};
 	await collSolicitudC.insertOne(newSeg);
 	console.log("Seguimiento Registrado");
+
+}
+
+// Compras
+
+driver.set_compra = async ({buyID, bolID, dateC}) => {
+
+	var size = 0;
+
+	size = await collCompra.countDocuments();
+	size++;
+
+	var newCom = {id_text: size, buyer: buyID, ticket: bolID, sellStatus: "1", fechaC: dateC};
+	await collCompra.insertOne(newCom);
+	console.log("Compra Registrada");
+
+}
+
+// Reventas
+
+driver.set_reSell = async ({sellerID, bolID, precio}) => {
+
+	var size = 0;
+
+	size = await collReVenta.countDocuments();
+	size++;
+
+	var newReS = {id_text: size, seller: sellerID, ticket: bolID, sellStatus: "1", price: precio};
+	await collReVenta.insertOne(newReS);
+	console.log("Reventa Registrada");
+
+}
+
+// ReCompra
+
+driver.set_reCom = async ({buyID, reSellID, dateC}) => {
+
+	var size = 0;
+
+	size = await collReCompra.countDocuments();
+	size++;
+
+	var newReC = {id_text: size, buyer: buyID, sell: reSellID, fechaC: dateC};
+	await collReCompra.insertOne(newReC);
+	console.log("Compra de Reventa Registrada");
 
 }
 
