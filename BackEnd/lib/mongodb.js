@@ -355,8 +355,8 @@ driver.usr_getPrivKByID = async ( idUsr ) => {
 	const query = { id_text: idUsr };
 	const options = {_id: 0, privateK: 1};
 	
-	const users = await collUsuario.find(query, options);
-	let count = await users.count();
+	const users = collUsuario.find(query, options);
+	let count = await users.countDocuments();
 
 	if( count == 0 )
 		throw new CustomStatusError( "UserNotFound", 404, 
@@ -367,8 +367,8 @@ driver.usr_getPrivKByID = async ( idUsr ) => {
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + idUsr
 		);
 	else if (count == 1){
-		debug(users.next());
-		return users.next();
+		debug(await users.next());
+		return await users.next();
 	}
 	else
 		throw new CustomStatusError( "UnknownError", 500,
