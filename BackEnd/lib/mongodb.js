@@ -367,7 +367,7 @@ driver.usr_getPrivKByID = async ( idUsr ) => {
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + idUsr
 		);
 	else if (count == 1){
-		debug(users.next().toISOString());
+		debug(users.next());
 		return users.next();
 	}
 	else
