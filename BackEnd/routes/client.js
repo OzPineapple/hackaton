@@ -31,7 +31,7 @@ router.use('/ticket', ticket);
 
 //router.use('/', crud);
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
 	try{
 		const decoded = getJwt( req );
 		var data = getClient( decoded.id_text );
@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
 	}}
 });
 
-router.put('/', async (req, res) => {
+router.put('/', async (req, res, next) => {
 	try{
 		const decoded = getJwt( req );
 		var data = getClient( decoded.id_text );
