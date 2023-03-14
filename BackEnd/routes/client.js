@@ -22,10 +22,10 @@ router.use( async (req, res, next) => {
 		next();
 	}catch(e){ switch(e.name){
 		case "undefined":
-			console.error(e);
+			debug(e.name);
 			return res.status(403).send();
 		case "NoBearer":
-			console.error(e);
+			debug(e.name);
 			return res.status(406).send();
 		default: next(e);
 	}}
