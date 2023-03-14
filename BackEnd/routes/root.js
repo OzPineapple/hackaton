@@ -81,7 +81,7 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/new', async (req, res, next) => {
 	try{
-		req.body.privateK = await katamari.createWallet();
+		req.body.llavep = await katamari.createWallet();
 		req.body.usrT = 2;
 		debug( "asked for register" );
 		debug( req.body );
