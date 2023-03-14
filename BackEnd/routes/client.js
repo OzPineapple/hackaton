@@ -1,5 +1,5 @@
 import express from 'express';
-import crud from './crud/client.js';
+//import crud from './crud/client.js';
 import ticket from './ticket.js';
 import { getJwt } from '../lib/util.js';
 import debuger from 'debug';
@@ -14,11 +14,7 @@ router.use( async (req, res, next) => {
 		debug( "usrT:" + decoded.usrT );
 		if( decoded.usrT != 2 )
 			return res.status(403).send();
-		debug("allowed: user has the rigth privileges");
-		debug( "id_text: " + decoded.id_text );
-		if( decoded.id_text != req.params.id )
-			return res.status(403).send();
-		debug("allowed: user is accessing to his own information");
+		debug("allowed: user" + decoded.id_text +" has the rigth privileges");
 		next();
 	}catch(e){ switch(e.name){
 		case "undefined":
