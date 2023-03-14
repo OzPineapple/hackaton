@@ -16,6 +16,10 @@ const collBoleto = databse.collection('Boleto');
 const collUbicacion = databse.collection('Ubicacion');
 const collOrganizador = databse.collection('Organizador');
 const collGuardia = databse.collection('Guardia');
+const collSeguimiento = databse.collection('Seguimiento');
+const collSolicitudA = databse.collection('SolicitudA');
+const collSolicitudB = databse.collection('SolicitudB');
+const collSolicitudC = databse.collection('SolicitudC');
 
 var driver = {};
 
@@ -630,6 +634,18 @@ driver.grd_login = async (mailGrd, pass) => {
 		return grd;
 }
 
+/*driver.grd_update = ({id_usr, correo, nom, contra, usu}) => {
+
+	db.collGuardia.updateOne({id_text: id_usr}, {mail: correo, name: nom, pass: contra, usr:usu}, function(err, res){
+		if (err)
+			throw(err)
+		else
+			console.log("Usuario Actualizado");
+			return res;
+	});
+
+}*/
+
 //Login General
 
 driver.loginG = async (data, pass) => {
@@ -677,6 +693,207 @@ driver.loginG = async (data, pass) => {
 		throw new CustomStatusError( "SomethingWentWrong", 404,
 			"No hay registros con:" + data);
 	}
+
+}
+
+//Solicitudes Alta
+
+driver.set_solA = async ({org, evento}) => {
+
+	var size = 0;
+
+	size = await collSolicitudA.countDocuments();
+	size++;
+
+	var newSolA = {id_text: size, managr: org, event: evento, status: "1"};
+	await collSolicitudA.insertOne(newSolA);
+	console.log("Solicitud de Alta Registrada");
+
+}
+
+driver.solA_getByID = async (idSolA) => {
+	const query = { id_text: idSolA };
+	const options = {_id: 0};
+	
+	const solsA = await collSolicitudA.find(query, options);
+	let count = await solsA.countDocuments();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"La Solicitud " + idSolA + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Solicitudes duplicadas, deberían ser únicas para la busqueda " + idSolA
+		);
+	else if (count == 1)
+		return solsA.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.solA_getAll = async () => {
+
+	const query = {};
+
+	const options = {_id: 0};
+
+	const solsA = collSolicitudA.find(query, options);
+	
+	return solsA;
+	
+}
+
+driver.solA_update = ({id_solA, stat}) => {
+
+	db.collSolicitudA.updateOne({id_text: id_solA}, {status: stat}, function(err, res){
+		if (err)
+			throw(err)
+		else
+			console.log("Solicitud Actualizada");
+			return res;
+	});
+
+}
+
+//Solicitudes Baja
+
+driver.set_solB = async ({org, eventID, docURL, raz}) => {
+
+	var size = 0;
+
+	size = await collSolicitudB.countDocuments();
+	size++;
+
+	var newSolB = {id_text: size, managr: org, event: eventID, docSol: docURL, status: "1", razones: raz};
+	await collSolicitudB.insertOne(newSolB);
+	console.log("Solicitud de Baja Registrada");
+
+}
+
+driver.solB_getByID = async (idSolB) => {
+	const query = { id_text: idSolB };
+	const options = {_id: 0};
+	
+	const solsB = await collSolicitudB.find(query, options);
+	let count = await solsB.countDocuments();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"La Solicitud " + idSolB + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Solicitudes duplicadas, deberían ser únicas para la busqueda " + idSolB
+		);
+	else if (count == 1)
+		return solsB.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.solB_getAll = async () => {
+
+	const query = {};
+
+	const options = {_id: 0};
+
+	const solsB = collSolicitudB.find(query, options);
+	
+	return solsB;
+	
+}
+
+driver.solB_update = ({id_solB, stat}) => {
+
+	db.collSolicitudB.updateOne({id_text: id_solB}, {status: stat}, function(err, res){
+		if (err)
+			throw(err)
+		else
+			console.log("Solicitud Actualizada");
+			return res;
+	});
+
+}
+
+//Solicitudes Cambio
+
+driver.set_solC = async ({org, eventID, docURL, raz}) => {
+
+	var size = 0;
+
+	size = await collSolicitudC.countDocuments();
+	size++;
+
+	var newSolC = {id_text: size, managr: org, event: eventID, docSol: docURL, status: "1", razones: raz};
+	await collSolicitudC.insertOne(newSolC);
+	console.log("Solicitud de Cambio Registrada");
+
+}
+
+driver.solC_getByID = async (idSolC) => {
+	const query = { id_text: idSolC };
+	const options = {_id: 0};
+	
+	const solsC = await collSolicitudC.find(query, options);
+	let count = await solsC.countDocuments();
+
+	if( count == 0 )
+		throw new CustomStatusError( "UserNotFound", 404, 
+			"La Solicitud " + idSolC + " no se encuentra en la base de datos " + process.env.npm_package_config_dbname
+		);
+	else if( count > 1 )
+		throw new CustomStatusError( "Duplicated Record", 409,
+			"Solicitudes duplicadas, deberían ser únicas para la busqueda " + idSolC
+		);
+	else if (count == 1)
+		return solsC.next();
+	else
+		throw new CustomStatusError( "UnknownError", 500,
+			"Un error desconocido evita que el servidor pueda procesar la peticion"
+		);
+}
+
+driver.solC_getAll = async () => {
+
+	const query = {};
+
+	const options = {_id: 0};
+
+	const solsC = collSolicitudC.find(query, options);
+	
+	return solsC;
+	
+}
+
+driver.solC_update = ({id_solB, stat}) => {
+
+	db.collSolicitudC.updateOne({id_text: id_solB}, {status: stat}, function(err, res){
+		if (err)
+			throw(err)
+		else
+			console.log("Solicitud Actualizada");
+			return res;
+	});
+
+}
+
+//Seguimientos
+
+driver. set_Seg = async (tipoS, admi, dat, idSol, desc) => {
+
+	var size = 0;
+
+	size = await collSeguimiento.countDocuments();
+	size++;
+
+	var newSeg = {id_text: size, tipoSol: tipoS, admin: admi, fecha: dat, solicitud: idSol, descripcion: desc};
+	await collSolicitudC.insertOne(newSeg);
+	console.log("Seguimiento Registrado");
 
 }
 
