@@ -51,7 +51,7 @@ router.get('/', async (req, res, next) => {
 	}}
 });
 
-router.put('/', async (req, res, next) => {
+router.post('/add/', async (req, res, next) => {
 	try{
 		const decoded = getJwt( req );
 		var data = await db.getClient( decoded.id_text );
