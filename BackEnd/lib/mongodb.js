@@ -432,22 +432,20 @@ driver.usr_login = async (correo, pass) => {
 		return usr;
 }
 
-driver.usr_update = ({id_usr, nom, correo, contra}) => {
+driver.usr_update = async ({nom, correo, contra, id_usr}) => {
 
-	db.collUsuario.updateOne({id_text: id_usr}, {mail: correo, name: nom, pass: contra}, function(err, res){
-		if (err)
-			throw(err)
-		else
-			console.log("Usuario Actualizado");
-			return res;
-	});
+	debugger;
+	const result = await collUsuario.updateOne({id_text: id_usr}, { $set: {mail: correo, name: nom, pass: contra}});
+	console.log ({nom, correo, contra, id_usr});
+	console.log(
+		`${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+	);
 
 }
 
 driver.usr_getAll = async () => {
 
 	const query = {};
-
 	const options =  {projection: {_id: 0, pass:0}};
 
 	const usrs = collUsuario.find(query, options);
