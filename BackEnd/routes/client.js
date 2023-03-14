@@ -13,7 +13,6 @@ var router = express.Router();
 
 router.use( async (req, res, next) => {
 	try{
-		debugger;
 		const decoded = getJwt( req );
 		debug( "usrT:" + decoded.usrT );
 		if( decoded.usrT != 2 )
@@ -55,8 +54,8 @@ router.post('/add/', async (req, res, next) => {
 	try{
 		const decoded = getJwt( req );
 		var data = await db.getClient( decoded.id_text );
-		UsrSK58 = await db.getPrivateKeyOfClient( decoded.id_text );
-		Añadir(2, UsrSK58);
+		const UsrSK58 = await db.getPrivateKeyOfClient( decoded.id_text );
+		katamari.Añadir(2, UsrSK58);
 		res.status(202);
 		res.send();
 	}catch(e){switch(e.name){
@@ -66,9 +65,12 @@ router.post('/add/', async (req, res, next) => {
 
 router.post('/edit', cors(), async (req, res, next) => {
 	try{
-		await db.usr_update( req.body );
-		res.status(200);
-		res.type('json');
+		debug("User updating own info");
+		const decoded = getJwt( req );
+		req.body.id_usr = decoded.id_text;
+		debug(req.body);
+		await db.upClient( req.body );
+		res.status(201);
 		res.send();
 	}catch(e){ switch(e.name){
 		default: next(e);
