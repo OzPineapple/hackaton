@@ -776,13 +776,13 @@ driver.loginG = async (data, pass) => {
 	}
 
 	if (admin!=undefined && usu==undefined && org==undefined && grd==undefined){
-		return admin;
+		return driver.admin_getByID(admin.id_text);
 	}else if(usu!=undefined && admin==undefined && org==undefined && grd==undefined){
-		return usu;
+		return driver.admin_getByID(usu.id_text);
 	}else if(org!=undefined && admin==undefined && usu==undefined && grd==undefined){
-		return org;
+		return driver.org_getByID(org.id_text);
 	}else if(grd!=undefined && admin==undefined && usu==undefined && org==undefined){
-		return grd;
+		return driver.grd_getByID(grd.id_text);
 	}
 	else{
 		throw new CustomStatusError( "SomethingWentWrong", 404,
