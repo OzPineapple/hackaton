@@ -97,7 +97,7 @@ driver.admin_getByUsr = async (userAdmin) => {
 
 driver.admin_getByUsrL = async (userAdmin) => {
 	const query = { usr: userAdmin };
-	const options =  {projection: {_id: 0, pass: 1}};
+	const options =  {projection: {_id: 0, id_text: 1, pass: 1}};
 	
 	const admins = collAdmin.find(query, options);
 	let count = await admins.count();
@@ -353,7 +353,7 @@ driver.usr_getByMail = async (correo) => {
 
 driver.usr_getByMailL = async (correo) => {
 	const query = { mail: correo };
-	const options =  {projection: {_id: 0, pass: 1}};
+	const options =  {projection: {_id: 0, id_text: 1, pass: 1}};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
@@ -545,7 +545,7 @@ driver.org_getByMail = async (mailOrg) => {
 
 driver.org_getByMailL = async (mailOrg) => {
 	const query = { mail: mailOrg };
-	const options =  {projection: {_id: 0, pass: 1}};
+	const options =  {projection: {_id: 0, id_text: 1, pass: 1}};
 	
 	const orgs = await collOrganizador.find(query, options);
 	let count = await orgs.count();
@@ -602,11 +602,7 @@ driver.org_getAll = async () => {
 }
 
 driver.org_login = async (mailOrg, pass) => {
-<<<<<<< HEAD
-	const org = await driver.org_getByID(mailOrg);
-=======
 	const org = await driver.org_getByMailL(mailOrg);
->>>>>>> c50c0ff735ce7632dbb167eddc64c7177969bda2
 	if( org.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + mailOrg
@@ -667,7 +663,7 @@ driver.grd_getByMail = async (mailGrd) => {
 
 driver.grd_getByMailL = async (mailGrd) => {
 	const query = { mail: mailGrd };
-	const options =  {projection: {_id: 0, pass: 1}};
+	const options =  {projection: {_id: 0, id_text: 1, pass: 1}};
 	
 	const grds = await collGuardia.find(query, options);
 	let count = await grds.count();
@@ -724,11 +720,7 @@ driver.grd_getAll = async () => {
 }
 
 driver.grd_login = async (mailGrd, pass) => {
-<<<<<<< HEAD
-	const grd = await driver.grd_getByMail(mailGrd);
-=======
 	const grd = await driver.grd_getByMailL(mailGrd);
->>>>>>> c50c0ff735ce7632dbb167eddc64c7177969bda2
 	if( grd.pass != pass )
 		throw new CustomStatusError( "WrongPassword", 401,
 			"La contraseña no es correcta para el usuario " + mailGrd
