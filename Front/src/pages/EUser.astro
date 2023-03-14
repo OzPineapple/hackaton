@@ -5,8 +5,93 @@ import InDatosC from "../components/InDatosCyA.astro";
 ---
 <Base titulo="Cambio de datos">
     <MenuC />
-    <p>Cambio de datos</p>
-    <InDatosC>
-        <button>Cambiar dator</button>
-    </InDatosC>
+    <section>
+
+        <InDatosC titulo="Cambio de datos de Usuario">
+            <button id="cambiar">Cambiar datos</button>
+        </InDatosC>
+    </section>
 </Base>
+
+<script>
+    var btn=document.getElementById("cambiar");
+    var nom = document.getElementById("name");
+    var email = document.getElementById("email");
+    var pas = document.getElementById("password");
+
+    async function send(e){
+        e.preventDefault();
+        var data  = new URLSearchParams();
+        var header = "Bearer "+localStorage.getItem("token");
+        data.append( "name", "admin");
+            let resolt = await fetch("http://localhost:3000/client",{
+                method: 'get', headers:{'Authorization':header},
+            });
+            var sta = resolt.status;
+            resolt= await resolt.json();
+            switch (sta) {
+                case 200:
+                   
+                    console.log(resolt);
+                    nom.value=resolt.name;
+                    email.value=resolt.mail;
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                    case 500:
+                    alert("Error en servidor");
+                    break;
+                    case 502:
+                        alert("Solana se disocio");
+                        break;
+                        case 401:
+                            alert("Error dde contraseña");
+                            break;
+            }
+        }
+        window.onload = (event) => {
+            send(event);
+        };
+
+        btn.addEventListener("click", async function (e) {
+            e.preventDefault();
+        var data  = new URLSearchParams();
+        var header = "Bearer "+localStorage.getItem("token");
+        data.append( "name",nom.value );
+        data.append( "email",email.value);
+        data.append( "pass",pas.value);
+        
+            let resolt = await fetch("http://localhost:3000/client/edit",{
+                method: 'post',body:data, headers:{'Authorization':header},
+            });
+            var sta = resolt.status;
+            resolt= await resolt.json();
+            switch (sta) {
+                case 200:
+                    alert("Datos actualizados con exito!");
+                    window.open("/IndexUser","_self");
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                    case 500:
+                    alert("Error en servidor");
+                    break;
+                    case 502:
+                        alert("Solana se disocio");
+                        break;
+                        case 401:
+                            alert("Error dde contraseña");
+                            break;
+            }
+        })
+
+        
+</script>
+
+<style>
+    section{
+        margin-top: 20px;
+    }
+</style>

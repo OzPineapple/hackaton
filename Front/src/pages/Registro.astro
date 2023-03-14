@@ -1,18 +1,59 @@
 ---
 import Base from "../layouts/Base.astro";
 import InDatosC from "../components/InDatosCyA.astro";
+import Menub from "../layouts/Menub.astro";
 ---
 <Base titulo="Registro">
-    <InDatosC>
-        <button id="Enviar">Registrar</button>
-    </InDatosC>
+    <Menub></Menub>
+    <section>
+        <InDatosC titulo="Registro">
+            <button id="Enviar" type="submit">Registrar</button>
+        </InDatosC>
+    </section>
 </Base>
+<style>
+    section{
+        margin-top: 20px;
+    }
+</style>
 
-<script>
-    var button = document.getElementById("Enviar");
-    button.addEventListener("click", function enviar(e) {
+<script type="text/javascript">
+    
+    var email = document.getElementById("email");
+    var pass = document.getElementById("password");
+
+    async function send(e){
+
         e.preventDefault();
-        var name = document.getElementById("name").value;
-        console.log(name);
-    })
-</script>
+        var name = document.querySelector("#name").value;
+        var data  = new URLSearchParams();
+        data.append( "nom", name);
+        data.append( "correo", email.value);
+        data.append( "contra", pass.value);
+            let resolt = await fetch("http://localhost:3000/new",{
+                method: 'post', body:data,
+            });
+            var sta = resolt.status;
+            //resolt=resolt.json();
+            console.log(resolt);
+            switch (sta) {
+                case 201:
+                    alert("Bienvenido!");
+                    window.open("/index","_self");
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                    case 500:
+                    alert("Error en servidor");
+                    break;
+                    case 502:
+                        alert("Solana se disocio");
+                        break;
+                        case 401:
+                            alert("Error dde contraseña");
+                            break;
+            }
+        }
+        
+    </script>

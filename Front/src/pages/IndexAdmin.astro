@@ -1,9 +1,14 @@
 ---
 import Base from "../layouts/Base.astro";
 import MenuAdmin from "../layouts/MenuAdmin.astro";
+const {token} = Astro.params;
 ---
 
 <Base titulo="Index Admin">
     <MenuAdmin/>
-    <h2>Index del admin jsjsjs</h2>
+    <h2>Index del admin jsjsjs {token}</h2>
 </Base>
+
+<style>
+    
+</style>

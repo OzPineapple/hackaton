@@ -11,6 +11,7 @@ import cors from 'cors';
 /* Importación de los enrutadores */
 import root from './routes/root.js';
 import admin from './routes/admin.js';
+import client from './routes/client.js';
 
 const app = express();
 const port = process.env.npm_package_config_port || '8080';
@@ -20,7 +21,13 @@ const logerr = debuger("server:global_err_handler");
 /* Configuaración del servidor */
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.text());
-app.use(cors());
+app.use(cors({
+	origin: "*",
+	methods: ['GET','HEAD','PUT','PATCH','POST','DELETE', 'OPTIONS'],
+	"preflightContinue": false,
+	"optionsSuccessStatus": 204
+}));
+app.options('*', cors());
 app.set('port', port);
 
 /* Configuraciones */
@@ -34,6 +41,7 @@ app.use(session({
 /* Enrutadores */
 app.use("/", root);
 app.use("/admin", admin);
+app.use("/client", client);
 
 // Error handler
 app.use((err, req, res, next) => {
@@ -44,7 +52,7 @@ app.use((err, req, res, next) => {
 	logerr(err);
 	fs.appendFile(
 		process.env.npm_package_config_errlogfile,
-		err.stack + '\n',
+		req.url + " at " + new Date() + '\n' + err.stack + '\n',
 		(e) => { if(e) logerr(e) }
 	);
 });

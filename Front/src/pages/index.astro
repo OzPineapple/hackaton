@@ -5,4 +5,37 @@ import Menub from "../layouts/Menub.astro";
 
 <Base titulo="Inicio">
     <Menub />
+    <div class="container">
+
+        <section class="foto">
+            <h1>TicketMunster</h1>
+        </section>
+        <section class="Texto">
+            <h2 style="width: 80%;margin: auto; padding: 10px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, maxime autem! Laudantium, asperiores quos! Quo obcaecati impedit delectus nesciunt ab. Similique consequatur eius veritatis quibusdam distinctio labore iste unde fugiat?</h2>
+        </section>
+    </div>
 </Base>
+
+<style>
+    h1{
+        margin: 0px auto;
+        font-size: 10em;
+        color: black;
+    }
+    .container{
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        padding: 0;
+    }
+    .foto{
+        padding: 0px;
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        background: url(/images/banner.jpg);
+        background-size: cover;
+        width: 100%;
+        min-height: 700px;
+    }
+</style>

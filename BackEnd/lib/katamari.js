@@ -1,3 +1,4 @@
+import debuger from 'debug';
 
 import { CreateWall, Balance} from './Solana/Wallet.js';
 import { LoadImage, LoadMetadata, CrearColeccionNFT, CandyMachineSCreation } from './Solana/NFT/CandyMachineV3.js'
@@ -11,7 +12,7 @@ import { CompraBoleto } from './Solana/Pay/Compra.js';
 import { AñadirFondos } from './Solana/Pay/AñadirFondos.js';
 import { Transferencia } from './Solana/NFT/Tansferencia.js';
 import {Mint, LoadMetadataCollection, InsertingItemsCM} from './Solana/NFT/CandyMachineV3.js'
-import { Conn } from './Solana/Util.js';
+import { Conn, Decode } from './Solana/Util.js';
 import { keypairIdentity, Metaplex } from '@metaplex-foundation/js';
 
 
@@ -21,6 +22,10 @@ const ServerKeypair = Keypair.fromSecretKey(ServerSK);
 
 const metaplex = new Metaplex(Conn()).use(keypairIdentity(ServerKeypair));
 
+import { Encode } from './Solana/Util.js';
+import { genPubKey } from './Solana/Wallet.js';
+
+const debug = debuger('server:katamari');
 
 //Nota voy a suponer que las imagenes cargadas al nft solo serán en formato png, en caso de que no, favor de avisar para convertir el tipo de la imagen en un
 //string variable, deacuerdo a la imagen cargada, Debe de recbir un arreglo de objetos llamado Atributos (No deberia estar la funcion de subir imagen)
@@ -54,11 +59,16 @@ export async function MintNft(CMaddress, UsrPK58){
 	return nftAddress.toString();
 }
 
-export async function Compra(){
-	let signature = await CompraBoleto(UsrSK58, x);
+export async function Compra(UsrSK58, Precio, CMaddress){
+	let signature = await CompraBoleto(UsrSK58, Precio);
+	
+	var UsrSK = Decode(UsrSK58);
+	var UsrKeypair = Keypair.fromSecretKey(UsrSK);
+	var UsrPK58 = UsrKeypair.publicKey.toString();
+
 
 	if (signature != null ){
-		let signatureTx = await Mint (UsrSK58, mint);
+		let signatureTx = await Mint(CMaddress, UsrPK58);
 		return signatureTx
 	} else {
 		return "Algo ha salido mal"; 
@@ -82,6 +92,9 @@ export function getBalance(){
 	return Balance();
 }
 
+export function getPubKey (Usr58){
+	return genPubKey(Usr58);
+}
 
 export async function getOwnerFromAMint(mint){
 	return await GetOwnerFromAMint(mint);
@@ -116,6 +129,8 @@ export async function CompraYTransfer(x, UsrSK58, mint){
 	};
 }
 
+
+//Hacer la mamada de matarlos
 export async function GetAndFilrtMetadata(UsrPK){
 	var BoletosSinUsar = [];
 	
@@ -127,11 +142,11 @@ export async function GetAndFilrtMetadata(UsrPK){
 		var nft = await getMetadata(AccountLayout.decode(TAc.value[i].account.data).mint.toString());
 
 		
-		console.log("iteracion:  " + i);
+		debug("iteracion:  " + i);
 		if(nft.json != undefined){
 			if(nft.json.attributes != undefined){
 				if (nft.json.attributes[0] != undefined){
-					console.log(nft.json.attributes[0].value);
+					debug(nft.json.attributes[0].value);
 				if (nft.json.attributes[0].value == "true") {
 					BoletosSinUsar.push(nft);
 				}
@@ -144,10 +159,3 @@ export async function GetAndFilrtMetadata(UsrPK){
 
 	return BoletosSinUsar;
 }
-
-
-
-//Esta madre esta fuera de juego por la nueva forma de crear nft y almacenarlas en la base de datos
-/*
-
-*/

@@ -5,11 +5,18 @@ import MenuC from "../layouts/MenuC.astro";
 
 <Base titulo="Datos el usuario">
     <MenuC />
-    <label for="">Nombre:</label><label for="" id="Dato">Nombre del usuario</label><br><br>
-    <label for="">Correo</label><label for="" id="Dato">Correo</label><br><br>
-    <label for="">Wallet</label><label for="" id="Dato"><a href="">Aqui va la wallet xd</a></label><br><br>
-    <button id="Modificar">Editar Datos</button>
-    <button id="Modificar">Borrar cuenta</button>
+    <section style="margin-top: 20px;">
+        <section id="datos">
+
+            
+            <label for="">Nombre:</label><label for="" id="nom"></label><br><br>
+            <label for="">Correo:</label><label for="" id="email"></label><br><br>
+            <label for="">Wallet:</label><label for="" id="wallet"></label>
+            <img src="images/sol.png" alt="" id="imga"><label for=""><a id="vers" target="_blank"> Ver en solana</a></label><br><br>
+            <button id="Modificar">Editar Datos</button><br>
+            <button id="Borrar">Borrar cuenta</button>
+        </section>
+    </section>
 </Base>
 
 <script>
@@ -18,4 +25,73 @@ import MenuC from "../layouts/MenuC.astro";
         e.preventDefault();
         window.open("/EUser","_self");
     })
+    async function send(e){
+        e.preventDefault();
+        var data  = new URLSearchParams();
+        var header = "Bearer "+localStorage.getItem("token");
+        data.append( "name", "admin");
+            let resolt = await fetch("http://localhost:3000/client",{
+                method: 'get', headers:{'Authorization':header},
+            });
+            var sta = resolt.status;
+            resolt= await resolt.json();
+            switch (sta) {
+                case 200:
+                    var nom = document.getElementById("nom");
+                    var email = document.getElementById("email");
+                    var wallet = document.getElementById("wallet");
+                    var imga = document.getElementById("imga");
+                    var vers = document.getElementById("vers");
+                    console.log(resolt);
+                    nom.innerText=resolt.name;
+                    email.innerText=resolt.mail;
+                    var url="https://explorer.solana.com/address/"+resolt.publicK+"?cluster=devnet";
+                    wallet.setAttribute("href",url);
+                    imga.setAttribute("href",url);
+                    vers.setAttribute("href",url);
+                    wallet.innerText=resolt.publicK;
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                    case 500:
+                    alert("Error en servidor");
+                    break;
+                    case 502:
+                        alert("Solana se disocio");
+                        break;
+                        case 401:
+                            alert("Error dde contraseña");
+                            break;
+            }
+        }
+        window.onload = (event) => {
+            send(event);
+        };
+        
 </script>
+<style>
+    #datos{
+        display: grid;
+        width: 40%;
+        margin: auto;
+        padding: 10px;
+        text-align: center;
+    }
+    #Modificar,#Borrar{
+        width: 300px;
+        margin: auto;
+    }
+    a{
+        text-decoration: none;
+        color: #fff;
+    }
+    a:hover{
+        color: rgba(240,28,5,1);
+    }
+    img{
+        width: 50px;
+        height: 50px;
+        margin: auto;
+    }
+</style>
