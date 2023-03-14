@@ -52,3 +52,30 @@ NoCodedYet: null
     at driver.newClient (file:///C:/Users/gggam/Desktop/hackaton/BackEnd/lib/mongodb.js:43:44)
     at file:///C:/Users/gggam/Desktop/hackaton/BackEnd/routes/root.js:88:12
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21

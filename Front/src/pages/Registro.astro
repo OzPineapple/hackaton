@@ -1,12 +1,21 @@
 ---
 import Base from "../layouts/Base.astro";
 import InDatosC from "../components/InDatosCyA.astro";
+import Menub from "../layouts/Menub.astro";
 ---
 <Base titulo="Registro">
-    <InDatosC>
-        <button id="Enviar" type="submit">Registrar</button>
-    </InDatosC>
+    <Menub></Menub>
+    <section>
+        <InDatosC titulo="Registro">
+            <button id="Enviar" type="submit">Registrar</button>
+        </InDatosC>
+    </section>
 </Base>
+<style>
+    section{
+        margin-top: 20px;
+    }
+</style>
 
 <script type="text/javascript">
     var name = document.getElementById("name");
