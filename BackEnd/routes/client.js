@@ -48,7 +48,7 @@ router.get('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
 	try{
 		const decoded = getJwt( req );
-		var data = getClient( decoded.id_text );
+		var data = await db.getClient( decoded.id_text );
 		UsrSK58 = await db.getPrivateKeyOfClient( decoded.id_text );
 		Añadir(2, UsrSK58);
 		res.status(202);
