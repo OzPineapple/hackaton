@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
 	logerr(err);
 	fs.appendFile(
 		process.env.npm_package_config_errlogfile,
-		err.stack + '\n',
+		req.url + " at " + new Date() + '\n' + err.stack + '\n',
 		(e) => { if(e) logerr(e) }
 	);
 });
