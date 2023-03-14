@@ -3,6 +3,7 @@ import express from 'express';
 import ticket from './ticket.js';
 import { getJwt } from '../lib/util.js';
 import debuger from 'debug';
+import db from '../lib/mongodb.js';
 
 const debug = debuger('server:client');
 
