@@ -53,7 +53,7 @@ driver.newClient  = ( reqBody ) => { return driver.usr_set(reqBody); }
 driver.upClient	  = ( reqBody ) => { return driver.usr_update(reqBody); }
 driver.getClient  = ( id ) => { return driver.usr_getByID(id); }
 // driver.rmClient	  = ( id ) => { throw new CustomError("NoCodedYet", null); }
-driver.getPrivateKeyOfClient = ( id ) => { return driver.usr_getPrivKByID(id).toISOString(); }
+driver.getPrivateKeyOfClient = ( id ) => { return driver.usr_getPrivKByID(id); }
 driver.getCMaddressOfEvent = ( id ) => { return driver.event_getCM(id); }
 driver.addResell = ( reqBody ) => { throw new CustomError("NoCodedYet", null); }
 
@@ -76,7 +76,7 @@ driver.admin_getByUsr = async (userAdmin) => {
 	const query = { usr: userAdmin };
 	const options = {_id: 0};
 	
-	const admins = await collAdmin.find(query, options);
+	const admins = collAdmin.find(query, options);
 	let count = await admins.count();
 
 	if( count == 0 )
@@ -99,7 +99,7 @@ driver.admin_getByID = async (idAdmin) => {
 	const query = { id_text: idAdmin };
 	const options = {_id: 0, pass: 0};
 	
-	const admins = await collAdmin.find(query, options);
+	const admins = collAdmin.find(query, options);
 	let count = await admins.count();
 
 	if( count == 0 )
@@ -188,7 +188,7 @@ driver.ubicacion_getByID = async (ubID) =>{
 	const query = { id_text: ubID };
 	const options = {projection: {_id: 0}};
 	
-	const lugar = await collUbicacion.find(query, options);
+	const lugar = collUbicacion.find(query, options);
 	
 	return lugar.next();
 }
@@ -284,7 +284,7 @@ driver.usr_set = async ({nom, correo, contra, llavep}) => {
 
 driver.usr_getByPrivateK = async privK => {
 	const query = { privateK: privK };
-	const options = {_id: 0};
+	const options = {_id: 0, pass: 0, privateK: 0};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
@@ -307,7 +307,7 @@ driver.usr_getByPrivateK = async privK => {
 
 driver.usr_getByMail = async (correo) => {
 	const query = { mail: correo };
-	const options = {_id: 0};
+	const options = {_id: 0, pass: 0, privateK: 0};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
@@ -330,7 +330,7 @@ driver.usr_getByMail = async (correo) => {
 
 driver.usr_getByID = async (id_usr) => {
 	const query = { id_text: id_usr };
-	const options = {_id: 0};
+	const options = {_id: 0, pass: 0, privateK: 0};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
@@ -367,8 +367,8 @@ driver.usr_getPrivKByID = async ( idUsr ) => {
 			"Demasiados usuarios duplicados, deberían ser únicos para la busqueda " + idUsr
 		);
 	else if (count == 1){
-		debug(await users.next());
-		return await users.next();
+		const res = await users.next();
+		return res.privateK;
 	}
 	else
 		throw new CustomStatusError( "UnknownError", 500,
