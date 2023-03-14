@@ -52,3 +52,52 @@ NoCodedYet: null
     at driver.newClient (file:///C:/Users/gggam/Desktop/hackaton/BackEnd/lib/mongodb.js:43:44)
     at file:///C:/Users/gggam/Desktop/hackaton/BackEnd/routes/root.js:88:12
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+NotFound: No hay registros con:admin
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:477:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+/client at Mon Mar 13 2023 18:57:43 GMT-0600 (hora estándar central)
+ReferenceError: debug is not defined
+    at file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/client.js:11:3
+    at Layer.handle [as handle_request] (C:\Users\Alain\Documents\repos\hackaton\BackEnd\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\Alain\Documents\repos\hackaton\BackEnd\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\Alain\Documents\repos\hackaton\BackEnd\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\Alain\Documents\repos\hackaton\BackEnd\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\Alain\Documents\repos\hackaton\BackEnd\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\Alain\Documents\repos\hackaton\BackEnd\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Users\Alain\Documents\repos\hackaton\BackEnd\node_modules\express\lib\router\index.js:47:12)
+    at Layer.handle [as handle_request] (C:\Users\Alain\Documents\repos\hackaton\BackEnd\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\Alain\Documents\repos\hackaton\BackEnd\node_modules\express\lib\router\index.js:328:13)
+/login at Mon Mar 13 2023 19:06:42 GMT-0600 (hora estándar central)
+SomethingWentWrong: No hay registros con:pruebaUsuario
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:677:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21
+/login at Mon Mar 13 2023 19:10:46 GMT-0600 (hora estándar central)
+SomethingWentWrong: No hay registros con:contraseña
+    at driver.loginG (file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/lib/mongodb.js:677:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///C:/Users/Alain/Documents/repos/hackaton/BackEnd/routes/root.js:47:21

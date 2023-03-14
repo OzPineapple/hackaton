@@ -2,6 +2,9 @@ import express from 'express';
 import crud from './crud/client.js';
 import ticket from './ticket.js';
 import { getJwt } from '../lib/util.js';
+import debuger from 'debug';
+
+const debug = debuger('server:client');
 
 var router = express.Router();
 
@@ -19,10 +22,10 @@ router.use( async (req, res, next) => {
 		next();
 	}catch(e){ switch(e.name){
 		case "undefined":
-			console.error(e);
+			debug(e.name);
 			return res.status(403).send();
 		case "NoBearer":
-			console.error(e);
+			debug(e.name);
 			return res.status(406).send();
 		default: next(e);
 	}}
@@ -46,7 +49,7 @@ router.get('/', async (req, res) => {
 	}}
 });
 
-roter.put('/', async (req, res) => {
+router.put('/', async (req, res) => {
 	try{
 		const decoded = getJwt( req );
 		var data = getClient( decoded.id_text );

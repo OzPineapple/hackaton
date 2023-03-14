@@ -1,3 +1,10 @@
+---
+export interface Props {
+    titulo: string;
+}
+const { titulo } = Astro.props
+---
+<h2>{titulo}</h2><br>
 <form action="" method="post" onsubmit="send(event)">
     <label for="email">Email:</label>
     <input type="email" name="email" id="email"><br><br>
@@ -12,8 +19,8 @@
     async function send(e){
         e.preventDefault();
         var data  = new URLSearchParams();
-        data.append( "name", "admin");
-        data.append( "password", "admin");
+        data.append( "name", "contraseña");
+        data.append( "password", "pruebaUsuario");
             let resolt = await fetch("http://localhost:3000/login",{
                 method: 'post', body:data,
             });

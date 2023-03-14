@@ -81,7 +81,7 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/new', async (req, res, next) => {
 	try{
-		req.body.privateK = await katamari.createWallet();
+		req.body.llavep = await katamari.createWallet();
 		req.body.usrT = 2;
 		debug( "asked for register" );
 		debug( req.body );
@@ -98,6 +98,31 @@ router.post('/new', async (req, res, next) => {
 			default: next(e);
 		}
 	}
+});
+
+router.get('/token', async (req, res) => {
+	try{
+		debug("User asking for new token");
+		const decoded = getJwt( req );
+		const token = await jwt.sign( 
+			decoded,
+			process.env.npm_package_config_secretKey,
+			{
+				expiresIn: process.env.npm_package_config_jwtttl
+			}
+		);
+		debug( token );
+		res.status(201);
+		res.send( token );
+	}catch(e){ switch(e.name){
+		case "undefined":
+			console.error(e);
+			return res.status(403).send();
+		case "NoBearer":
+			console.error(e);
+			return res.status(406).send();
+		default: next(e);
+	}}
 });
 
 export default router;

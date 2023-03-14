@@ -274,6 +274,7 @@ driver.usr_set = async ({nom, correo, contra, llavep}) => {
 	size++;
 
 	var newUsuario = {id_text: size, mail: correo, pass: contra, name:nom, privateK: llavep, usrT: "2"};
+	
 	await collUsuario.insertOne(newUsuario);
 	console.log("Usuario Registrado");
 }

@@ -1,3 +1,10 @@
+---
+export interface Props {
+    titulo: string;
+}
+const { titulo } = Astro.props
+---
+<h2>{titulo}</h2><br>
 <form action="" method="post" onsubmit="send(event)">
     <label for="name">Nombre:</label>
     <input type="text" name="name" id="name"><br><br>
