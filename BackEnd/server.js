@@ -11,6 +11,7 @@ import cors from 'cors';
 /* Importación de los enrutadores */
 import root from './routes/root.js';
 import admin from './routes/admin.js';
+import client from './routes/client.js';
 
 const app = express();
 const port = process.env.npm_package_config_port || '8080';
@@ -34,6 +35,7 @@ app.use(session({
 /* Enrutadores */
 app.use("/", root);
 app.use("/admin", admin);
+app.use("/client", client);
 
 // Error handler
 app.use((err, req, res, next) => {

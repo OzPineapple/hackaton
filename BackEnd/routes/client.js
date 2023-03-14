@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
 	}}
 });
 
-roter.put('/', async (req, res) => {
+router.put('/', async (req, res) => {
 	try{
 		const decoded = getJwt( req );
 		var data = getClient( decoded.id_text );
