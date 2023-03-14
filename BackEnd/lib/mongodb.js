@@ -74,7 +74,7 @@ driver.set_admin = async ({correo, nom, contra, user}) => {
 
 driver.admin_getByUsr = async (userAdmin) => {
 	const query = { usr: userAdmin };
-	const options = {_id: 0};
+	const options =  {projection: {_id: 0}};
 	
 	const admins = collAdmin.find(query, options);
 	let count = await admins.count();
@@ -97,7 +97,7 @@ driver.admin_getByUsr = async (userAdmin) => {
 
 driver.admin_getByID = async (idAdmin) => {
 	const query = { id_text: idAdmin };
-	const options = {_id: 0, pass: 0};
+	const options =  {projection: {_id: 0, pass: 0}};
 	
 	const admins = collAdmin.find(query, options);
 	let count = await admins.count();
@@ -122,7 +122,7 @@ driver.admin_getAll = async () => {
 
 	const query = {};
 
-	const options = {_id: 0, pass:0};
+	const options =  {projection: {_id: 0, pass:0} };
 
 	const admins = collAdmin.find(query, options);
 	
@@ -156,7 +156,7 @@ driver.admin_update = ({id_usr, correo, nom, contra, usu}) => {
 
 driver.eventType_getByName = async (eventType) => {
 	const query = { tipoEvento: eventType };
-	const options = {projection: {_id: 0}};
+	const options =  {projection: {_id: 0}};
 	
 	const tipo = await collTipoEvento.find(query, options);
 	
@@ -165,7 +165,7 @@ driver.eventType_getByName = async (eventType) => {
 
 driver.eventType_getByID = async (eventTypeID) => {
 	const query = { id_text: eventTypeID };
-	const options = {projection: {_id: 0}};
+	const options =  {projection: {_id: 0}};
 	
 	const tipo = await collTipoEvento.find(query, options);
 	
@@ -177,7 +177,7 @@ driver.eventType_getByID = async (eventTypeID) => {
 
 driver.ubicacion_getByName = async (ubi) =>{
 	const query = { ubicacion: ubi };
-	const options = {projection: {_id: 0}};
+	const options =  {projection: {_id: 0}};
 	
 	const lugar = await collUbicacion.find(query, options);
 	
@@ -186,7 +186,7 @@ driver.ubicacion_getByName = async (ubi) =>{
 
 driver.ubicacion_getByID = async (ubID) =>{
 	const query = { id_text: ubID };
-	const options = {projection: {_id: 0}};
+	const options =  {projection: {_id: 0}};
 	
 	const lugar = collUbicacion.find(query, options);
 	
@@ -196,7 +196,7 @@ driver.ubicacion_getByID = async (ubID) =>{
 driver.ubicacion_getAll = () => {
 
 	const query = {};
-	const options = {projection: {_id: 0}};
+	const options =  {projection: {_id: 0}};
 
 	const ubicaciones = collUbicacion.find(query, options);
 	
@@ -228,7 +228,7 @@ driver.event_set = async ({eventName, tipoE, price, date, desc, org, ubi, lug, d
 driver.event_getByID = async eventId => {
 
 	const query = { id_text:  eventId  };
-	const options = {projection: {_id: 0}};
+	const options =  {projection: {_id: 0}};
 	
 	const evento =  collEvento.find(query, options);
 	const array = await evento.toArray();
@@ -241,7 +241,7 @@ driver.event_getAll = async () => {
 
 	const query = {fecha:{ $gte : new Date().toISOString() }, lugaresDisp:{ $gt : 0 }};
 
-	const options = {projection: {_id: 0}};
+	const options =  {projection: {_id: 0}};
 
 
 	const eventos = collEvento.find(query, options);
@@ -284,9 +284,9 @@ driver.usr_set = async ({nom, correo, contra, llavep}) => {
 
 driver.usr_getByPrivateK = async privK => {
 	const query = { privateK: privK };
-	const options = {_id: 0, pass: 0, privateK: 0};
+	const options =  {projection: {_id: 0, pass: 0, privateK: 0}};
 	
-	const users = await collUsuario.find(query, options);
+	const users = collUsuario.find(query, options);
 	let count = await users.count();
 
 	if( count == 0 )
@@ -307,7 +307,7 @@ driver.usr_getByPrivateK = async privK => {
 
 driver.usr_getByMail = async (correo) => {
 	const query = { mail: correo };
-	const options = {_id: 0, pass: 0, privateK: 0};
+	const options =  {projection: {_id: 0, pass: 0, privateK: 0}};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
@@ -330,7 +330,7 @@ driver.usr_getByMail = async (correo) => {
 
 driver.usr_getByID = async (id_usr) => {
 	const query = { id_text: id_usr };
-	const options = {_id: 0, pass: 0, privateK: 0};
+	const options =  {projection: {_id: 0, pass: 0, privateK: 0}};
 	
 	const users = await collUsuario.find(query, options);
 	let count = await users.count();
@@ -353,7 +353,7 @@ driver.usr_getByID = async (id_usr) => {
 
 driver.usr_getPrivKByID = async ( idUsr ) => {
 	const query = { id_text: idUsr };
-	const options = {_id: 0, privateK: 1};
+	const options =  {projection: {_id: 0, privateK: 1}};
 	
 	const users = collUsuario.find(query, options);
 	let count = await users.count();
@@ -386,7 +386,7 @@ driver.usr_login = async (correo, pass) => {
 		return usr;
 }
 
-/* driver.usr_update = ({id_usr, nom, correo, contra}) => {
+driver.usr_update = ({id_usr, nom, correo, contra}) => {
 
 	db.collUsuario.updateOne({id_text: id_usr}, {mail: correo, name: nom, pass: contra}, function(err, res){
 		if (err)
@@ -396,13 +396,13 @@ driver.usr_login = async (correo, pass) => {
 			return res;
 	});
 
-} */
+}
 
 driver.usr_getAll = async () => {
 
 	const query = {};
 
-	const options = {_id: 0, pass:0};
+	const options =  {projection: {_id: 0, pass:0}};
 
 	const usrs = collUsuario.find(query, options);
 	
@@ -441,7 +441,7 @@ driver.set_ticket = (idEvento, idUsr, token) => {
 driver.ticket_getByOwner = async idUsr => {
 	const query = { owner: "" + idUsr, fecha:{$gt: new Date().toISOString()} };
 	//const query = { owner: "" + idUsr };
-	const options = {projection: {_id: 0}};
+	const options =  {projection: {_id: 0}};
 	
 	const bol = collBoleto.find(query, options);
 	console.log( await collBoleto.count());
@@ -479,7 +479,7 @@ driver.set_org = async ({nom, correo, contra, wallt, clab, rf}) => {
 
 driver.org_getByMail = async (mailOrg) => {
 	const query = { mail: mailOrg };
-	const options = {_id: 0};
+	const options =  {projection: {_id: 0}};
 	
 	const orgs = await collOrganizador.find(query, options);
 	let count = await orgs.count();
@@ -502,7 +502,7 @@ driver.org_getByMail = async (mailOrg) => {
 
 driver.org_getByID = async (idOrg) => {
 	const query = { id_text: idOrg };
-	const options = {_id: 0, pass: 0};
+	const options =  {projection: {_id: 0, pass: 0}};
 	
 	const orgs = await collOrganizador.find(query, options);
 	let count = await orgs.count();
@@ -527,7 +527,7 @@ driver.org_getAll = async () => {
 
 	const query = {};
 
-	const options = {_id: 0, pass:0};
+	const options =  {projection: {_id: 0, pass:0}};
 
 	const orgs = collOrganizador.find(query, options);
 	
@@ -574,7 +574,7 @@ driver.set_grd = async ({nom, correo, contra, eventId}) => {
 
 driver.grd_getByMail = async (mailGrd) => {
 	const query = { mail: mailGrd };
-	const options = {_id: 0};
+	const options =  {projection: {_id: 0}};
 	
 	const grds = await collGuardia.find(query, options);
 	let count = await grds.count();
@@ -597,7 +597,7 @@ driver.grd_getByMail = async (mailGrd) => {
 
 driver.grd_getByID = async (idGrd) => {
 	const query = { id_text: idGrd };
-	const options = {_id: 0, pass: 0};
+	const options =  {projection: {_id: 0, pass: 0}};
 	
 	const grds = await collGuardia.find(query, options);
 	let count = await grds.count();
@@ -622,7 +622,7 @@ driver.grd_getAll = async () => {
 
 	const query = {};
 
-	const options = {_id: 0, pass:0};
+	const options =  {projection: {_id: 0, pass:0}};
 
 	const grds = collGuardia.find(query, options);
 	
@@ -719,7 +719,7 @@ driver.set_solA = async ({org, evento}) => {
 
 driver.solA_getByID = async (idSolA) => {
 	const query = { id_text: idSolA };
-	const options = {_id: 0};
+	const options =  {projection: {_id: 0}};
 	
 	const solsA = await collSolicitudA.find(query, options);
 	let count = await solsA.count();
@@ -744,7 +744,7 @@ driver.solA_getAll = async () => {
 
 	const query = {};
 
-	const options = {_id: 0};
+	const options =  {projection: {_id: 0}};
 
 	const solsA = collSolicitudA.find(query, options);
 	
@@ -781,7 +781,7 @@ driver.set_solB = async ({org, eventID, docURL, raz}) => {
 
 driver.solB_getByID = async (idSolB) => {
 	const query = { id_text: idSolB };
-	const options = {_id: 0};
+	const options =  {projection: {_id: 0}};
 	
 	const solsB = await collSolicitudB.find(query, options);
 	let count = await solsB.count();
@@ -806,7 +806,7 @@ driver.solB_getAll = async () => {
 
 	const query = {};
 
-	const options = {_id: 0};
+	const options =  {projection: {_id: 0}};
 
 	const solsB = collSolicitudB.find(query, options);
 	
@@ -843,7 +843,7 @@ driver.set_solC = async ({org, eventID, docURL, raz}) => {
 
 driver.solC_getByID = async (idSolC) => {
 	const query = { id_text: idSolC };
-	const options = {_id: 0};
+	const options =  {projection: {_id: 0}};
 	
 	const solsC = await collSolicitudC.find(query, options);
 	let count = await solsC.count();
@@ -868,7 +868,7 @@ driver.solC_getAll = async () => {
 
 	const query = {};
 
-	const options = {_id: 0};
+	const options =  {projection: {_id: 0}};
 
 	const solsC = collSolicitudC.find(query, options);
 	

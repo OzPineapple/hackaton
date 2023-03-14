@@ -21,7 +21,13 @@ const logerr = debuger("server:global_err_handler");
 /* Configuaración del servidor */
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.text());
-app.use(cors());
+app.use(cors({
+	origin: "*",
+	methods: ['GET','HEAD','PUT','PATCH','POST','DELETE', 'OPTIONS'],
+	"preflightContinue": false,
+	"optionsSuccessStatus": 204
+}));
+app.options('*', cors());
 app.set('port', port);
 
 /* Configuraciones */

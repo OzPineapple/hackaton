@@ -5,6 +5,7 @@ import { getJwt } from '../lib/util.js';
 import debuger from 'debug';
 import db from '../lib/mongodb.js';
 import * as katamari from '../lib/katamari.js';
+import cors from 'cors';
 
 const debug = debuger('server:client');
 
@@ -59,6 +60,17 @@ router.put('/', async (req, res, next) => {
 		res.status(202);
 		res.send();
 	}catch(e){switch(e.name){
+		default: next(e);
+	}}
+});
+
+router.post('/edit', cors(), async (req, res, next) => {
+	try{
+		await db.usr_update( req.body );
+		res.status(200);
+		res.type('json');
+		res.send();
+	}catch(e){ switch(e.name){
 		default: next(e);
 	}}
 });
