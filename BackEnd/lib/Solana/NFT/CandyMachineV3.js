@@ -1,14 +1,18 @@
-import { Keypair, PublicKey } from "@solana/web3.js";
+import { clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
 import { bundlrStorage, keypairIdentity, Metaplex, toBigNumber, toDateTime, toMetaplexFile } from "@metaplex-foundation/js";
 import fs from "fs";
-import { Conn} from "../Util.js";
+import {Conn, Encode} from "../Util.js";
+import { Connection } from "@solana/web3.js/lib/index.cjs.js";
+
+const connection = new Connection(clusterApiUrl('devnet'));
 
 const ServerW = JSON.parse(fs.readFileSync(process.env.HOME + "/.config/solana/id.json", "utf-8"));
 const ServerSK = Uint8Array.from(ServerW);
 const ServerKeypair = Keypair.fromSecretKey(ServerSK);
 
-const metaplex = Metaplex.make(Conn()).use(keypairIdentity(ServerKeypair)).use(bundlrStorage({
+const metaplex = Metaplex.make(connection).use(keypairIdentity(ServerKeypair)).use(bundlrStorage({
     address: 'https://devnet.bundlr.network',
+    providerUrl: 'https://api.devnet.solana.com',
     timeout: 60000,
 }));
 
@@ -22,7 +26,6 @@ export async function LoadImage(Url, nombre) {
     //Termina de Subir la imagen a metaplex ahora si que si
     const imgUri = await metaplex.storage().upload(imgMetaplexFile);
     //Retorna la url de la img para su posterior uso
-    console.log(imgUri);
     return imgUri;
 }
 
@@ -57,9 +60,7 @@ export async function LoadMetadataCollection(nftName, description, imgUri, imgTy
 //nombre del Nft, la direccion de la url, el tipo de la imagen a cargar (generalmente es un PNG) y los atributos que contiene el nft 
 export async function LoadMetadata(nftName, description, imgUri, imgType, attributes) {
     //La constante uri es la url que va a almacenar los datos del nft cuando se suban a Arwave
-    const { uri } = await metaplex
-        .nfts()
-        .uploadMetadata({
+    const { uri } = await metaplex .nfts().uploadMetadata({
         //Aqui va el nombre del nft
         name: nftName,
         //Aqui va su descripcion (Es diferente para la coleccion y para el boleto)
@@ -98,10 +99,10 @@ export async function CrearColeccionNFT(Nombre, metaData, TarifaReventa) {
 
 //Esta funcion recibe el simbolo de la coleccion, la fecha de inicio de la venta y la fecha del final de la misma
 export async function CandyMachineSCreation(uriCollection, Simbolo, BoletosDisponibles) { 
-    
+
     const { candyMachine } = await metaplex.candyMachines().create({
-        //¿Quienes son los creadores? ¿Cuanto se llevan de la venta 
-        creators: [
+         //¿Quienes son los creadores? ¿Cuanto se llevan de la venta 
+         creators: [
             { address: ServerKeypair.publicKey, share: 100 }
         ],
         //Detalles de la coleccion, la direccion de la misma 
@@ -120,13 +121,13 @@ export async function CandyMachineSCreation(uriCollection, Simbolo, BoletosDispo
         sellerFeeBasisPoints: 333,
         symbol: Simbolo,
         //Items maximos que la CMv3 puede crear
-        maxEditionSupply: toBigNumber(100),
+        maxEditionSupply: toBigNumber(0),
         //Tiene candy guards?
         withoutCandyGuard: false,
+
     });
 
     //Segun esta mamada ya esta creada la chingadera
-    console.log(candyMachine.address);
     return candyMachine.address;
 }
 
@@ -154,36 +155,29 @@ export async function InsertingItemsCM(CMaddress, nombre, uriMetadata) {
     },{commitment : 'Hecho'});
 
     console.log("Items añadidos a la CM");
+ 
 
     return response;
 }
 
-//Matadme
-//jajajajja no
-
-
 //Mintea los NFT
 export async function Mint(CMaddress) {
+
     //Crea un objeto nft
     const candyMachine = await metaplex.candyMachines().findByAddress({address : new PublicKey(CMaddress)});
-    console.log(candyMachine);
+    const collectionUpdateAuthority = ServerKeypair.publicKey;
+    
+    console.log("Estamos adentro");
+
     let {nft} = await metaplex.candyMachines().mint({
-        candyMachine,
-        ServerKeypair
-    }, {commitment : 'Hecho'});
+            candyMachine,
+            collectionUpdateAuthority,
+    });
 
     console.log("Se ha minteado el pedo");
     console.log(`✅ - Minted NFT: ${nft.address.toString()}`);
     console.log(`     https://explorer.solana.com/address/${nft.address.toString()}?cluster=devnet`);
-    console.log(`     https://explorer.solana.com/tx/${response.signature}?cluster=devnet`);
-
     return response;
+
    
 }
-
-//Crea la funcion de testing
-async function Test() {
-    var MetadataUri = "https://arweave.net/PeHHnFoJ5ussgXbGt7BMKbweeQ9TZ98el-M3hfvsPiw";
-}
-var CMaddress = "6kB8At33nJj3mWpEd9dRGfgRF47fwkeQH7ZJp1cGMHbe";
-Test();
