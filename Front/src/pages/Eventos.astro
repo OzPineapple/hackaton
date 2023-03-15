@@ -31,13 +31,14 @@ import BaseReventa from "../layouts/BaseReventa.astro";
                 var newa = document.createElement("a");
                 newa.classList.add("evev");
                 newa.addEventListener("click", function () {
+
                     localStorage.setItem("idevent",resolt[i].id_text);
                     localStorage.setItem("nom",resolt[i].event);
                     localStorage.setItem("des",resolt[i].data);
                     localStorage.setItem("or",resolt[i].managr);
                     localStorage.setItem("lu",resolt[i].lugares);
                     localStorage.setItem("dis",resolt[i].lugaresDisp);
-                    var op = resolt[i].tipoEvento;
+                    var op = resolt[i].type;
                     console.log(op);
                     switch (op) {
                         case "1":
@@ -80,5 +81,4 @@ import BaseReventa from "../layouts/BaseReventa.astro";
 <Base titulo="eventos">
     <Menub></Menub>
     <section class="lista"></section>
-    <BaseReventa nombre="Nombre del evento de reventa" des={descr} fecha="mañana jsjsjs" />
 </Base>
