@@ -6,7 +6,8 @@ AWS_SERVER=$(shell cat etc/public-dns )
 default: run
 
 run:
-	npm --prefix $(shell pwd)/BackEnd start
+	npm --prefix $(shell pwd)/BackEnd start &
+	npm --prefix $(shell pwd)/Front run dev &
 
 install: install-database install-server
 

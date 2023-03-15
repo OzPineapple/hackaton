@@ -1,5 +1,7 @@
 make -C hackaton uninstall
 sudo systemctl stop hackaton.service
+sudo systemctl stop astro.service
 sudo systemctl disable hackaton.service
+sudo systemctl disable astro.service
 sudo rm -rf /home/ubuntu/hackaton
 sudo systemctl daemon-reload
