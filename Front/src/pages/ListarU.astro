@@ -2,9 +2,70 @@
 import Base from "../layouts/Base.astro";
 import MenuAdmin from "../layouts/MenuAdmin.astro";
 import ListUsr from "../layouts/ListUsryAd.astro";
+
+
+
 ---
 
 <Base titulo="Listar Usuarios">
     <MenuAdmin />
-    <ListUsr nombre="Alain" email="alainmontokvel@gmail.com" pkey="123456789"/>
+    <section class="lista">
+
+    </section>
+    
 </Base>
+
+<script>
+    async function send(e){
+        e.preventDefault();
+        var data  = new URLSearchParams();
+        var header = "Bearer "+localStorage.getItem("token");
+        data.append( "name", "admin");
+            let resolt = await fetch("http://localhost:3000/admin/client",{
+                method: 'get', headers:{'Authorization':header},
+            });
+            var sta = resolt.status;
+            resolt= await resolt.json();
+            switch (sta) {
+                case 200:
+                for (let i = 0; i < resolt.length; i++) {
+                var newdiv = document.createElement("div");
+                var newh2 = document.createElement("h2");
+                newh2.textContent=resolt[i].name;
+                var newp = document.createElement("h2");
+                newp.textContent= resolt[i].mail;
+                var newa = document.createElement("a");
+                newa.addEventListener("click", function () {
+                    localStorage.setItem("id",resolt[i].id_text);
+                    
+                })
+                newa.textContent="Ver mas...";
+                newdiv.appendChild(newh2);
+                newdiv.appendChild(newp);
+                newdiv.appendChild(newa);
+                document.querySelector(".lista").appendChild(newdiv);
+                }
+                        
+                        
+                    
+                   
+                    console.log(resolt);
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                    case 500:
+                    alert("Error en servidor");
+                    break;
+                    case 502:
+                        alert("Solana se disocio");
+                        break;
+                        case 401:
+                            alert("Error dde contraseña");
+                            break;
+            }
+        }
+        window.onload = (event) => {
+            send(event);
+        };
+</script>

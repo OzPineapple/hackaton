@@ -16,9 +16,51 @@ import BaseReventa from "../layouts/BaseReventa.astro";
             let resolt = await fetch("http://localhost:3000/events" );
             var sta = resolt.status;
             resolt = await resolt.json();
+            console.log(resolt);
             switch (sta) {
                 case 200:    
-                    console.log(resolt);
+                for (let i = 0; i < resolt.length; i++) {
+                var newdiv = document.createElement("div");
+                newdiv.classList.add("event");
+                var newh2 = document.createElement("h2");
+                newh2.classList.add("even");
+                newh2.textContent=resolt[i].event;
+                var newp = document.createElement("p");
+                newp.classList.add("eved");
+                newp.textContent= resolt[i].data;
+                var newa = document.createElement("a");
+                newa.classList.add("evev");
+                newa.addEventListener("click", function () {
+                    localStorage.setItem("idevent",resolt[i].id_text);
+                    localStorage.setItem("nom",resolt[i].event);
+                    localStorage.setItem("des",resolt[i].data);
+                    localStorage.setItem("or",resolt[i].managr);
+                    localStorage.setItem("lu",resolt[i].lugares);
+                    localStorage.setItem("dis",resolt[i].lugaresDisp);
+                    var op = resolt[i].tipoEvento;
+                    console.log(op);
+                    switch (op) {
+                        case "1":
+                            localStorage.setItem("ty","Concierto");
+                            break;
+                        case "2":        
+                            localStorage.setItem("ty","Deporte");
+                            break;
+                        case "3":
+                            localStorage.setItem("ty","Cultura y teatro");
+                            break;
+                        default:
+                            break;
+                    }
+                    localStorage.setItem("pre",resolt[i].precio);
+                    window.open("/Evento","_self");
+                })
+                newa.textContent="Ver mas...";
+                newdiv.appendChild(newh2);
+                newdiv.appendChild(newp);
+                newdiv.appendChild(newa);
+                document.querySelector(".lista").appendChild(newdiv);
+                }
                     break;
                 case 404:
                     alert("Usuario no existe");
@@ -37,6 +79,6 @@ import BaseReventa from "../layouts/BaseReventa.astro";
 </script>
 <Base titulo="eventos">
     <Menub></Menub>
-    <Evento nombre="Nombre del evento" des={descr} fecha="Hoy"></Evento>
+    <section class="lista"></section>
     <BaseReventa nombre="Nombre del evento de reventa" des={descr} fecha="mañana jsjsjs" />
 </Base>

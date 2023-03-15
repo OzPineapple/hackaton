@@ -13,8 +13,11 @@ import MenuC from "../layouts/MenuC.astro";
             <label for="">Correo:</label><label for="" id="email"></label><br><br>
             <label for="">Wallet:</label><label for="" id="wallet"></label>
             <img src="images/sol.png" alt="" id="imga"><label for=""><a id="vers" target="_blank"> Ver en solana</a></label><br><br>
+            <label for="">Balance (soles):</label><label for="" id="Balance"></label><br> <br>
             <button id="Modificar">Editar Datos</button><br>
-            <button id="Borrar">Borrar cuenta</button>
+            <button id="Borrar">Borrar cuenta</button><br>
+            <button id="add">Agregar fondos*</button>
+            <p>*Solo se agregaran 2 soles de momento</p>
         </section>
     </section>
 </Base>
@@ -37,12 +40,15 @@ import MenuC from "../layouts/MenuC.astro";
             resolt= await resolt.json();
             switch (sta) {
                 case 200:
+                    console.log(resolt);
                     var nom = document.getElementById("nom");
                     var email = document.getElementById("email");
                     var wallet = document.getElementById("wallet");
                     var imga = document.getElementById("imga");
                     var vers = document.getElementById("vers");
-                    console.log(resolt);
+                    var bal = document.getElementById("Balance");
+                    var baltot=resolt.balance/1000000000;
+                    bal.innerText=baltot.toString();
                     nom.innerText=resolt.name;
                     email.innerText=resolt.mail;
                     var url="https://explorer.solana.com/address/"+resolt.publicK+"?cluster=devnet";
@@ -68,6 +74,36 @@ import MenuC from "../layouts/MenuC.astro";
         window.onload = (event) => {
             send(event);
         };
+        var add = document.getElementById("add");
+        add.addEventListener("click", async function (e) {
+            e.preventDefault();
+            var header = "Bearer "+localStorage.getItem("token");
+            let resolt = await fetch("http://localhost:3000/client/add",{
+                method: 'post', headers:{'Authorization':header},
+            });
+            switch (resolt.status) {
+                case 202:
+                    alert("Soles añadidos exitosamente");
+                    location.reload();
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                case 500:
+                    alert("Error en servidor");
+                    break;
+                case 502:
+                    alert("Solana se disocio");
+                    break;
+                case 401:
+                    alert("error de contraseña");
+                    break;
+            
+                default:
+                    console.log("Mamo");
+                    break;
+            }
+        })
         
 </script>
 <style>
@@ -78,7 +114,7 @@ import MenuC from "../layouts/MenuC.astro";
         padding: 10px;
         text-align: center;
     }
-    #Modificar,#Borrar{
+    #Modificar,#Borrar,#add{
         width: 300px;
         margin: auto;
     }

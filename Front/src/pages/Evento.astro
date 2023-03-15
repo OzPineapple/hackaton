@@ -1,8 +1,21 @@
-<!--Se editara esta madre por carpeta para parametros multiples -->
+---
+import Base from "../layouts/Base.astro";
+import Menub from "../layouts/Menub.astro";
+import MenuC from "../layouts/MenuC.astro";
+var Menuf;
+if (localStorage.getItem("token")!="") {
+     Menuf = MenuC;
+} else {
+     Menuf = Menub;
+}
+---
+<Base titulo="">
 
-<h2>Se muestra la informacion del evento</h2>
-
-<button id="Comprar">Comprar boletos</button>
+    <Menuf />
+    <h2>Se muestra la informacion del evento</h2>
+    
+    <button id="Comprar">Comprar boletos</button>
+</Base>
 
 <script>
     var btn = document.getElementById("Comprar");

@@ -27,12 +27,16 @@ const { titulo } = Astro.props
                 method: 'post', body:data,
             });
             var sta = resolt.status;
-            resolt = await resolt.json();
+            console.log(resolt);
             switch (sta) {
                 case 200:
+                    resolt = await resolt.json();
                     alert("Bienvenido!");
                     var token = resolt.token;
-                    var tipo = resolt.user_data.usrT;
+                    var tipo = resolt.user_data.usrT.toString();
+                    console.log(resolt);
+                    console.log(token);
+                    console.log(tipo);
                     localStorage.setItem("token",token);
                     switch (tipo) {
                         case "1":
@@ -51,8 +55,6 @@ const { titulo } = Astro.props
                             console.log("Mamo");
                             break;
                     }
-
-                    //
                     break;
                 case 404:
                     alert("Usuario no existe");

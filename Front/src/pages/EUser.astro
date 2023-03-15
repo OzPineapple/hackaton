@@ -58,17 +58,19 @@ import InDatosC from "../components/InDatosCyA.astro";
             e.preventDefault();
         var data  = new URLSearchParams();
         var header = "Bearer "+localStorage.getItem("token");
-        data.append( "name",nom.value );
-        data.append( "email",email.value);
-        data.append( "pass",pas.value);
+        console.log(nom.value);
+        console.log(email.value);
+        console.log(pas.value);
+        data.append( "nom",nom.value );
+        data.append( "correo",email.value);
+        data.append( "contra",pas.value);
         
             let resolt = await fetch("http://localhost:3000/client/edit",{
                 method: 'post',body:data, headers:{'Authorization':header},
             });
             var sta = resolt.status;
-            resolt= await resolt.json();
             switch (sta) {
-                case 200:
+                case 201:
                     alert("Datos actualizados con exito!");
                     window.open("/IndexUser","_self");
                     break;

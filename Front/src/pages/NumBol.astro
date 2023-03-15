@@ -1,10 +1,21 @@
-<h2>Compra de boletos</h2>
-<form action="">
-    <label for="cant">Inrese el numero de boletos que desea comprar:</label>
-    <input type="number" name="cant" id="cant" required>
-    <button id="Sig">Siguiente</button>
-</form>
+---
+import Base from "../layouts/Base.astro";
+import MenuC from "../layouts/MenuC.astro";
+---
 
+<Base titulo="Numero de boletos">
+    <MenuC />
+    <section>
+
+        <h2>Compra de boletos</h2>
+        <form action="">
+            <label for="cant">Inrese el numero de boletos que desea comprar:</label>
+            <input type="number" name="cant" id="cant" required><br><br>
+            <button id="Sig">Siguiente</button>
+        </form>
+    </section>
+    
+</Base>
 <script>
     var sig = document.getElementById("Sig");
     var cant1 = document.getElementById("cant");
@@ -15,3 +26,8 @@
         window.open(url,"_self");
     })
 </script>
+<style>
+    section{
+        margin-top: 20px;
+    }
+</style>
