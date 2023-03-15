@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+import DatosEvento from "../components/DatosEvento.astro";
+import MenuOrg from "../layouts/MenuOrg.astro";
+---
+
+<Base titulo="Solicitud de evento">
+    <MenuOrg />
+    <section>
+        <DatosEvento titulo="Solicitud para evento">
+            <button>Solicitar evento</button>
+            <br>
+        </DatosEvento>
+    </section>
+</Base>
+
+<style>
+    section{
+        margin-top: 20px;
+    }
+</style>

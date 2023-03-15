@@ -1,5 +1,7 @@
 ---
 const {num} = Astro.params;
+import Base from "../../layouts/Base.astro";
+import MenuC from "../../layouts/MenuC.astro";
 ---
 <script>
     
@@ -1097,7 +1099,7 @@ const {num} = Astro.params;
         this.seccion = seccion;
         this.asiento=asiento;
     }
-    var Boletos=[tamaño];
+    var Boletos=[];
 
     var comprar = document.getElementById("Comprar");
     comprar.addEventListener("click", function (e) {
@@ -1111,19 +1113,82 @@ const {num} = Astro.params;
             alert("por favor seleccione todos los boletos")
         }else{
         e.preventDefault();
+        
             for (let index = 0; index < tamaño; index++) {
                 var sec = lugares[index].slice(0,1);
                 var asi = lugares[index].slice(1,3);
-                Boletos[index] = new Boleto(sec,asi);
+                Boletos.push(new Boleto(sec,asi));
             }
-            console.log(Boletos);
+            console.log(JSON.stringify(Boletos));
+            send(e,Boletos);
+
         }
     })
+
+    async function send(e,Boletos){
+        e.preventDefault();
+        var data  = new URLSearchParams();
+        data.append( "Boleto", JSON.stringify(Boletos));
+        data.append("id",localStorage.getItem("idevent"));
+        var header = "Bearer "+localStorage.getItem("token");
+            let resolt = await fetch("http://localhost:3000/client/ticket/buy",{
+                method: 'post', body:data,headers:{'Authorization':header},
+            });
+            var sta = resolt.status;
+            console.log(resolt);
+            switch (sta) {
+                case 200:
+                    resolt = await resolt.json();
+                    alert("Bienvenido!");
+                    var token = resolt.token;
+                    var tipo = resolt.user_data.usrT.toString();
+                    console.log(resolt);
+                    console.log(token);
+                    console.log(tipo);
+                    localStorage.setItem("token",token);
+                    switch (tipo) {
+                        case "1":
+                            window.open("/IndexAdmin/","_self");
+                            break;
+                        case "2":
+                            window.open("/IndexUser","_self");
+                            break;
+                        case "3":
+                            window.open("IndexOrga","_self");
+                            break;
+                        case "4":
+                            window.open("IndexGuardia","_self");
+                            break
+                        default:
+                            console.log("Mamo");
+                            break;
+                    }
+                    break;
+                case 404:
+                    alert("Usuario no existe");
+                    break;
+                    case 500:
+                    alert("Error en servidor");
+                    break;
+                    case 502:
+                        alert("Solana se disocio");
+                        break;
+                        case 401:
+                            alert("Error dde contraseña");
+                            break;
+            }
+        }
 </script>
+
+<Base titulo="Selección de boletos">
+    <MenuC />
+    <section>
+
+    
 
 <div class="Escenario" id={num}>
     
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 822.26 777">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 822.26 777" id="mapa">
     <g id="A01" class="zonaA">
       <rect x="113.05" y="226.1" width="118.43" height="87.93" fill="#ce3030"/>
     </g>
@@ -1242,13 +1307,70 @@ const {num} = Astro.params;
       <rect x="703.43" y="369.66" width="57.42" height="43.07" fill="#7070f9"/>
     </g>
   </svg>
+
+  <div class="datos">
+      <h2>Secciones:x   </h2><br>
+      <div class="cuadritoA"><h2>Seccion A</h2></div>
+      <div class="cuadritoB"><h2>Seccion B</h2></div>
+      <div class="cuadritoC"><h2>Seccion C</h2></div>
+      <div class="cuadritoD"><h2>Seccion D</h2></div>
+      <div class="cuadritoN"><h2>Boletos Vendidos</h2></div>
+  </div>
 </div>
 <div class="acciones">
     <button id="Comprar">Comprar</button>
 </div>
+</section>
+</Base>
 
 <style>
+    h2{
+        font-size: 2em;
+    }
+    .cuadritoA,.cuadritoB,.cuadritoC,.cuadritoD,.cuadritoN{
+        width: auto;
+        height: auto;
+        
+    }
+    .cuadritoD{
+        background-color: #7070f9;
+    }
+    .cuadritoC{
+        background-color: #bc91c1;
+    }
+    .cuadritoB{
+        background-color: #f4ad58;
+    }
+    .cuadritoA{
+        background-color: #ce3030;
+    }
+    .cuadritoN{
+        background-color: #315C55;
+    }
     .Escenario{
-      width: 50%;
+        display: flex;
+      width: 100%;
+      text-align: center;
+    }
+    #mapa{
+        width: 40%;
+        margin: auto;
+    }
+    .datos{
+        width: 50%;
+        margin: auto;
+        display: grid;
+    }
+    #acciones{
+        width: 100%;
+        text-align: center;
+        display: inline-block;
+    }
+    #Comprar{
+        margin: auto;
+        float: right;
+    }
+    section{
+        margin-top: 20px;
     }
   </style>

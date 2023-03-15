@@ -1,0 +1,33 @@
+---
+export interface Props {
+    titulo: string;
+}
+const { titulo } = Astro.props
+---
+<h2>{titulo}</h2><br>
+<form action="" onsubmit="send(event,this)">
+    <label for="">Evento:</label>
+    <input type="text" name="eventName" id=""><br>
+    <label for="">Descripción:</label>
+    <input type="text" name="desc" id=""><br>
+    <label for="">Manager:</label>
+    <input type="text" name="org" id=""><br>
+    <label for="">Precio:</label>
+    <input type="number" name="price" id=""><br>
+    <label for="tipoe" class="reg">Tipo de evento</label>
+    <select name="tipoE" id="tipoe">
+        <option value="">Seleccione el tipo de evento</option>
+        <option value="1">Concierto</option>
+        <option value="2">Deporte</option>
+        <option value="3">Cultura y teatro</option>
+    </select><br>
+    <label for="fecha" class="reg">Fecha del evento:</label>
+    <input type="datetime-local" id="fecha" name="date" value="2023-02-26T16:30:00.000Z">
+    <label for="lugar">Ubicación</label>
+    <input type="text" id="fecha" name="ubi">
+    <br>
+    <label for="">Lugares totales:</label>
+    <input type="text" name="lug" id="">
+    <br><br>
+    <slot></slot>
+</form>

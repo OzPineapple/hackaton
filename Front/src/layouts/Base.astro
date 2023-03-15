@@ -37,10 +37,11 @@ const { titulo } = Astro.props
     nav{
         background-color: #fff;
         width: 100%;
-        height: 35px;
+        height: 50px;
         margin: -10px;
         padding: 9px;
         color: #000;
+        align-items: center;
     }
 
     nav ul li{
@@ -74,6 +75,7 @@ const { titulo } = Astro.props
         padding: 0 10px;
         float: right;
         margin-right: 50px;
+        margin-top: 7.5px;
     }
     nav ul ul {
         display:none;
@@ -82,6 +84,7 @@ const { titulo } = Astro.props
         left:0;
         background:#eee;
         padding:0;
+        margin-top: 0px;
     }
     nav ul ul li {
         float:none;
@@ -110,17 +113,17 @@ const { titulo } = Astro.props
     h1{
         font-size: 7em;
     }
-    label,input,button{
+    label,input,button,select{
         font-size: 2em;
     }   
     button{
         padding: 10px;
         background-color: rgba(255,255,255,0.4);
     }
-    button:hover, input:hover{
+    button:hover, input:hover, select:hover, option:hover{
         background-color: rgba(240,28,5,0.3);
     }
-    input{
+    input,select,option{
         background-color: rgba(255, 255, 255, 0.4);
     }
 
