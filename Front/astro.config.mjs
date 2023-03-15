@@ -3,5 +3,5 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
     output:'server',
-    server: { port: 2000 }
+    server: { port: 80 }
 });
