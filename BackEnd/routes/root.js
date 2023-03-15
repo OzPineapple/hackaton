@@ -10,9 +10,12 @@ const debug = debuger('server:root');
 
 router.get('/events', async (req, res, next) => {
 	try{
+		const data = await db.getEvents(); 
+		debug('Asking for events, count: '+data.length);
+		debug(data);
 		res.status(200);
 		res.type('json');
-		res.send( await db.getEvents() );
+		res.send( data );
 	}catch(e){
 		switch( e.name ){
 			case "EmptyQuery":

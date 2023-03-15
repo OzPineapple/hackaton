@@ -229,47 +229,47 @@ driver.ubicacion_getAll = () => {
 
 //Eventos
 
-driver.event_set = async ({eventName, tipoE, price, date, desc, org, ubi, lug, dispo, candy, imgURL, folioD}) =>{
+driver.event_set = async ({eventName, desc, org, price, tipoE, date, ubi, lug, folioD, _ImgUri, _MetaDataUrl, _UriCollection, _CmAddress}) =>{
 
 	var size = 0;
-	var size = 0;
 
-	size = await collUsuario.count();
+	size = await collEvento.count();
 	size++;
 
-	
+	var newEvent = {event: eventName, data: desc, managr: org, precio: price, id_text: size, type: tipoE, fecha: date, ubicacion: ubi, lugares: lug, lugaresDisp: lug, docF: folioD, ImgUri: _ImgUri, MetaDataUrl:_MetaDataUrl, UriCollection:_UriCollection, CmAddress: _CmAddress };
+	const result = await collEvento.insertOne(newEvent);
 
-	var newEvent = {event: eventName, data: desc, managr: org, precio: price, id_text: size, type: tipoE, fecha: date, ubicacion: ubi, lugares: lug, lugaresDisp:dispo, cMach:candy, imgU: imgURL, docF: folioD};
-	collEvento.insertOne(newEvent, function(err,res){
-		if (err)
-			throw(err)
-		else
-			console.log("Documento Insertado");
-	})
+	console.log(
+		`${result.matchedCount} document(s) inserted`,
+	);
+
 }
 
-driver.event_getByID = async eventId => {
+driver.event_getByID = async (eventId) => {
 
-	const query = { id_text:  eventId  };
+	debug( typeof eventId)
+
+	const query = { id_text: eventId  };
 	const options =  {projection: {_id: 0}};
-	
-	const evento =  collEvento.find(query, options);
-	const array = await evento.toArray();
 
-	return array;
+	const evento =  collEvento.findOne(query, options);
+
+	//const array = await evento.next.toArray();
+
+	return await evento;
 
 }
 
 driver.event_getAll = async () => {
 
-	const query = {fecha:{ $gte : new Date().toISOString() }, lugaresDisp:{ $gt : 0 }};
+	const query = {/*fecha:{ $gte : new Date().toISOString() }, lugaresDisp:{ $gt : 0 }*/};
 
 	const options =  {projection: {_id: 0}};
 
 
 	const eventos = collEvento.find(query, options);
 	
-	return eventos;
+	return await eventos.toArray();
 	
 }
 
@@ -450,13 +450,13 @@ driver.usr_getAll = async () => {
 
 	const usrs = collUsuario.find(query, options);
 	
-	return usrs;
+	return usrs.toArray();
 	
 }
 
 //Boletos
 
-driver.set_ticket = (idEvento, sec, seat, token) => {
+driver.set_ticket = (id, sec, seat, token) => {
 
 	var size = 0;
 
@@ -468,15 +468,15 @@ driver.set_ticket = (idEvento, sec, seat, token) => {
 	})
 	size++;
 
-	var newBoleto = {id_text: size, evento: idEvento, nft: token, seccion: sec, asiento: seat, fechaE: driver.event_getByID(idEvento).fecha};
+	var newBoleto = {id_text: size, evento: id, nft: token, seccion: sec, asiento: seat, fechaE: driver.event_getByID(id).fecha};
 	collBoleto.insertOne(newBoleto, async function(err,res){
 
-		var nDisp = await event_getByID(idEvento).lugaresDisp
+		var nDisp = await event_getByID(id).lugaresDisp
 
 		if (err)
 			throw(err)
 		else
-			db.collEvento.updateOne({id_text: idEvento},{lugaresDisp: nDisp});
+			db.collEvento.updateOne({id_text: id},{lugaresDisp: nDisp});
 			console.log("Boleto Generado");
 			return res;
 	})

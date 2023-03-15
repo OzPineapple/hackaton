@@ -1,13 +1,18 @@
 import express from 'express';
 import db from '../../lib/mongodb.js';
+import debuger from 'debug';
+
+const debug = debuger('server:admin:client');
 
 var router = express.Router();
 
 router.get('/', async (req, res, next) => {
 	try{
-		await db.getClients( req.body );
-		res.status(201);
-		res.send();
+		const data = await db.getClients();
+		debug("Asking for all clients, count: " + data.length);
+		res.status(200);
+		res.type('json');
+		res.send(data);
 	}catch(e){ switch(e.name){
 		default: next(e);
 	}}
@@ -23,7 +28,7 @@ router.post('/', async (req, res, next) => {
 	}}
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/one/:id', async (req, res, next) => {
 	try{
 		res.status(200);
 		res.type('json');
@@ -33,7 +38,7 @@ router.get('/:id', async (req, res, next) => {
 	}}
 });
 
-router.post('/delete/:id', async (req, res, next) => {
+router.post('/delete/one/:id', async (req, res, next) => {
 	try{
 		await db.rmClient( req.params.id );
 		res.status(200);
@@ -44,7 +49,7 @@ router.post('/delete/:id', async (req, res, next) => {
 	}}
 });
 
-router.post('/edit/:id', async (req, res, next) => {
+router.post('/edit/one/:id', async (req, res, next) => {
 	try{
 		await db.upClient( req.body );
 		res.status(200);

@@ -4,6 +4,7 @@ import db from '../lib/mongodb.js';
 import * as katamari from '../lib/katamari.js';
 //import { getJwt } from '../lib/util.js';
 import debuger from 'debug';
+import { CustomError } from '../lib/error.js';
 
 const debug = debuger('server:client:ticket');
 
@@ -26,25 +27,37 @@ router.get('/', async (req, res, next) => {
 router.post('/buy', async (req, res, next) => {
 	try{
 		debug("Ticket is gonna to be buyed");
-		const CMaddress = await db.getCMaddressOfEvent( req.body.id );
-		debug("Candy machine address: " + CMaddress );
-		debug("Metadata for candy machine: ");
-		debug( req.body );
-		const mint = CreateAndMintNFT(
-			req.body.Nombre,
-			req.body.Descripcion,
-			req.body.imgUri,
-			CMaddress,
-			req.body.Seccion,
-			req.body.Asiento
-		);
-		debug("Mint of NFT: " + mint );
+		debug(req.body.id);
+		const Boleto = JSON.parse(req.body.Boleto);
+		debug(Boleto);
+		const event = await db.getEvent( parseInt( req.body.id ) );
+		debug(event);
+		if( ! event ) throw new CustomError("EmptyQuery", event );
 		const decoded = getJwt(req);
-		const UsrSK58 = db.getPrivateKeyOfClient( decoded.id_text );
-		debug("Charging user for " + req.charge + " and giving NFT" );
-		await CompraYTransfer( req.charge, UsrSK58, minit);
+		const UsrSK58 = await db.getPrivateKeyOfClient( decoded.id_text );
+		debug("Charging user for " + event.precio + " and giving NFT" );
+		var mints = [];
+		debug(typeof UsrSK58)
+		debug(typeof event.precio)
+		debug(typeof event.CmAddress)
+		Boleto.forEach( async boleto => {
+			const mint = await katamari.Compra(
+				UsrSK58,
+				parseInt( event.precio ),
+				event.CmAddress
+			);
+			debug("NFT generated: " + mint);
+			await db.set_ticket(
+				req.body.id,
+				req.body.Boleto.sec,
+				req.body.Boleto.asi,
+				mint
+			)
+			mints.push(mint);
+		});
 		res.status(201);
-		res.send();
+		res.type('json');
+		res.send(mints);
 	}catch(e){switch(e.name){
 		default: next(e);
 	}}

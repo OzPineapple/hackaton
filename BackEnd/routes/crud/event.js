@@ -17,26 +17,45 @@ router.get('/', async (req, res, next) => {
 	}}
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/new', async (req, res, next) => {
 	try{
 		debug("New candy machine for event is begin genrerated");
-		req.body.candy_machine_address = await CreateACollection (
-			req.body.Nombre,
-			req.body.LocalUriImg,
-			req.body.Descripcion,
-			req.body.TarifaReventa,
-			req.body.Simbolo
+		debug(req.body)
+		const collection = await katamari.CreateACollection (
+			req.body.eventName,
+			'lib/Solana/NFT/Pruebas/logo.png',
+			req.body.desc,
+			1000,
+			'tm-e',
+			req.body.lug
 		);
-		debug( "Candy machine address: " + req.body.candy_machine_address );
-		await db.newEvent( req.body );
-		res.status(201);
+		const event = {
+			...req.body,
+			_ImgUri: collection[0].ImgUri,
+			_MetaDataUrl: collection[0].MetaDataUrl,
+			_UriCollection: collection[0].UriCollection,
+			_CmAddress: collection[0].CmAddress,
+		}
+		debug("Nuevo evento a creado en la red de Solana");
+		debug( event );
+		await db.newEvent( event );
+		res.status(202);
 		res.send();
+		for (let index = 0; index < req.body.lug; index++) {
+			var res = await katamari.CreateNFTNoAttributes(
+				req.body.eventName,
+				collection[0].CmAddress,
+				collection[0].MetaDataUrl
+			)
+			debug("NFT created: ");
+			debug(res);
+		}
 	}catch(e){ switch(e.name){
 		default: next(e);
 	}}
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/one/:id', async (req, res, next) => {
 	try{
 		res.status(200);
 		res.type('json');
@@ -46,7 +65,7 @@ router.get('/:id', async (req, res, next) => {
 	}}
 });
 
-router.post('/delete/:id', async (req, res, next) => {
+router.post('/delete/one/:id', async (req, res, next) => {
 	try{
 		await db.rmEvent( req.params.id );
 		res.status(200);
@@ -57,7 +76,7 @@ router.post('/delete/:id', async (req, res, next) => {
 	}}
 });
 
-router.post('/edit/:id', async (req, res, next) => {
+router.post('/edit/one/:id', async (req, res, next) => {
 	try{
 		await db.upEvent( req.body );
 		res.status(200);

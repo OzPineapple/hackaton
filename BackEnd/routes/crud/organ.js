@@ -23,7 +23,7 @@ router.post('/', async (req, res, next) => {
 	}}
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/one/:id', async (req, res, next) => {
 	try{
 		res.status(200);
 		res.type('json');
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res, next) => {
 	}}
 });
 
-router.post('/delete/:id', async (req, res, next) => {
+router.post('/delete/one/:id', async (req, res, next) => {
 	try{
 		await db.rmOrgan( req.params.id );
 		res.status(200);
@@ -44,7 +44,7 @@ router.post('/delete/:id', async (req, res, next) => {
 	}}
 });
 
-router.post('/edit/:id', async (req, res, next) => {
+router.post('/edit/one/:id', async (req, res, next) => {
 	try{
 		await db.upOrgan( req.body );
 		res.status(200);

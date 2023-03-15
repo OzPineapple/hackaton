@@ -42,11 +42,14 @@ export async function CreateACollection (Nombre, LocalUriImg, Descripcion, Tarif
 		UriCollection : uriCollection.toString(),
 		CmAddress : CMaddress.toString()
 	})
+
+	debug(objetos);
 	
 	return objetos;
 }
 
 export async function CreateNFTNoAttributes(Nombre, CMaddress, UriMetadata){
+	debug(Nombre, CMaddress, UriMetadata);
 	let {response} = await InsertingItemsCM(CMaddress, Nombre, UriMetadata);
 
 	return response;
@@ -87,8 +90,8 @@ export function createWallet(){
 	return CreateWall();
 }
 
-export function getBalance(){
-	return Balance();
+export function getBalance(privK){
+	return Balance(privK);
 }
 
 export function getPubKey (Usr58){
@@ -157,4 +160,39 @@ export async function GetAndFilrtMetadata(UsrPK){
 	}
 
 	return BoletosSinUsar;
+}
+
+
+/*
+async function main(){
+	await CreateACollection(
+		'Jinx concert',
+		'./lib/Solana/NFT/Pruebas/jinx.png',
+		'Concierto de Jinx',
+		1000,
+		"jinx",
+		5
+	)
+}
+*/
+
+/*
+async function main(){
+	for (let index = 0; index < 5; index++) {
+		var res = await CreateNFTNoAttributes(
+			'ticket', // name
+			'Ko1ybs8ncQGohywY88MaJkDvYVefKzuAS2Pwd62RcoV', // candy machine address
+			'https://arweave.net/-tOw3vdYO8y-ztgGnNqxevZX9-APF-DDZ1cBk7UlCk0', // uri matadata
+		)
+		debug(res);
+	}
+}
+*/
+
+async function main(){
+	var nft = await Mint(
+		'Ko1ybs8ncQGohywY88MaJkDvYVefKzuAS2Pwd62RcoV', // candy machine
+		'6ocfSLqAETPaE7sJvfFYwvTeRs7Be88EfRDQe3E2yBYk' // user address
+	);
+	debug( nft );
 }

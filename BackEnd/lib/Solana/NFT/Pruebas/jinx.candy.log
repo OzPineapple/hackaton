@@ -1,0 +1,8 @@
+server:katamari [
+  server:katamari   {
+  server:katamari     ImgUri: 'https://arweave.net/MV1GuxJ6Bg7hctdctumnn3gGFD2U63OfDsKafD0qcG0',
+  server:katamari     MetaDataUrl: 'https://arweave.net/-tOw3vdYO8y-ztgGnNqxevZX9-APF-DDZ1cBk7UlCk0',
+  server:katamari     UriCollection: '7T8iyBJkuViLPe7RbF9Zke86szuEEbghUyVXukWfKrX6',
+  server:katamari     CmAddress: 'Ko1ybs8ncQGohywY88MaJkDvYVefKzuAS2Pwd62RcoV'
+  server:katamari   }
+  server:katamari ] +0ms

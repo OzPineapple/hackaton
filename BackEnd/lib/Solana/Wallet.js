@@ -41,6 +41,7 @@ export function P2PTrasaction(sender, reciber, a) {
 
 //Funcion para obtener el balance
 export async function Balance(UsrSK58) {
+    debug(UsrSK58);
     //Obtiene la conexion 
     const conn = Conn();
     //Obtiene Keypair de la SK de 
