@@ -4,7 +4,7 @@ Description=Proyecto para el hackaton
 [Service]
 User=ubuntu
 WorkingDirectory=/home/ubuntu/hackaton/BackEnd
-ExecStart=npm start
+ExecStart=npm run dev
 Restart=on-failure
 
 [Install]
