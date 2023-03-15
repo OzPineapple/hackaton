@@ -12,10 +12,41 @@ if (localStorage.getItem("token")!="") {
 <Base titulo="">
 
     <Menuf />
-    <h2>Se muestra la informacion del evento</h2>
+    <section>
+        <h2 style="font-size: 3em;" class="nevent" id="nom">Nombre del evento</h2><br>
+        <p style="width: 80%;margin: auto;" id="des"></p>
+        <br><br>
+        <h2  class="" >Lugar del evento</h2><br>
+        <label for=""   id="orga" >Nombre del recinto</label>  
+        <label for=""  >Tipo de evento:</label>
+        <label for=""  id="ty">Aqui va el tipo de evento xd</label>
+        <label for="">Precio del boleto (soles): $</label>
+        <label for=""id="pre">Aqui va el precio del evento xd</label>
+        <br><br>
+        <label  >Lugares totales:</label>
+        <label  id="lug">Lugares</label>
+        <label  >Lugares disponibles:</label>
+        <label  id="lugd">Lugares</label>
+        <br>
+        <button id="Comprar">Comprar boletos</button>
+    </section>
     
-    <button id="Comprar">Comprar boletos</button>
+ 
+    
 </Base>
+<style>
+    section{
+        width: 40%;
+        margin: auto;
+        text-align: center;
+    }
+    label{
+        color: #fff;
+    }
+    #Comprar{
+        
+    }
+</style>
 
 <script>
     var btn = document.getElementById("Comprar");
@@ -23,4 +54,40 @@ if (localStorage.getItem("token")!="") {
         e.preventDefault();
         window.open("/NumBol","_self")
     })
+    function cargar() {
+            var nom = localStorage.getItem("nom");
+            var descri = localStorage.getItem("des");
+            var roganizacion = localStorage.getItem("or");
+            var tipo = localStorage.getItem("ty");
+            var precio = localStorage.getItem("pre");
+            var lu = localStorage.getItem("lu");
+            var ludis = localStorage.getItem("dis");
+
+            var nomre = document.querySelector("#nom");
+            var des = document.querySelector("#des");
+            var organi = document.querySelector("#orga");
+            var ty = document.querySelector("#ty");
+            var pre = document.querySelector("#pre");
+            var lug = document.querySelector("#lug");
+            var lugd = document.querySelector("#lugd");
+
+            nomre.innerText = nom;
+            des.innerText = descri;
+            organi.innerText = roganizacion;
+            ty.innerText = tipo;
+            pre.innerText = precio;
+            lug.innerText = lu;
+            lugd.innerText = ludis;
+            
+            localStorage.removeItem("nom");
+            localStorage.removeItem("des");
+            localStorage.removeItem("or");
+            localStorage.removeItem("ty");
+            localStorage.removeItem("pre");
+            localStorage.removeItem("lu");
+            localStorage.removeItem("dis");
+        }
+        window.onload = (event) => {
+            cargar();
+        };
 </script>

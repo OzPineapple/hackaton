@@ -1137,32 +1137,9 @@ import MenuC from "../../layouts/MenuC.astro";
             var sta = resolt.status;
             console.log(resolt);
             switch (sta) {
-                case 200:
-                    resolt = await resolt.json();
-                    alert("Bienvenido!");
-                    var token = resolt.token;
-                    var tipo = resolt.user_data.usrT.toString();
-                    console.log(resolt);
-                    console.log(token);
-                    console.log(tipo);
-                    localStorage.setItem("token",token);
-                    switch (tipo) {
-                        case "1":
-                            window.open("/IndexAdmin/","_self");
-                            break;
-                        case "2":
-                            window.open("/IndexUser","_self");
-                            break;
-                        case "3":
-                            window.open("IndexOrga","_self");
-                            break;
-                        case "4":
-                            window.open("IndexGuardia","_self");
-                            break
-                        default:
-                            console.log("Mamo");
-                            break;
-                    }
+                case 201:
+                    alert("Compra realizada con exito");
+                    window.open("/Usuario");
                     break;
                 case 404:
                     alert("Usuario no existe");

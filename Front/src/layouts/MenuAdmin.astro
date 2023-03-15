@@ -2,29 +2,23 @@
     <img src="/images/TICKETMUNSTERLOGOTIPO.png" alt="">
     <ul>
         <li><a  id="ListarU"> Clientes</a></li>
-        <li>Organizadores
-            <ul>
-                <li>Listar</li>
-                <li>registrar</li>
-            </ul>
-        </li>
-        <li>Admin
-            <ul>
-                <li>Registrar nuevo admin</li>
-                <li>Administrar admin</li>
-            </ul>
-        </li>
+        
+        
         <li>Evento
             <ul>
                 <li><a href="/NEvento">Dar de alta</a> </li>
                 <li>Listar eventos</li>
             </ul>
         </li>
-        <li ><a href="" >Cerrar sesion</a> </li>
+        <li ><a href="/" id="Cerrar">Cerrar sesion</a> </li>
     </ul>
 </nav>
 
-
+<script>
+    var cerrar=document.getElementById("Cerrar").addEventListener("click", function () {
+        localStorage.removeItem("token");
+    })
+</script>
 
 <style>
     
