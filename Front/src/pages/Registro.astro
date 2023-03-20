@@ -30,7 +30,7 @@ import Menub from "../layouts/Menub.astro";
         data.append( "nom", name);
         data.append( "correo", email.value);
         data.append( "contra", pass.value);
-            let resolt = await fetch("http://www.ozpineapple.xyz/new",{
+            let resolt = await fetch("http://www.ozpineapple.xyz:3000/new",{
                 method: 'post', body:data,
             });
             var sta = resolt.status;
