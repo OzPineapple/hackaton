@@ -75,4 +75,3 @@ export async function GetTokenAccounts(usrPK){
 }
 
 
-GetTokenAccounts("3s7nubyZjqv4cEtPjzGiVahXThYCS8PSw4DNG9ApqAp3");
