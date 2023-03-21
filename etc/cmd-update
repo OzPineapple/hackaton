@@ -1,0 +1,6 @@
+sudo systemctl stop hackaton.service
+sudo systemctl stop astro.service
+sudo systemctl start hackaton.service
+sudo systemctl start astro.service
+sudo systemctl status hackaton.service
+sudo systemctl status astro.service

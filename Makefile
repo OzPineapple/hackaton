@@ -34,12 +34,20 @@ uninstall-database:
 aws-connect:
 	ssh -i etc/aws-server.pem ubuntu@${AWS_SERVER}
 
-aws-deploy:
+aws-install:
 	rsync 	-vrlt --progress \
 		-e "ssh -i etc/aws-server.pem" \
 		--files-from=etc/src \
 		./ ubuntu@${AWS_SERVER}:/home/ubuntu/hackaton
 	ssh -i "etc/aws-server.pem" ubuntu@${AWS_SERVER} < etc/cmd-install
+	echo "http://${AWS_SERVER}:80"
+
+aws-deploy:
+	rsync 	-vrlt --progress \
+		-e "ssh -i etc/aws-server.pem" \
+		--files-from=etc/src \
+		./ ubuntu@${AWS_SERVER}:/home/ubuntu/hackaton
+	ssh -i "etc/aws-server.pem" ubuntu@${AWS_SERVER} < etc/cmd-update
 	echo "http://${AWS_SERVER}:80"
 
 aws-destroy:
