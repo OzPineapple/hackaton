@@ -9,7 +9,7 @@
 		"port": "3000"
 	},
 	"scripts": {
-		"start": "node ./server.js",
+		"start": "DEBUG=server:* node ./server.js",
 		"dev": "DEBUG=server:* nodemon ./server.js",
 		"windev": "SET DEBUG=server:* && nodemon ./server.js",
 		"debug": "node inspect ./server.js"
