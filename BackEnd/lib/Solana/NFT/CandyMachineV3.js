@@ -1,8 +1,7 @@
-import { clusterApiUrl, Keypair, PublicKey } from "@solana/web3.js";
-import { bundlrStorage, keypairIdentity, Metaplex, toBigNumber, toDateTime, toMetaplexFile } from "@metaplex-foundation/js";
+import { Keypair, PublicKey } from "@solana/web3.js";
+import { bundlrStorage, keypairIdentity, Metaplex, toBigNumber, toMetaplexFile } from "@metaplex-foundation/js";
 import fs from "fs";
 import {Conn, Encode} from "../Util.js";
-import { Connection } from "@solana/web3.js/lib/index.cjs.js";
 
 const ServerW = JSON.parse(fs.readFileSync(process.env.HOME + "/.config/solana/id.json", "utf-8"));
 const ServerSK = Uint8Array.from(ServerW);
