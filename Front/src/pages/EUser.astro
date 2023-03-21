@@ -24,7 +24,7 @@ import InDatosC from "../components/InDatosCyA.astro";
         var data  = new URLSearchParams();
         var header = "Bearer "+localStorage.getItem("token");
         data.append( "name", "admin");
-            let resolt = await fetch("http://localhost:3000/client",{
+            let resolt = await fetch("http://www.ozpineapple.xyz:3000/client",{
                 method: 'get', headers:{'Authorization':header},
             });
             var sta = resolt.status;
@@ -65,7 +65,7 @@ import InDatosC from "../components/InDatosCyA.astro";
         data.append( "correo",email.value);
         data.append( "contra",pas.value);
         
-            let resolt = await fetch("http://localhost:3000/client/edit",{
+            let resolt = await fetch("http://www.ozpineapple.xyz:3000/client/edit",{
                 method: 'post',body:data, headers:{'Authorization':header},
             });
             var sta = resolt.status;

@@ -13,7 +13,7 @@ import BaseReventa from "../layouts/BaseReventa.astro";
     async function send(e){
         e.preventDefault();
         
-            let resolt = await fetch("http://localhost:3000/events" );
+            let resolt = await fetch("http://www.ozpineapple.xyz:3000/events" );
             var sta = resolt.status;
             resolt = await resolt.json();
             console.log(resolt);

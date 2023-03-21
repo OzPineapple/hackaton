@@ -33,7 +33,7 @@ import MenuC from "../layouts/MenuC.astro";
         var data  = new URLSearchParams();
         var header = "Bearer "+localStorage.getItem("token");
         data.append( "name", "admin");
-            let resolt = await fetch("http://localhost:3000/client",{
+            let resolt = await fetch("http://www.ozpineapple.xyz:3000/client",{
                 method: 'get', headers:{'Authorization':header},
             });
             var sta = resolt.status;
@@ -78,7 +78,7 @@ import MenuC from "../layouts/MenuC.astro";
         add.addEventListener("click", async function (e) {
             e.preventDefault();
             var header = "Bearer "+localStorage.getItem("token");
-            let resolt = await fetch("http://localhost:3000/client/add",{
+            let resolt = await fetch("http://www.ozpineapple.xyz:3000/client/add",{
                 method: 'post', headers:{'Authorization':header},
             });
             switch (resolt.status) {
