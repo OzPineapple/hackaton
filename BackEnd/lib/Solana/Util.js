@@ -10,7 +10,7 @@ const ServerKeypair = Keypair.fromSecretKey(ServerSK);
 
 //Crea una conexion con la testnet/devnet (nada más cambian el nombre)
 export function Conn() {
-    const conn = new Connection(clusterApiUrl('testnet'), "confirmed");
+    const conn = new Connection(clusterApiUrl('devnet'), "confirmed");
     return conn;
 }
 
