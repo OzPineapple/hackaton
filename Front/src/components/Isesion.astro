@@ -23,7 +23,7 @@ const { titulo } = Astro.props
         var data  = new URLSearchParams();
         data.append( "name", email.value);
         data.append( "password", pass.value);
-            let resolt = await fetch("http://localhost:3000/login",{
+            let resolt = await fetch("http://www.ozpineapple.xyz:3000/login",{
                 method: 'post', body:data,
             });
             var sta = resolt.status;

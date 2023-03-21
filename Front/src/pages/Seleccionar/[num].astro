@@ -1131,7 +1131,7 @@ import MenuC from "../../layouts/MenuC.astro";
         data.append( "Boleto", JSON.stringify(Boletos));
         data.append("id",localStorage.getItem("idevent"));
         var header = "Bearer "+localStorage.getItem("token");
-            let resolt = await fetch("http://localhost:3000/client/ticket/buy",{
+            let resolt = await fetch("http://www.ozpineapple.xyz:3000/client/ticket/buy",{
                 method: 'post', body:data,headers:{'Authorization':header},
             });
             var sta = resolt.status;

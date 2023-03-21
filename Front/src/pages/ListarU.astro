@@ -21,7 +21,7 @@ import ListUsr from "../layouts/ListUsryAd.astro";
         var data  = new URLSearchParams();
         var header = "Bearer "+localStorage.getItem("token");
         data.append( "name", "admin");
-            let resolt = await fetch("http://localhost:3000/admin/client",{
+            let resolt = await fetch("http://www.ozpineapple.xyz:3000/admin/client",{
                 method: 'get', headers:{'Authorization':header},
             });
             var sta = resolt.status;

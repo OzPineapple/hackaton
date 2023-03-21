@@ -8,9 +8,14 @@
                 <li><a href="/Usuario">Perfil</a> </li>
                 <li>Boletos en posesion</li>
                 <li>Re-vender boleto</li>
-                <li>Cerrar sesion</li>
+                <li><a href="/" id="Cerrar">Cerrar sesion</a> </li>
             </ul>
         </a></li>
     </ul>
 </nav>
 
+<script>
+    var cerrar=document.getElementById("Cerrar").addEventListener("click", function () {
+        localStorage.removeItem("token");
+    })
+</script>

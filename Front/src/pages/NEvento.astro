@@ -22,14 +22,15 @@ import DatosEvento from "../components/DatosEvento.astro";
         e.preventDefault();
         var header = "Bearer "+localStorage.getItem("token");
         
-            let resolt = await fetch("http://localhost:3000/admin/event/new",{
+            let resolt = await fetch("http://www.ozpineapple.xyz:3000/admin/event/new",{
                 method: 'post', body:new URLSearchParams(new FormData(form)), headers:{'Authorization':header},
             });
             var sta = resolt.status;
             console.log(resolt);
             switch (sta) {
-                case 200:
+                case 202:
                     alert("Registro exitoso")
+                    window.open("/IndexAdmin", "_self");
                     break;
                 case 404:
                     alert("Usuario no existe");
