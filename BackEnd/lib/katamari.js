@@ -2,26 +2,13 @@ import debuger from 'debug';
 
 import { CreateWall, Balance} from './Solana/Wallet.js';
 import { LoadImage, LoadMetadata, CrearColeccionNFT, CandyMachineSCreation } from './Solana/NFT/CandyMachineV3.js'
-import fs from "fs";
-
 import {Keypair} from '@solana/web3.js';
-
 import {GetOwnerFromAMint } from './Solana/NFT/NFT.js'
 import { CompraBoleto } from './Solana/Pay/Compra.js';
 import { AñadirFondos } from './Solana/Pay/AñadirFondos.js';
 import { Transferencia } from './Solana/NFT/Tansferencia.js';
 import {Mint, LoadMetadataCollection, InsertingItemsCM} from './Solana/NFT/CandyMachineV3.js'
-import { Conn, Decode } from './Solana/Util.js';
-import { keypairIdentity, Metaplex } from '@metaplex-foundation/js';
-
-
-const ServerW = JSON.parse(fs.readFileSync(process.env.HOME + "/.config/solana/id.json", "utf-8"));
-const ServerSK = Uint8Array.from(ServerW);
-const ServerKeypair = Keypair.fromSecretKey(ServerSK);
-
-const metaplex = new Metaplex(Conn()).use(keypairIdentity(ServerKeypair));
-
-import { Encode } from './Solana/Util.js';
+import { Decode } from './Solana/Util.js';
 import { genPubKey } from './Solana/Wallet.js';
 
 const debug = debuger('server:katamari');
@@ -101,10 +88,6 @@ export function getPubKey (Usr58){
 export async function getOwnerFromAMint(mint){
 	return await GetOwnerFromAMint(mint);
 }
-getOwnerFromAMint("9hhpF8P353ejCGsFda91W4CngK6Ew6qBwuJvkYU7FFdw");
-
-
-
 
 
 //Funciones utiles que no se estan usando
@@ -188,11 +171,3 @@ async function main(){
 	}
 }
 */
-
-async function main(){
-	var nft = await Mint(
-		'Ko1ybs8ncQGohywY88MaJkDvYVefKzuAS2Pwd62RcoV', // candy machine
-		'6ocfSLqAETPaE7sJvfFYwvTeRs7Be88EfRDQe3E2yBYk' // user address
-	);
-	debug( nft );
-}
