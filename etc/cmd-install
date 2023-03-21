@@ -1,6 +1,8 @@
 make -C hackaton install
 sudo ln -s /home/ubuntu/hackaton/hackaton.service /etc/systemd/system
 sudo ln -s /home/ubuntu/hackaton/astro.service /etc/systemd/system
+solana config set --url devnet
+solana airdrop 1
 sudo systemctl daemon-reload
 sudo systemctl start hackaton.service
 sudo systemctl start astro.service
